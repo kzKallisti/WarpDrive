@@ -498,99 +498,97 @@ and worker has a quality level. At each processing stage, output quality is a we
 function of inputs:
 
 ```
-output_quality = (input_material × 0.4) + (facility × 0.35) + (labor × 0.25)
+output_quality = (input_material × 0.45) + (facility × 0.33) + (labor × 0.22)
 ```
 
-Because facility and labor outweigh material (60% combined vs 40% material), **each
-processing stage lifts quality above its inputs when facility and labor are good.**
-Refinement IS value-add. Quality climbs through the supply chain as each stage adds
-value:
+Because facility and labor combined (55%) exceed material weight (45%), **each
+processing stage lifts quality above its inputs when processing is good.** But material
+is the single heaviest factor — ore quality genuinely matters, it's just not destiny.
 
 ```
 EXAMPLE: Ore-50 through three stages of quality-80 processing
 
-Stage 1 — Refinery:  (50 × 0.4) + (80 × 0.35) + (80 × 0.25) = 68
-Stage 2 — Factory:   (68 × 0.4) + (80 × 0.35) + (80 × 0.25) = 75.2
-Stage 3 — Shipyard:  (75.2× 0.4) + (80 × 0.35) + (80 × 0.25) = 78.1
+Stage 1 — Refinery:  (50 × 0.45) + (80 × 0.33) + (80 × 0.22) = 66.5
+Stage 2 — Factory:   (66.5× 0.45) + (80 × 0.33) + (80 × 0.22) = 73.9
+Stage 3 — Shipyard:  (73.9× 0.45) + (80 × 0.33) + (80 × 0.22) = 77.3
 ```
 
-Ore-50 became a quality-78 ship. Each stage lifted it. With quality-90 facilities
-and labor, the same ore-50 reaches even higher:
+Ore-50 became a quality-77 ship. Each stage lifted it. With quality-90 processing:
 
 ```
-Stage 1: (50 × 0.4) + (90 × 0.35) + (90 × 0.25) = 74
-Stage 2: (74 × 0.4) + (90 × 0.35) + (90 × 0.25) = 83.6
-Stage 3: (83.6× 0.4) + (90 × 0.35) + (90 × 0.25) = 87.4
+Stage 1: (50 × 0.45) + (90 × 0.33) + (90 × 0.22) = 72.0
+Stage 2: (72 × 0.45) + (90 × 0.33) + (90 × 0.22) = 81.9
+Stage 3: (81.9× 0.45) + (90 × 0.33) + (90 × 0.22) = 86.4
 ```
 
-Ore-50 → quality-87 ship through excellent processing. Commercial-grade goods are
-absolutely achievable from mediocre raw materials with a great processing chain.
+Ore-50 → quality-86 ship through excellent processing.
 
 **The critical result: bad ore, great processing.**
+
+```
 Ore-30 through three stages of quality-90 processing:
-
-```
-Stage 1: (30 × 0.4) + (90 × 0.35) + (90 × 0.25) = 66
-Stage 2: (66 × 0.4) + (90 × 0.35) + (90 × 0.25) = 80.4
-Stage 3: (80.4× 0.4) + (90 × 0.35) + (90 × 0.25) = 86.2
+Stage 1: (30 × 0.45) + (90 × 0.33) + (90 × 0.22) = 63.0
+Stage 2: (63 × 0.45) + (90 × 0.33) + (90 × 0.22) = 77.9
+Stage 3: (77.9× 0.45) + (90 × 0.33) + (90 × 0.22) = 84.5
 ```
 
-Ore-30 → quality-86. A corp with mediocre mining claims but world-class refineries,
-factories, and workforce produces premium products. **Ore quality is the starting
-point, not the destiny.**
+Ore-30 → quality-84.5. Great processing recovers bad material, but ore-50 with the
+same processing reaches 86.4 — the ore difference matters, it just doesn't dominate.
 
-**Full comparison with ore-50:**
+**Full comparison (ore-50 start):**
 
 | Processing chain | Stage 1 | Stage 2 | Stage 3 | Lift |
 |-----------------|---------|---------|---------|------|
 | All quality-30 (neglected) | 30 | 30 | 30 | 0 |
 | All quality-50 (basic) | 50 | 50 | 50 | 0 |
-| All quality-80 (good) | 68 | 75.2 | 78.1 | **+28** |
-| All quality-90 (excellent) | 74 | 83.6 | 87.4 | **+37** |
-| Improving: fac 50→70→90, lab 40→60→80 | 43.5 | 56.9 | 74.3 | **+34** |
-| One weak final link (fac 80/80/30) | 59 | 69.1 | 48.1 | **-12** |
+| All quality-80 (good) | 66.5 | 73.9 | 77.3 | **+27** |
+| All quality-90 (excellent) | 72.0 | 81.9 | 86.4 | **+36** |
+| Great ore-80, bad chain-30 | 52.5 | 40.1 | 34.6 | **-45** |
+| Improving: fac 50→70→90 | 43.5 | 57.0 | 72.4 | **+32** |
+| One weak final link (80/80/30) | 58.1 | 68.0 | 48.1 | **-12** |
 
 **Key lessons:**
-- **Consistent quality across the chain matters most.** 80-80-80 beats 90-50-90.
-- **One weak link at the end destroys value.** Quality-69 components into a quality-30
-  shipyard produces quality-48 ships. All prior investment is wasted.
-- **Processing investment has compound returns.** Each stage lifts quality, so three
-  good stages compound into dramatic improvement from raw ore.
-- **Great ore in a bad chain is wasted.** Ore-80 through quality-30 processing decays
-  to quality-33. Great ore only matters if you can process it well.
+- **Ore matters but isn't destiny.** 45% weight means it's the single biggest factor,
+  but 55% combined processing can overcome mediocre inputs.
+- **Great ore in a bad chain is wasted.** Ore-80 → quality-34.6 through bad processing.
+  The inverse is better: bad ore + great chain = 84.5.
+- **Consistent chain quality compounds.** 80-80-80 across three stages lifts ore-50 by
+  27 points. Each stage builds on the previous stage's gains.
+- **One weak link at the end destroys value.** Quality-68 components into a quality-30
+  final assembly = quality-48. All prior investment wasted.
 
-**Inter-corp specialization:**
-
-This quality model naturally creates deals between corps with complementary strengths:
+**Inter-corp specialization (the deal that neither can replicate alone):**
 
 ```
-Corp A: quality-90 refinery, quality-50 factory (great at refining, mediocre at mfg)
-Corp B: quality-50 refinery, quality-90 factory + quality-80 shipyard
+Corp A: quality-90 refinery + quality-90 labor (refining specialist)
+Corp B: quality-90 factory + quality-80 labor, quality-80 yard + quality-80 labor
 
-Separate: Corp A produces quality-74 refined material → quality-62 components → stuck
-          Corp B produces quality-50 refined material → quality-70 components → quality-75 ships
+Starting ore: quality-40
 
-Together: Corp A's quality-74 material → Corp B's quality-90 factory = quality-83 components
-          → Corp B's quality-80 shipyard = quality-83 ships
+Corp A alone (great refinery, q-50 factory/yard): 40 → 67.5 → 57.9 → 53.5
+Corp B alone (q-50 refinery, great factory/yard): 40 → 45.5 → 67.8 → 74.5
+Together (A refines → B manufactures + assembles): 40 → 67.5 → 77.7 → 79.0
 ```
 
-Neither alone can produce quality-83 ships. Together they can. This creates genuine
-economic incentive for long-term supply partnerships — not just price arbitrage, but
-quality synergy that neither party can replicate alone.
+The deal produces quality-79 from ore-40. Corp A alone: 53.5. Corp B alone: 74.5.
+Together: 79.0. The 45% material weight means Corp A's quality-67.5 handoff to Corp B
+is worth significantly more than Corp B's self-refined quality-45.5. **Specialization
+and trade create value that neither party can achieve independently.**
 
-The weights (40/35/25) are tuning parameters. The 60/40 split favoring facility+labor
-over material means **processing investment is always worthwhile** — multiple viable
-strategies exist rather than "find the best ore and win."
+The weights (45/33/22) balance three goals:
+- Ore matters enough to reward exploration and prospecting
+- Processing matters enough to reward facility and workforce investment
+- Specialization matters enough to drive inter-corp deals
 
 **How quality propagates through the full supply chain:**
 
 ```
 Ore deposit (base quality — exploration finds better deposits)
-  → Refinery: ore × 0.4 + refinery × 0.35 + labor × 0.25
+  → Refinery: ore × 0.45 + refinery × 0.33 + labor × 0.22
     → Refined material (quality lifted by refining skill)
-      → Factory: material × 0.4 + factory × 0.35 + labor × 0.25
+      → Factory: material × 0.45 + factory × 0.33 + labor × 0.22
         → Components (quality lifted again by manufacturing precision)
-          → Assembly: components × 0.4 + yard × 0.35 + labor × 0.25
+          → Assembly: components × 0.45 + yard × 0.33 + labor × 0.22
             → Finished product (quality lifted a third time)
               → Performance (quality scalar on efficiency stats)
 ```
