@@ -308,6 +308,92 @@ other colonies/stations. Each one gives you local-speed reaction time in its reg
 - Building a command center at a new location feels like "unlocking" a region —
   a tangible progression reward.
 
+#### Information as Cargo
+
+Data isn't just something that flows through relays — it's a resource with its own
+logistics. Ships and drones observe things as they travel: body compositions, fleet
+movements, market activity, scanner calibrations. That data has value, and how you
+move it is a strategic choice.
+
+**Three ways to move information:**
+
+**1. Public broadcast (relay)**
+- Fast: light-speed propagation
+- Free or cheap (relay forwarding fees)
+- Everyone can see it (signed, so authenticated, but not private)
+- Use for: routine market data, contract offers, public announcements
+
+**2. Encrypted broadcast (relay)**
+- Same speed as public
+- Higher transmission cost (bandwidth for encrypted payload + overhead)
+- Private in theory — but encrypted traffic is observable (metadata: who's
+  transmitting encrypted data to whom, how much, how often)
+- Vulnerable to: relay compromise (malware on relay node can attempt to crack
+  or log encrypted traffic), cryptanalysis (expensive but possible for high-value
+  intel), endpoint compromise (if recipient's systems are hacked, the decrypted
+  data is exposed)
+- Use for: contract negotiations, fleet orders, time-sensitive intel
+
+**3. Physical transport (sneakernet)**
+- Slow: limited by ship speed (which is c at best, plus escape/insertion overhead)
+- Free (no transmission cost — data rides with the ship)
+- Completely dark: no relay metadata, no broadcast to intercept
+- Vulnerable to: physical piracy (board the ship, take the data), crew
+  defection, ship capture
+- Use for: the most sensitive information — survey data you don't want competitors
+  to know exists, black market intel, strategic plans, colonial political dirt
+
+**The sneakernet advantage:**
+
+In a system where relays can be compromised, encrypted traffic can be cracked, and
+metadata analysis reveals communication patterns — sometimes the safest way to move
+information is on a ship's local storage, hand-delivered to the recipient.
+
+This creates a real tradeoff:
+- A survey drone discovers a platinum-rich asteroid. You could broadcast the data
+  encrypted to your HQ (fast, but a competitor monitoring relay traffic sees you
+  just sent an encrypted burst from an unsurveyed region — suspicious). Or you
+  could keep the data onboard and have the drone physically return to base (slow,
+  but nobody knows the asteroid exists until you're ready to act on it).
+- You've acquired intel on a competitor's fleet movements. Broadcast it to your
+  ally? They get it in minutes but you've created an encrypted relay trail between
+  your corps. Carry it physically? Takes days but the alliance stays hidden.
+
+**Passive intelligence gathering:**
+
+Ships and drones automatically observe things as they travel:
+- Bodies they pass near (basic composition scan if within sensor range)
+- Other ships' transponder broadcasts (identity, heading, speed)
+- Relay traffic volume and patterns (who's talking to whom, how much)
+- Port activity at colonies they visit (ships docked, cargo being loaded)
+- Market prices at ports they dock at (firsthand, not relay-delayed)
+
+This data accumulates on the ship's computer. The player (or standing orders)
+decides what to do with it:
+- **Broadcast immediately**: Share with your corp network. Useful but visible.
+- **Hold for physical delivery**: Keep it dark until the ship returns to base.
+  Stale by then, but secure.
+- **Sell to information brokers**: Black market contacts buy raw intelligence.
+  Especially valuable: competitor fleet positions, unsurveyed body data,
+  colony political dynamics.
+- **Delete**: Sometimes knowing something is a liability. If your ship is
+  boarded and the data reveals you've been scouting a competitor's operations,
+  that's evidence of espionage.
+
+**Counterintelligence:**
+
+If information is valuable, protecting it is too:
+- **Comms security**: Higher-grade encryption costs more but is harder to crack.
+  Ship upgrade / operating cost tradeoff.
+- **Counter-surveillance**: Detect if your relay traffic is being monitored.
+  Expensive sensors / analysis capability.
+- **Disinformation**: Broadcast false data on public channels. Your transponder
+  says you're heading to Jupiter; you're actually going to the belt. Legal
+  (transponder direction isn't a regulated field) but burns trust if discovered.
+- **Compartmentalization**: Don't tell your own ships more than they need to know.
+  A captured freighter crew can't reveal your strategic plans if they were only
+  told "deliver cargo to Port X."
+
 #### Smart Contracts and Latency
 
 This interacts with the contract system:
