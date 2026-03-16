@@ -3525,6 +3525,102 @@ LLM integration spans multiple development phases:
   Intel briefings. Contract color text.
 - Fallback to templates always available at every phase.
 
+### Design Panel Review (Meier, Roberts, Wright, Sylvester, Blow)
+
+Five design perspectives reviewed the full doc. Here's the synthesis:
+
+**Unanimous (5/5 agree):**
+- The orbital mechanics thesis is real and novel. Validate it first with the
+  thinnest possible prototype.
+- Standing directives are the most interesting control mechanism in the doc.
+- Combat: deferred (not cut from the vision — deferred from the build plan).
+  Economic warfare (Level 0) may be the complete conflict system. If players
+  demand physical combat after playing the economic loop, add it then.
+- The LLM must not be a critical path dependency. Template/slider UI first.
+- Scope is the primary risk. The doc describes 45+ systems. Phase 1 needs ~6.
+
+**Strong agreement (4/5):**
+- **Cut reactor fuel.** Two consumables create real tradeoffs (propellant for Δv,
+  Casimir for warp range). Reactor fuel is "a gauge to watch, not a decision to
+  make" (Meier). There's never a scenario where the player strategically chooses
+  to let reactor fuel run low. Fold its cost into propellant/Casimir economy.
+- **Consolidate resources to 6-7.** Iron/Nickel and Copper/Aluminum create the same
+  decision ("I need metals"). Water ice and Volatiles appear on similar bodies.
+  Each resource should create a decision no other resource creates. Merge metals
+  into "Metals." Merge ices into "Ices/Volatiles." Keep Platinum, Rare Earths,
+  Uranium, He-3, and Casimir matter distinct (each has unique strategic role).
+- **Simplify the privacy/pseudonymous model.** "Corp B is undercutting me at Vesta"
+  is a story. "Address qz7x...3f is undercutting me and I need intelligence work
+  to figure out who" is homework (Sylvester). For a browser-based tycoon, everyone
+  knowing who everyone is generates MORE stories. Cut pseudonymous identity,
+  credit mixing, and address rotation. Corps are named entities. Keep the fog of
+  war (you only know what your assets observe) as the information asymmetry
+  mechanic — that's novel and fun. Drop the crypto-native privacy layer.
+- **Governance/lobbying is over-designed for core game.** Phase 1: colonies have a
+  tax rate and a disposition. No lobbying, no tariff mechanics, no governance
+  quality simulation. Phase 3+: add governance types. Lobbying only if players ask.
+
+**Split opinions, resolved:**
+- **Bloc politics:** Keep the 2×2 relay policy matrix (creates real routing
+  decisions). Defer bloc reputation and rivalry axes to Phase 3+. Blocs are
+  flavor for NPC corp personalities in early phases, not a mechanical system.
+- **Worker tiers:** Two tiers for Phase 1-2, three for Phase 3+. Explained:
+  - **Tier 1 (Survival):** Food, water, air, medical, hab. Non-negotiable. Unmet =
+    workers leave. This is a supply chain constraint — you must deliver consumables
+    or the colony dies. Simple, clear, and it creates hauling contracts.
+  - **Tier 2 (Comfort):** Recreation, personal goods, comms access, safety. Affects
+    morale and retention. Met = workers stay and produce at baseline. Unmet = high
+    turnover, low morale, colony unattractive to immigrants. This is the "investment
+    in your workforce" decision — spend more for stable operations or save money
+    and accept churn. Creates a real tradeoff visible in colony standing.
+  - **Tier 3 (Growth — Phase 3+):** Education, training, career advancement. The slow
+    burn that raises worker QUALITY over time, feeding the 16% labor weight in the
+    quality formula. Deferred because: the feedback loop is slow (invest now, see
+    results in game-months), the build cost is high (education facilities, training
+    pipelines, instructor mechanics), and the quality system must be working first
+    (no point improving the labor input before the formula exists). But when it's
+    added, it creates the most powerful feedback loop in the game: education →
+    quality workers → better products → more profit → more education investment →
+    political pressure for self-governance (Wright's "accidental political revolution").
+
+  The two-tier model is the game's workforce system. The third tier is the depth
+  expansion that transforms it from "manage supply" to "invest in people." Both are
+  good design. The question is build order, not inclusion.
+- **Quality system:** Phase 1 uses quality as a static number per resource deposit
+  (no propagation formula). Phase 2 adds the 60/24/16 weighted formula and chain
+  propagation. The formula is elegant and cheap to implement but the supply chain
+  it flows through must exist first.
+
+**Wright's unique insights (emergent behaviors):**
+- The directive system is a second toy — prototype it in Phase 0.5 even without
+  an economy (ship navigating between bodies executing rules IS the toy)
+- Missing negative feedback on monopoly: maintenance should scale superlinearly
+  with empire size, wage spirals from labor competition, information overload as
+  the real empire ceiling (player attention doesn't scale)
+- Comet perihelion as seasonal harvest cycle (players prepare months in advance)
+- Ghost colony scavenging as emergent player strategy
+- Deadheading problem creates a "logistics broker" archetype
+- Quality dependency webs generate political drama (mutual vulnerability)
+
+**Blow's hardest truth:**
+"This document describes at least six games: an orbital logistics game, a colony
+management sim, a political strategy game, a smuggling/crime game, a combat/military
+game, and an inter-system exploration game. Game #1 is genuinely novel. Games #2-6
+are genres you're importing wholesale. Each system justifies the next system. But
+none justify themselves against the core question: does this make orbital logistics
+deeper?"
+
+Game #1 is what we build first. Games #2-6 are what we add IF #1 is fun AND the
+additions make it MORE fun.
+
+**Roberts' 45-system count** is the reality check. The doc describes 45 distinct
+simulation systems. Phase 1 ships with ~6. Everything else earns its place by making
+the core loop more fun, validated by playtesting, not by design doc completeness.
+
+**Sylvester's Phase 0.5** (2-4 weeks): 5-10 bodies, one ship, two colonies, 3
+resources, one contract, money counter. Can you make THAT fun for 10 minutes? If
+yes, the rest is "more of what works."
+
 ### Feedback Analysis (what to act on, what to reject)
 
 **Acting on (they're right):**
