@@ -117,6 +117,57 @@ This gives every game a familiar starting point — players always know what Ter
 are, what they cost to escape, and what resources are available locally. The alien part
 is everything beyond Luna's orbit.
 
+### Terran Political Landscape (2058)
+
+By 2058, 3–5 spacefaring blocs have established off-world presence. Rather than naming
+real nations (ages poorly, geopolitically fraught), the game uses abstracted blocs that
+are recognizable without being literal:
+
+**The Commonwealth** — Western democratic alliance. First to commercialize space through
+public-private partnerships. Dominant in launch capability and orbital industry. Culture
+of entrepreneurship and corporate independence. The player's corp most likely originates
+here (or from the independent corporate sector it spawned).
+
+**The Collective** — Eastern state-directed program. Independent capability, centrally
+planned expansion. Operates through large state-backed megacorps rather than independent
+companies. Strong in heavy industry and infrastructure. Methodical, resource-focused.
+
+**The Coalition** — Southern hemisphere / emerging powers alliance. Cost-efficient, fast-
+growing. Came to space later but adapted quickly. Strong in applied science, biotech,
+and sustainable systems. Less capital, more ingenuity.
+
+**The Consortium** — European technical partnership. Deep expertise in instruments,
+components, and precision manufacturing. Not a territorial power — a supplier and
+partner to everyone. Controls critical component supply chains.
+
+**Independent Megacorps** — By 2058, some corporations have evolved beyond national
+allegiance. Own launch capability, own stations, own workforce. Effectively stateless
+spacefaring entities. The player is one of these (or aspires to become one).
+
+**How this affects the game:**
+- The starting political landscape is seeded from these blocs. Each has a presence on
+  Terra and possibly Luna. In Expansion+ modes, they've established competing colonial
+  footholds in the system.
+- NPC corps generated at game start are affiliated with a bloc (or independent). This
+  gives them behavioral tendencies: Commonwealth corps are entrepreneurial, Collective
+  corps are methodical and state-backed, Coalition corps are scrappy and efficient.
+- **The player chooses affiliation at game start** (or goes independent). Affiliation
+  provides: starting contracts with affiliated colonies, preferred docking at affiliated
+  ports, access to bloc-specific supply chains. But it also means: rival blocs may
+  distrust you, and your bloc expects loyalty (prioritize their contracts, supply
+  their colonies).
+- Going **independent** means no starting advantages but no obligations. You deal with
+  everyone on equal terms. Harder start, more freedom.
+- **Bloc politics are NPC-driven.** The player doesn't control bloc policy. But their
+  actions influence it — a corp that becomes critical to a bloc's supply chain gains
+  political influence. A corp that defects from its bloc (supplying rivals, ignoring
+  obligations) loses affiliation benefits.
+- **Blocs are not governments in space.** They're Terran political entities with
+  off-world interests. Colonial governance is local (as described in Governance section).
+  A Commonwealth-affiliated colony is culturally and economically tied to the
+  Commonwealth, but governs itself. The bloc provides starting capital, immigration,
+  and political backing — not laws.
+
 ### Playability Constraints
 
 - Terra placed in the habitable zone
