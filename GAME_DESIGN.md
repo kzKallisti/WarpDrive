@@ -153,55 +153,134 @@ This means:
 
 The frontier needs law, but law needs enforcement. This creates interesting gameplay.
 
-### The System Commerce Authority (SCA)
+### Smart Contract Infrastructure
 
-In Expansion+ modes, the SCA exists as a regulatory body. It is NOT a player or NPC corp —
-it's a system-level institution with procedurally generated policies.
+By 2058, cryptocurrency-based smart contract escrow is a solved problem. This
+fundamentally changes what "contract enforcement" means — for most transactions,
+you don't need to trust your counterparty at all. The code enforces the deal.
+
+**How it works in-game:**
+
+Contracts are on-chain programs with locked collateral. When conditions are met
+(cargo delivered, verified by destination port transponder), funds release automatically.
+No arbitration needed. No trust needed. No regulatory body needed for the common case.
+
+```
+DELIVERY CONTRACT (on-chain)
+├─ Buyer deposits: 50,000 credits (locked in escrow)
+├─ Seller bonds: 5,000 credits (performance guarantee)
+├─ Conditions:
+│   ├─ Cargo: 200 tons water ice
+│   ├─ Destination: Port Kepler-7b
+│   ├─ Deadline: Tau 2058.347
+│   └─ Quality: ≥95% purity (verified by port assay scanner)
+├─ On fulfillment: buyer escrow → seller, bond returned
+├─ On deadline expiry: bond → buyer as compensation, escrow returned
+└─ On partial delivery: pro-rata release based on tonnage delivered
+```
+
+**What smart contracts solve (no gameplay here — it just works):**
+- Payment for delivered goods — automatic, trustless
+- Simple delivery deadlines — binary pass/fail
+- Collateral/bonds — locked, released by code
+- Multi-party splits — revenue sharing agreements execute automatically
+- Escrow for ship purchases — funds release when title transfers
+
+### What Smart Contracts Can't Enforce
+
+The interesting gameplay is in everything the blockchain CAN'T verify:
+
+**1. Quality of goods in transit**
+The contract says "200 tons water ice, ≥95% purity." The port scanner verifies on arrival.
+But what if the cargo was contaminated in transit? What if the seller loaded 95% pure ice
+but stored it next to volatile chemicals? The contract pays out — the scanner reads 94.8% —
+bond is forfeit. Was it the seller's fault or a transit accident? The contract doesn't know.
+
+**2. Exclusive dealing**
+"I'll supply your refinery exclusively" can't be enforced on-chain because the blockchain
+can't see what deals you make elsewhere. Exclusivity is reputation-based — if you're caught
+supplying a competitor, the partnership dissolves but there's no automatic penalty.
+
+**3. Non-compete and territory**
+"Don't mine in the belt between 2.5–3.0 AU" — there's no on-chain mechanism to prevent
+a ship from going somewhere. Territory claims are social/reputational, not code-enforced.
+
+**4. Best-effort obligations**
+"Prioritize our shipments during high-demand periods" — how does code measure "prioritize"?
+These soft commitments are where trust, reputation, and relationships matter.
+
+**5. Emergent situations**
+Ship breaks down mid-transit. Contract deadline is impossible. The smart contract just
+sees a missed deadline and forfeits the bond. There's no "act of God" clause in code.
+This creates demand for insurance markets (also smart-contract-based, but with oracle
+disputes).
+
+**6. Physical interference**
+What if someone sabotages your mining rig? What if a competitor "accidentally" parks their
+ship in your planned docking slot? Code can't prevent meatspace interference.
+
+### The System Commerce Authority (SCA) — Reimagined
+
+With smart contracts handling routine enforcement, the SCA's role shifts from enforcer
+to **standards body, data oracle, and dispute resolver for edge cases.**
 
 **SCA Functions:**
-- **Ship registration**: All ships must be registered. Unregistered ships can't dock at regulated ports.
-- **Contract registry**: Contracts filed with the SCA are legally binding. Breach = fines, license suspension.
-- **Market transparency**: SCA-regulated ports publish real-time prices. Unregulated ports don't.
-- **Safety standards**: Minimum ship maintenance, crew requirements, insurance mandates.
-- **Dispute arbitration**: When contracts are disputed, SCA rules (with a delay and fee).
-- **Taxation**: Transaction taxes at regulated ports fund SCA operations and colony infrastructure.
+- **Port certification**: Certifies port scanners and transponders as trustworthy oracles
+  for on-chain contract verification. Uncertified ports can't trigger contract settlement.
+- **Ship registration**: On-chain identity system. Links physical ships to wallet addresses.
+  Required for contracts at certified ports.
+- **Standards**: Defines cargo grades, purity standards, measurement units — the shared
+  vocabulary that smart contracts reference.
+- **Oracle disputes**: When port scanner readings are contested (calibration, tampering),
+  SCA arbitrates. This is the one area they still have enforcement power.
+- **Insurance regulation**: Certifies insurance DAOs, validates claim oracles.
+- **Market data aggregation**: Aggregates prices across certified ports into a public feed.
 
-**SCA Limitations:**
-- Only has jurisdiction at **regulated ports** (established colonies). Frontier is lawless.
-- Enforcement depends on SCA budget (funded by taxes). Underfunded SCA = weak enforcement.
-- Can be **lobbied** — large corps can push for regulations that favor incumbents.
-- Cannot enforce in transit — piracy (contract breach, cargo theft) is punished only if the perp docks at a regulated port.
+**SCA does NOT do:**
+- Contract enforcement (smart contracts handle this)
+- Price setting (markets are free)
+- Route assignment (anyone can fly anywhere)
+- Direct taxation (but certified ports charge docking fees that fund SCA)
 
-### Contract Types & Enforcement
+**SCA can be corrupted:**
+- Large corps can lobby for scanner calibration standards that favor their ore grades
+- Port certification can be denied to competitors' frontier stations (keeping them "uncertified")
+- Insurance oracle disputes can be influenced
 
-| Contract type | Enforcement | Breach consequence |
-|--------------|-------------|-------------------|
-| SCA-registered delivery | SCA arbitration | Fine, reputation damage, possible license suspension |
-| Private agreement | Reputation only | Reputation damage with that corp. No legal consequence. |
-| Frontier handshake | Nothing | Welcome to the frontier. |
-| Partnership/JV | SCA + mutual dependency | Dissolution, asset split per agreement terms |
+### The Trust Spectrum (Revised)
 
-### The Enforcement Spectrum
+| Transaction type | Trust mechanism | Failure mode |
+|-----------------|----------------|--------------|
+| Spot delivery (certified port) | Smart contract escrow + port oracle | Scanner disputes, contamination |
+| Spot delivery (uncertified port) | Smart contract but no oracle — buyer must manually confirm | Buyer claims non-delivery, no oracle to verify |
+| Long-term supply agreement | Smart contract per shipment + reputational commitment | Soft terms (exclusivity, priority) unenforceable |
+| Partnership / JV | Multi-sig treasury + reputation + mutual dependency | Messy dissolution, asset disputes |
+| Frontier handshake | Reputation only, no on-chain record | No recourse. Welcome to the frontier. |
 
-This creates a genuine design tension:
+The gradient from "fully trustless" to "fully trust-based" creates natural gameplay zones:
+- **Certified space**: Smart contracts + oracles. Nearly frictionless commerce. But fees, standards, docking costs.
+- **Uncertified outposts**: Smart contracts work but settlement requires manual confirmation — slower, disputable.
+- **Deep frontier**: No infrastructure for on-chain settlement. Pure reputation economy. High margin, high risk.
 
-- **Operate in regulated space**: Safe contracts, transparent markets, but taxes and rules constrain you.
-- **Operate on the frontier**: No taxes, no rules, but no contract enforcement either. You're trusting counterparties.
-- **Mixed strategy**: Use regulated space for reliable income, frontier for high-risk/high-reward plays.
+### PvP & Economic Conflict
 
-### PvP & Conflict
-
-There is no "combat" in the traditional sense — ships don't have weapons. Conflict is economic:
+No combat — conflict is economic. Smart contracts make overt fraud hard, so competition
+is about strategy, not deception:
 
 - **Undercutting**: Offer lower prices on a competitor's key route
 - **Supply disruption**: Buy up all rare earths before a competitor's shipyard order fills
-- **Hostile takeover**: Buy a controlling stake in a competitor's debt (if they've borrowed)
-- **Blockade by economics**: Monopolize fuel supply at a remote station, charge monopoly prices
-- **Contract poaching**: Outbid competitors for lucrative contracts
-- **Regulatory capture**: Lobby SCA for rules that disadvantage competitors
-- **Reputation warfare**: Fulfill contracts the competitor abandoned (shows market they're unreliable)
-
-The question "how are contracts enforced?" has a realistic answer: **imperfectly, and it depends on where you are.** That imperfection IS the gameplay.
+- **Vertical integration**: Build your own refinery, cut out the middleman
+- **Market timing**: Exploit orbital windows — lock in delivery contracts when distances are
+  short, fulfill when they're long (if you planned your fleet position ahead of time)
+- **Shipyard control**: If you own the only shipyard, you decide who gets ships and when
+- **Insurance plays**: Insure a high-risk route, then let a competitor take it while you
+  profit from their failure via insurance DAO positions
+- **Oracle manipulation**: Contest scanner readings on a competitor's delivery to delay
+  their payment (costs SCA arbitration fees — a calculated move)
+- **Port politics**: Lobby SCA to deny port certification to a competitor's frontier station,
+  forcing their contracts to require manual confirmation (slower, less trustworthy)
+- **Reputation warfare**: Consistently fulfill contracts the competitor abandoned.
+  The market learns who's reliable.
 
 ## Workforce & Automation
 
