@@ -222,19 +222,44 @@ they were 40 minutes ago. By the time their sell order arrives, the price may ha
 **Relay components**: Antenna arrays + electronics + superconductors + power systems.
 Expensive to build, cheap to maintain. A relay network is a long-term infrastructure play.
 
+#### Relay Trust Model
+
+Relays don't need to be trusted. Like Nostr, every message is cryptographically signed
+at the source by the sender's keypair. A relay is dumb infrastructure — it forwards
+signed messages, nothing more. Verification happens at the receiver, not the relay.
+
+- **Identity**: Every corp, colony, port, and SCA node has a public key. Messages are
+  signed. You can verify a price quote from Earth whether it arrived through your own
+  relay, a competitor's relay, or bounced off six relays in sequence.
+- **No spoofing**: A relay operator can't forge a message from another entity. They can
+  only delay, drop, or refuse to forward. The worst a hostile relay can do is censor.
+- **Censorship resistance**: If one relay path drops your messages, route through another.
+  More relays = more redundant paths = harder to censor.
+- **Relay incentive**: Relays charge forwarding fees (micropayments per message, settled
+  on-chain). A relay at a strategic location earns passive income from traffic volume.
+  No need to manipulate — honest forwarding is the business model.
+
+What relay owners DO control:
+- **Coverage**: If you're the only relay within range of a frontier body, you're the
+  only pipe. You set the fee. Monopoly pricing on bandwidth, not on truth.
+- **Priority**: You can prioritize your own corp's traffic. Your price updates arrive
+  a few seconds before everyone else's. Not spoofing — just faster delivery of real data.
+- **Uptime**: Your relay, your maintenance. If it goes down, everyone routing through
+  it loses connectivity until they find an alternate path.
+
 #### Information Asymmetry as Gameplay
 
-Comms delay means **information is a tradeable advantage**:
+Comms delay means **information is a tradeable advantage**, but the asymmetry is
+about speed and coverage, not about truth:
 
-- A corp with relays near Jupiter knows Jupiter market prices 40 minutes before
-  a corp relying on direct Earth-Jupiter transmission.
+- A corp with relays near Jupiter gets Jupiter market data 40 minutes before a corp
+  relying on direct Earth-Jupiter transmission with no local relay.
 - Frontier bodies with no relay coverage are information dark zones — prices are
   unknown until a ship physically visits and reports back.
-- A corp can build a relay at a strategic location and sell "early access" to
-  market data as a subscription service.
-- Spoofing: can a corp broadcast false price data from their own relay? Yes,
-  but certified relays (SCA-verified) are trusted. Uncertified relay data is
-  "use at your own risk."
+- A corp can build a relay at a strategic location and earn fees from every message
+  that routes through it. Telecom as a business.
+- **No one can lie about prices** — but they can be the first to see them. In a market
+  where prices move, being 40 minutes ahead of your competitor is worth real money.
 
 #### Smart Contracts and Latency
 
@@ -245,6 +270,8 @@ This interacts with the contract system:
   by arrival time at the contract's originating node.
 - This creates **natural geographic advantages** — corps based near contract-rich
   colonies react faster to opportunities. Frontier corps trade speed for margin.
+- All of this is cryptographically verifiable — timestamps are signed, arrival order
+  is deterministic from physics. No disputes about "who accepted first."
 
 ### Who Operates What
 
@@ -335,26 +362,29 @@ to **standards body, data oracle, and dispute resolver for edge cases.**
 
 **SCA Functions:**
 - **Port certification**: Certifies port scanners and transponders as trustworthy oracles
-  for on-chain contract verification. Uncertified ports can't trigger contract settlement.
-- **Ship registration**: On-chain identity system. Links physical ships to wallet addresses.
-  Required for contracts at certified ports.
+  for on-chain contract verification. Uncertified ports can't trigger automatic contract
+  settlement (requires manual buyer confirmation instead).
+- **Ship registration**: On-chain identity. Links physical ships to keypairs. Required for
+  contracts at certified ports.
 - **Standards**: Defines cargo grades, purity standards, measurement units — the shared
   vocabulary that smart contracts reference.
-- **Oracle disputes**: When port scanner readings are contested (calibration, tampering),
-  SCA arbitrates. This is the one area they still have enforcement power.
+- **Oracle disputes**: When port scanner readings are contested (calibration issues,
+  hardware failure), SCA arbitrates. Their one area of real enforcement power.
 - **Insurance regulation**: Certifies insurance DAOs, validates claim oracles.
-- **Market data aggregation**: Aggregates prices across certified ports into a public feed.
+- **Safety standards**: Minimum ship maintenance, crew requirements for human-crewed vessels.
 
 **SCA does NOT do:**
 - Contract enforcement (smart contracts handle this)
 - Price setting (markets are free)
 - Route assignment (anyone can fly anywhere)
+- Communications regulation (cryptographic identity makes relay trust unnecessary)
 - Direct taxation (but certified ports charge docking fees that fund SCA)
 
 **SCA can be corrupted:**
 - Large corps can lobby for scanner calibration standards that favor their ore grades
-- Port certification can be denied to competitors' frontier stations (keeping them "uncertified")
+- Port certification can be denied to competitors' frontier stations
 - Insurance oracle disputes can be influenced
+- Safety standards can be raised to price out smaller competitors
 
 ### The Trust Spectrum (Revised)
 
