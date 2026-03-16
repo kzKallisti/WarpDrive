@@ -633,21 +633,35 @@ Quality literally makes your ships cheaper to fly. A quality-80 freighter haulin
 the same load, because its hull, frame, and drive components weigh less. Over hundreds
 of trips, this compounds into a serious competitive advantage.
 
-**Rough scaling (hull/structural mass reduction from quality):**
+**Quality-to-physics formulas:**
 
-| Quality | Mass reduction vs quality-50 baseline | Effect on operating cost |
-|---------|--------------------------------------|--------------------------|
-| 30 | +15% heavier | Higher fuel bills |
-| 50 | Baseline | Standard |
-| 70 | -10% lighter | Noticeable savings |
-| 80 | -20% lighter | Significant advantage |
-| 90 | -25% lighter | Premium efficiency |
+Two scalars derive from quality. Both use quality-50 as the baseline (1.0):
 
-These are game parameters, not physics derivations — but the direction is real.
-Modern aircraft use titanium alloys and carbon composites specifically because the
-mass savings justify the material cost. The same logic applies in space, amplified
-by the Tsiolkovsky equation: every kilogram of hull mass costs propellant on every
-burn, compounding across every trip the ship ever makes.
+```
+mass_factor    = 1.0 - (quality - 50) × 0.005     (lighter at higher quality)
+durability     = quality / 50                       (linear, quality-50 = 1.0x)
+```
+
+| Quality | Mass factor | Durability | What it means |
+|---------|------------|------------|---------------|
+| 30 | 1.10 (10% heavier) | 0.60× | Cheap, heavy, breaks fast |
+| 50 | 1.00 (baseline) | 1.00× | Standard |
+| 70 | 0.90 (10% lighter) | 1.40× | Good alloy, lasts longer |
+| 90 | 0.80 (20% lighter) | 1.80× | Premium — light and tough |
+
+**Mass factor** applies to hull plating, structural frames, and any component where
+strength-to-weight matters. A quality-90 ship's structural mass is 80% of a quality-50
+ship's — 20% lighter for the same integrity. Via Tsiolkovsky, this compounds: less
+structural mass = less propellant per burn = lower operating cost on every trip, forever.
+
+**Durability** is a multiplier on maintenance interval. Quality-90 components last
+1.8× as long before needing replacement. This directly reduces maintenance cost and
+downtime. A quality-30 fleet needs maintenance nearly 2× as often as quality-50 —
+more parts consumed, more time in dock, more opportunities for failure events.
+
+Both formulas are linear and unbounded — quality-100 gives mass factor 0.75 and
+durability 2.0×. No hard caps, just diminishing practical returns because achieving
+quality-100 requires near-perfect inputs at every supply chain stage.
 
 **Quality as infinite progression:**
 
