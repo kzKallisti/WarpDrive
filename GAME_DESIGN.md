@@ -105,9 +105,21 @@ Seeded randomness produces recognizable system shapes:
 - **Binary companion**: Distant second star perturbs outer orbits.
 - **Resource jackpot**: One extraordinary body. Gold rush dynamics.
 
+### Terra & Luna (Constants)
+
+The homeworld is always **Terra** (Earth-like planet) with its moon **Luna**. Only humans
+exist in this universe — Terrans. Terra's orbital parameters are placed in the star's
+habitable zone (distance varies by star mass/luminosity). Terra and Luna have fixed
+physical properties (radius, mass, escape velocity, composition) matching real Earth and
+Moon. Everything else in the system is procedurally generated.
+
+This gives every game a familiar starting point — players always know what Terra and Luna
+are, what they cost to escape, and what resources are available locally. The alien part
+is everything beyond Luna's orbit.
+
 ### Playability Constraints
 
-- At least one body in the habitable zone (starting colony)
+- Terra placed in the habitable zone
 - At least 3–5 minable asteroids within reasonable transit range
 - No body inside the star's tidal danger zone
 - **Orbital stability**: No two bodies close enough to gravitationally perturb each other
@@ -250,20 +262,21 @@ is a major ongoing cost.
 arbitrary distances). Reactor quality is a ship stat — better reactors mean more power
 for drives, sensors, and life support.
 
-**Propulsion technology**: Ships use **fusion torch drives** for conventional thrust —
-the only technology that delivers both 2g acceleration and reasonable fuel efficiency.
-Specific impulse ~1,200s (exhaust velocity ~12 km/s). Chemical rockets can't provide
-the Δv budget; ion drives can't provide the thrust. Fusion torch is the realistic
-2058 technology that makes the transit physics work.
+**Propulsion technology**: Ships use **high-performance fusion torch drives** for
+conventional thrust — the only technology that delivers both 2g acceleration and viable
+cargo economics. Specific impulse ~3,000s (exhaust velocity ~29.4 km/s). This yields
+~10:1 propellant-to-cargo ratios for typical interplanetary transits — expensive enough
+that fuel logistics matter, cheap enough that freight is economically viable. Chemical
+rockets (Isp 450s) are hopelessly inadequate. Basic fusion (Isp 1200s) gives 276:1
+ratios — ships would be 99% fuel. The Tsiolkovsky equation is unforgiving.
 
 **Three ship consumables:**
 - **Reactor fuel** (uranium/thorium rods): Powers the ship's reactor. Consumed slowly,
   limits total operational time before refueling.
 - **Propellant** (H₂ from water electrolysis): Consumed during conventional thrust
-  phases (ESCAPE, LAUNCH, BRAKE, INSERTION) by the fusion torch. Mass ratios are
-  significant: a 10,000-tonne freighter escaping Earth burns ~16,000 tonnes of
-  propellant. This is why **propellant depots** are critical infrastructure — ships
-  refuel at every stop, not carry round-trip fuel.
+  phases (ESCAPE, LAUNCH, BRAKE, INSERTION) by the fusion torch. At Isp 3000s, a
+  typical interplanetary trip costs ~10× the cargo mass in propellant. This is why
+  **propellant depots** are critical infrastructure — ships refuel at every stop.
 - **Casimir fuel rods**: Consumed during warp phases (WARP ON, CRUISE, WARP OFF). Limits
   how far you can warp per trip. The expensive one.
 
@@ -275,9 +288,62 @@ the Δv budget; ion drives can't provide the thrust. Fusion torch is the realist
 - **Propellant depots** at colonies and stations are essential. A corp that controls
   propellant supply at a remote body controls access to that body. Running out of
   propellant at a body with no depot means calling for a tanker — expensive and slow.
-- Deep gravity wells (Jupiter: 59.5 km/s escape, ~50 min burn, enormous propellant
-  cost) are genuinely expensive to operate at. This is why Jupiter's moons are
-  high-value but high-cost — the gravity well tax is real.
+- Deep gravity wells are genuinely expensive. The propellant cost of escaping a body
+  scales exponentially with escape velocity (Tsiolkovsky). Small asteroids (escape <1
+  km/s) are nearly free to leave. Gas giant moons require burning through the parent's
+  massive gravity well — the fuel tax is real.
+
+### Mass, Volume & Cargo Physics
+
+Everything has mass and volume. Both constrain what a ship can carry and how much fuel
+it burns. All units in Earth Metric Standard (SI-derived: kg, m³, km/s).
+
+**Resource densities (real-world values):**
+
+| Resource | Density (kg/m³) | 1,000 m³ hold = | Character |
+|----------|----------------|-----------------|-----------|
+| Refined platinum | 21,450 | 21,450 tonnes | Extreme mass, compact |
+| Iron ore | 5,000 | 5,000 tonnes | Heavy bulk |
+| Refined iron | 7,870 | 7,870 tonnes | Heavy |
+| Copper ore | 4,200 | 4,200 tonnes | Heavy |
+| Silicate rock | 2,650 | 2,650 tonnes | Medium bulk |
+| Water ice | 917 | 917 tonnes | Light bulk |
+| Volatile ices | 800 | 800 tonnes | Light bulk |
+| Electronics (packaged) | ~500 | 500 tonnes | Light, high-value |
+| Liquid hydrogen (propellant) | 70 | 70 tonnes | Ultra-light, bulky |
+| Casimir fuel rods | ~2,000 (est) | 2,000 tonnes | Dense, high-value |
+
+**Cargo affects fuel cost.** The Tsiolkovsky equation means propellant scales with
+total mass (ship + cargo + fuel for remaining burns). Heavier cargo = exponentially
+more propellant. At Isp 3000s:
+
+| Cargo load | Propellant (typical 1 AU trip) | Ratio |
+|-----------|-------------------------------|-------|
+| Empty run | ~8,000 tonnes | — |
+| 500t electronics | ~13,000 tonnes | 26:1 |
+| 2,000t water ice | ~24,000 tonnes | 12:1 |
+| 5,000t iron ore | ~51,000 tonnes | 10:1 |
+
+**Ships are volume-limited OR mass-limited depending on cargo:**
+- Dense cargo (iron ore, platinum, refined metals): hits the ship's structural mass
+  limit before filling the hold. You have empty space but can't add more weight.
+- Light cargo (hydrogen, volatiles, electronics): fills the hold before hitting mass
+  limits. You have structural capacity left but no room.
+- Optimal loads mix dense and light cargo to maximize both volume and mass utilization.
+
+**Gameplay consequences:**
+- **Route profitability depends on cargo density.** Hauling iron ore is cheap per tonne
+  (common resource) but each tonne costs proportionally more fuel. Hauling electronics
+  is expensive per unit but light — fuel costs are lower per unit of value.
+- **Return trips matter.** Running empty burns almost as much propellant as running full
+  (the ship's dry mass dominates). Smart corps arrange return cargo to avoid deadheading.
+- **Tankers are special.** Liquid hydrogen is extremely light by volume — a tanker's
+  hold is mostly empty space. But the hydrogen IS the product, so fuel cost is low
+  relative to cargo value. Tanker economics are inverted: the cargo reduces its own
+  delivery cost.
+- **Crew adds mass.** Each crew member needs ~1 tonne of life support equipment, food
+  stores, and hab space. A 20-person crew adds 20 tonnes of non-negotiable mass to
+  every burn calculation. Drone ships avoid this overhead.
 
 **Power as infrastructure investment:**
 - Inner system: Solar arrays are cheap. Low barrier to establishing operations.
