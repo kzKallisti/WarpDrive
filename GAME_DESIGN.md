@@ -2199,6 +2199,29 @@ GPU drivers. Same zero-build static web app architecture as the rest of the game
   awareness. The 0.8B hallucinates conditions and loses character consistency.
 - Fine-tuning both on game-specific data (500-1000 directive examples, NPC personality
   templates, news formats) significantly improves reliability for these narrow domains.
+
+**Inference budget management:**
+
+The 4B model generates one response at a time in WASM. Queue management prevents
+backlog from breaking game feel:
+
+- **Directive execution doesn't call the LLM.** Directives are compiled at authoring
+  time into deterministic rules. When a trigger fires, the game engine evaluates the
+  rule instantly. 15 ships hitting triggers = 15 instant rule evaluations, zero LLM.
+- **Player chat gets top priority.** Always next in queue. 3-5 second response.
+- **NPC diplomatic responses are hidden behind relay delay.** You send a proposal →
+  relay propagation (real game-time delay) → NPC "considers" (LLM inference, hidden
+  behind the fiction of deliberation) → relay propagation back. The player perceives
+  realistic communication pacing, not inference latency.
+- **NPC-to-NPC diplomacy uses templates.** Background world-building doesn't need the
+  4B. If the player can't observe the conversation (no relay coverage), it never
+  needs to be rendered at all.
+- **News/intel uses the 0.8B in a separate worker.** Never competes with interactive.
+  Falls back to templates silently if backlogged.
+
+Realistic call volume: **2-5 interactive LLM calls per real minute** during active
+play. One for each player command or NPC response in an active conversation.
+Completely manageable for a single WASM inference thread.
 - Inference runs in a **Web Worker** (separate thread, never blocks the game loop
   or Three.js rendering)
 - Apache 2.0 license — fully shippable, no restrictions
