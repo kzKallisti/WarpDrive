@@ -3381,7 +3381,51 @@ two save files permanently.
 - It connects the sandbox to a larger persistent universe
 - A player who's "done" with their system now has a whole new system to interact with
 
-## 20. Open Questions
+## 20. External Feedback (Moth & Hamster, March 2026)
+
+### What resonated
+- "Orbital mechanics IS the economy" — real thesis, not tagline
+- Quality propagation (60/24/16) — elegant, no tech tree
+- No game-rule restrictions — emergent consequences only
+- Standing directives as core control — CEO framing solves micromanagement
+- Comms physics as fog of war — genuinely novel
+- Privacy model reads like someone who understands crypto, not buzzwords
+- Warpgate endgame — "the coolest endgame concept I've seen in a tycoon game"
+
+### Key concerns
+- **Scope.** This is simultaneously Eve, Offworld, Aurora 4X, and a management sim.
+  Phase 1 alone is 6-12 months. The full vision is years. Ruthless scoping needed.
+- **LLM directive compiler must be prototyped early.** If it doesn't work reliably,
+  the core control interface is broken. Build this before the economy.
+- **First 30 minutes must feel like a game, not a physics demo.** Orbital mechanics
+  carry a specific audience (KSP players). Contract variety helps but the hook needs
+  to be immediate.
+- **AI corp depth vs implementation cost.** "AI corps do everything players do" is
+  an enormous engineering commitment. The decision model is clean but understated.
+- **Combat might be vestigial.** If it's rare and net-negative, is it worth building?
+  Economic warfare might BE the conflict system. Weapons and drone combat feel like
+  "tycoon games have combat" rather than an organic need from the design.
+- **Warpgate save-file linking requires version compatibility.** Engineering constraint
+  that shapes everything. Decide early if it's real or aspirational.
+- **Economy tuning is brutally sensitive.** Tiny changes in contract pay or fuel cost
+  make strategies dominant or worthless. Need an economic sim testbed (fast-forward
+  mode, 8 AI corps, run overnight, check for collapse).
+
+### The core insight
+The orbital engine already exists and is already fun. "The ship going brrr on the
+map is the fun." The design didn't come from "I should make a tycoon game" — it came
+from the physics being inherently interesting and systems revealing themselves.
+
+**The validation question:** Does "the same route is profitable this month and
+unprofitable next month because the planets moved" make trading feel different from
+every other trading game? If yes, everything in this doc is justified. If no, no
+amount of quality propagation formulas saves it.
+
+**Consensus advice:** Build the thinnest possible game layer on top of the working
+orbital engine. One ship, cargo hold, two markets, one contract, money counter. Can
+you make that loop fun for 10 minutes? If yes, everything else is "more of what works."
+
+## 21. Open Questions
 
 - **Combat balance**: What prevents the richest corp from dominating through force?
   Coalitions? Diminishing returns on military spending? Insurance making piracy
