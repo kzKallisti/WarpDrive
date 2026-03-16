@@ -968,6 +968,15 @@ Encrypted traffic that hits a cleartext-only relay gets **dropped or neutered**
 - Corruption can't upgrade or downgrade a relay's encryption policy. The hardware
   enforces it.
 
+**Encryption costs are real:**
+Encrypted relays consume more bandwidth (N individually-encrypted copies vs one
+cleartext broadcast) and more power (crypto math draws watts). A Consortium relay
+handling the same traffic volume as a Collective relay needs more power and more
+bandwidth — the privacy tax is physical, not political. In the outer system where
+power is fission-only and expensive, a relay's power budget is split between
+transmission (range) and encryption (privacy). Frontier relays on tight power
+budgets may have to choose between signal strength and encryption throughput.
+
 **Bloc policy vs corp policy:**
 
 Bloc relay policy applies to **bloc-operated infrastructure.** Corp-owned relays
