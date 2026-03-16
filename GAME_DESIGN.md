@@ -163,36 +163,50 @@ Resources don't teleport from asteroid to market. The supply chain is the game.
 | Volatiles | Comets, icy bodies, gas giant moons | Chemical feedstock → propellant, polymers |
 | Helium-3 | Gas giant atmospheres (via moons) | Fusion fuel (expensive to extract, natural endgame) |
 
-**Antimatter:**
+**Casimir matter:**
 
 | Resource | Source | Used for |
 |----------|--------|----------|
-| Antimatter fuel rods | Manufactured at antimatter production facilities | Warp drive fuel — consumed during WARP ON, CRUISE, WARP OFF phases |
+| Casimir fuel rods | Manufactured at Casimir condensers | Warp drive fuel — consumed during WARP ON, CRUISE, WARP OFF phases |
 
-Antimatter is the primary cost of warp travel. It's not mined — it's **produced** at
-particle accelerator facilities that convert enormous amounts of electrical power into
-antimatter, then package it into magnetically-confined fuel rods.
+Casimir matter is the substance that makes warp travel possible. It's a stabilized form
+of **negative vacuum energy** — derived from the Casimir effect (a real quantum phenomenon
+where restricted vacuum fluctuations between closely-spaced surfaces create measurable
+force). By 2058, physicists learned to amplify this effect at industrial scale: extracting
+negative energy from the quantum vacuum, condensing it into stable matter with exotic
+gravitational properties, and packaging it into containment rods.
 
-The input is **power**, not ore. This ties antimatter pricing to the power gradient:
-- **Inner system** is where antimatter is produced. Abundant solar power near the star
-  makes production cheap. The homeworld developed warp technology here — close to the
-  sun, where energy is nearly free. Inner system antimatter facilities with massive
-  solar arrays are the foundational industry of interplanetary civilization.
-- **Outer system** imports antimatter from the inner system. Producing locally with
-  fission reactors is possible but expensive — every antimatter unit costs uranium.
-  Only worthwhile if inner system supply is disrupted or the markup on imported rods
-  exceeds local production cost.
-- **Endgame**: A fusion-powered (He-3) antimatter facility in the outer system changes
-  the economics — abundant local power breaks the inner system's production monopoly.
+The warp drive uses Casimir matter to create a localized gravity vacuum — a region of
+negative energy density that warps spacetime around the ship. This is the theoretical
+basis of the Alcubierre drive, grounded in real general relativity. The Casimir effect
+is the real-physics hook that makes it plausible.
 
-**The core trade pattern:** Inner system exports antimatter outward. Outer system exports
-raw materials (He-3, volatiles, rare resources) inward. The trade routes between them
-are the economic backbone of the system. A corp that controls both antimatter production
-AND outer system resources controls the economy.
+**Production requires both power AND materials:**
+- **Power** (enormous amounts): Vacuum energy manipulation is extremely energy-intensive.
+  The Casimir condenser needs sustained multi-gigawatt input.
+- **Rare earths** → superconducting containment arrays (confine the negative energy)
+- **Platinum** → quantum resonance plates (the actual Casimir surfaces)
+- **Refined conductors** → wiring for the electromagnetic infrastructure
 
-A ship without antimatter can still fly conventionally (fusion torch) — it just can't
-warp. This makes antimatter the single most strategically important resource: control
-the supply and you control who can warp.
+This dual dependency means Casimir matter production competes for BOTH power AND
+materials. Every unit produced drains the power grid and consumes rare earths and
+platinum that could go to electronics or drive components.
+
+**Production economics follow the power gradient with a material floor:**
+- **Inner system** is the natural production hub. Cheap solar power and proximity to
+  homeworld (where the technology was developed). But still needs material inputs
+  shipped from mining operations.
+- **Outer system** imports Casimir fuel rods from the inner system. Local production
+  is possible but doubly expensive — fission power costs uranium AND the material
+  inputs cost more to ship inward then back out as fuel rods.
+- **Endgame**: Fusion-powered Casimir condensers in the outer system break the inner
+  system monopoly — but still need the material supply chain.
+
+**The core trade pattern:** Inner system exports Casimir fuel rods outward. Outer system
+exports raw materials inward. The trade routes between them are the economic backbone.
+
+A ship without Casimir matter can still fly conventionally (fusion torch) — it just can't
+warp. Control the Casimir matter supply and you control who can warp.
 
 ### Resource Depletion
 
@@ -250,12 +264,12 @@ the Δv budget; ion drives can't provide the thrust. Fusion torch is the realist
   significant: a 10,000-tonne freighter escaping Earth burns ~16,000 tonnes of
   propellant. This is why **propellant depots** are critical infrastructure — ships
   refuel at every stop, not carry round-trip fuel.
-- **Antimatter**: Consumed during warp phases (WARP ON, CRUISE, WARP OFF). Limits
+- **Casimir fuel rods**: Consumed during warp phases (WARP ON, CRUISE, WARP OFF). Limits
   how far you can warp per trip. The expensive one.
 
 **Fuel economics shape the game:**
 - A ship without propellant is stranded in orbit.
-- A ship without antimatter can still fly conventionally (fusion torch only) but
+- A ship without Casimir fuel can still fly conventionally (fusion torch only) but
   takes weeks/months instead of minutes for interplanetary transits.
 - A ship without reactor fuel is dead in space.
 - **Propellant depots** at colonies and stations are essential. A corp that controls
@@ -311,15 +325,17 @@ Copper/Aluminum  →   Refined conductor    →   Wiring              →   Ever
                                           →   Antenna arrays      →   Relays
 Uranium/Thorium  →   Reactor fuel rods    →   (consumed)          →   Fission reactors
 
-POWER (any source) → Antimatter facility  →   Antimatter fuel rods → Ships (warp phases)
-                     (particle accelerator)    THE critical resource
+POWER + Platinum   → Casimir condenser   →   Casimir fuel rods   → Ships (warp phases)
+ + Rare earths       (quantum vacuum         THE critical resource
+ + Conductors         manipulation)
 ```
 
-Note: Antimatter production doesn't compete with the material supply chain — it competes
-for POWER. Every megawatt powering an antimatter facility is a megawatt not powering a
-refinery, factory, or colony. In the inner system where solar is abundant, this tradeoff
-is mild. In the outer system where every watt comes from a fission reactor burning
-uranium, it's a genuine strategic tension.
+Note: Casimir matter production competes for BOTH power AND materials. Every unit
+produced drains the power grid AND consumes platinum/rare earths that could go to
+electronics or drive components. In the inner system where solar power is abundant,
+the material cost dominates. In the outer system where power is expensive, both costs
+compound. This dual dependency makes Casimir fuel rods the most supply-chain-intensive
+product in the game.
 
 ### Maintenance
 
@@ -759,7 +775,7 @@ Ship stats map directly to existing physics constants:
 | Drive quality | Warp threshold speed | `WARP_THRESHOLD_KMS` |
 | Hull length / dry mass | Cargo capacity, tidal tolerance | `SHIP_LENGTH_KM` |
 | Propellant capacity | How many Δv burns before refueling | Derived from mass ratio |
-| Antimatter capacity | Max warp distance per trip | New field |
+| Casimir fuel capacity | Max warp distance per trip | New field |
 | Reactor | Power output, reactor fuel consumption rate | New field |
 | Mining equipment | Extraction rate | New field |
 | Drone bays | Combat/utility drone capacity | New field |
@@ -1058,7 +1074,7 @@ through natural gameplay progression, not dumped upfront.
   the outer system take hours to arrive.
 
 **Late game (power player phase):**
-- The full system is in play: manufacturing chains, antimatter production, political
+- The full system is in play: manufacturing chains, Casimir matter production, political
   maneuvering, combat posturing, information warfare, smuggling.
 - Player is shaping the system, not just reacting to it.
 
@@ -1087,7 +1103,7 @@ Mobile layout. Leaderboards.
   Coalitions? Diminishing returns on military spending? Insurance making piracy
   net-negative? Maintenance costs scaling with fleet size?
 - **Mercenaries**: Can corps hire NPC military outfits for deniable operations?
-- **Antimatter balance**: How much antimatter per AU of warp travel? This single
+- **Casimir fuel balance**: How much Casimir matter per AU of warp travel? This single
   number determines whether warp is cheap (everyone warps everywhere) or expensive
   (warp is a strategic choice, conventional travel is the default for short hops).
 - **Loan interest rates**: What range keeps loans useful without making over-leverage
