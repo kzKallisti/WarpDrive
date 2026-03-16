@@ -2183,13 +2183,22 @@ into character, context, and atmosphere.
 compiled to **WebAssembly**. Runs entirely in the browser — no server, no install, no
 GPU drivers. Same zero-build static web app architecture as the rest of the game.
 
-- **Default: fine-tuned Qwen3.5-0.8B** (~500 MB download, cached in IndexedDB).
-  Hybrid architecture (Gated Delta Networks + sparse MoE) designed for on-device
-  inference. Fine-tuned on 500-1000 examples of game-specific prose styles. MoE
-  means only a fraction of parameters activate per token = fast inference even in
-  WASM. The use case is narrow enough that a fine-tuned 0.8B nails it.
-- **Enhanced: Qwen2.5-1.5B or Qwen3.5-2B** (~1 GB, 2-4 seconds per paragraph).
-  Better voice differentiation, richer prose. For players who want the premium.
+- **Two models, two roles:**
+  - **Background model: fine-tuned Qwen3.5-0.8B** (~500 MB). Handles news blurbs,
+    intel briefings, flavor text, routine narration. Fires in a background Web Worker.
+    Fast (60-80 tok/s native, 30-40 WASM). Nobody waits for these — they appear in
+    the news feed asynchronously.
+  - **Interactive model: Qwen3.5-4B** (~2.5 GB). Handles the chat interface: directive
+    compilation, NPC diplomatic negotiation, context routing (AI/corp/market), complex
+    personality-voiced responses. Player types, waits 3-5 seconds for response —
+    acceptable latency for a chat interface. Runs in a separate Web Worker.
+- Both models cached in IndexedDB. Total: ~3 GB first-time download.
+- The 4B model is necessary because directive compilation requires reliable logical
+  parsing ("don't spend more than 30% unless quality > 70 AND fuel sufficient for
+  return trip") and NPC negotiation requires multi-turn coherence with game-state
+  awareness. The 0.8B hallucinates conditions and loses character consistency.
+- Fine-tuning both on game-specific data (500-1000 directive examples, NPC personality
+  templates, news formats) significantly improves reliability for these narrow domains.
 - Inference runs in a **Web Worker** (separate thread, never blocks the game loop
   or Three.js rendering)
 - Apache 2.0 license — fully shippable, no restrictions
