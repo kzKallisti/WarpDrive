@@ -3270,26 +3270,101 @@ js/
   save.js        — Game state serialization
 ```
 
-### Development Phases
+### Development Phases (revised per design panel)
 
-**Phase 1: Core Loop** — Procedural generator. Resource model. Single ship with cargo.
-Two AI colonies with markets. Delivery contracts with deadlines. Money counter. One AI
-corp competing.
+**Phase 0.5: The 10-Minute Test** (2–4 weeks)
+Validate the core thesis: "orbital mechanics makes trading feel different."
+- Existing orbital engine (already built)
+- One ship with cargo hold and two fuel gauges (propellant + Casimir)
+- 5–10 bodies (can use existing solar system data, no procedural gen needed)
+- Two colonies with buy/sell prices for 3 resources (metals, water, platinum)
+- Propellant cost from existing transit physics (Δv-dependent)
+- One delivery contract with a deadline affected by orbital windows
+- Money counter
+- Standing directive prototype: ship executes a simple rule autonomously
+  ("go to A, buy X, go to B, sell X, repeat") and the player watches
+  orbital mechanics make it interesting
+- NO quality system, NO AI competitor, NO facilities, NO governance
 
-**Phase 2: Depth** — Ship upgrades and fleet expansion. More AI corps with personalities.
-Market dynamics. Colony founding. Exploration contracts. Manufacturing chain.
+Can you play this for 10 minutes and feel something no other trading game
+gives you? If yes, proceed. If no, iterate on the core loop until it works.
 
-**Phase 3: Infrastructure** — Command centers. Relay network. Colony standing. Labor
-economics. Environmental dynamics.
+**Phase 1: Core Loop** (2–3 months)
+The minimum playable game.
+- Procedural system generator (15–20 bodies, Terra + Luna constant)
+- 7 resources: Metals, Platinum, Rare Earths, Water/Ice, Volatiles, Uranium,
+  Casimir fuel rods. (Consolidated from 9. Each creates a unique decision.)
+- Two consumables: propellant (Δv burns) + Casimir fuel (warp). No reactor fuel.
+- One processing tier (ore → refined material)
+- Quality as static number per resource deposit (no propagation formula)
+- Colony markets with supply/demand pricing
+- Delivery contracts with orbital-window deadlines
+- Fleet expansion (buy/lease a second ship)
+- Standing directives (template-based with parameter sliders, NO LLM)
+- Loans (collateralized, simple)
+- One AI competitor (dumb: picks up contracts, delivers cargo, trades at markets)
+- Save/load (IndexedDB)
+- Economy testbed: headless fast-forward mode for overnight balance testing
 
-**Phase 4: Conflict** — Combat drones and engagement resolution. Smuggling and black
-markets. Information brokering. Economic warfare tools.
+**Phase 2: The Quality Game** (2–3 months)
+Depth through the quality system and fleet management.
+- Quality propagation formula (60/24/16) through processing stages
+- Facility construction (refineries, component factories)
+- Modular component slots for ships and facilities
+- Variable acceleration (a = thrust / total_mass, load-dependent)
+- Quality-to-physics: mass_factor and durability scalars
+- Maintenance system (components consumed over time)
+- Worker quality as static colony property (Tier 1 + Tier 2 needs)
+- 3–5 AI corps with personality-weighted behavior (hauler, trader, prospector)
+- Standing directives expanded (more conditions, exception handling)
+- LLM directive compiler prototype (fine-tune, test reliability — if it works,
+  integrate; if not, keep template UI)
+- Inter-corp specialization emerges naturally from quality chain
 
-**Phase 5: Multiplayer** — Server-side simulation. WebSocket protocol. Lobby system.
-Mixed human/AI mode. Time speed consensus. Async variant.
+**Phase 3: The Empire Game** (3–4 months)
+Politics, infrastructure, and colony depth.
+- Colony founding (transport colonists + infrastructure to uninhabited body)
+- Colony standing (wages, safety, investment, supply reliability)
+- Colony governance types (independent, company town, consortium, free port)
+- Worker Tier 3: education/growth (quality improves over time with investment)
+- Relay network with 2×2 bloc encryption/logging policies
+- Command centers (richer info perspective, sensor sweeps, intel briefings)
+- Communications latency as gameplay (asset-based info perspective)
+- Fog of war (competitors invisible until observed, intel decays)
+- Casimir matter production (condensers, power + material dependency)
+- Basic smuggling (scanner detection formula, some goods banned at some ports)
+- Bloc reputation (rivalry axes, NPC affiliation)
+- Taxation (docking fees, transaction tax — no lobbying yet)
+- NPC corps interacting with each other (alliances, rivalries, grudges)
 
-**Phase 6: Polish** — Sound design. Tutorial (guided first contract). Procedural names.
-Mobile layout. Leaderboards.
+**Phase 4: Economic Warfare & Depth** (2–3 months)
+Conflict, intelligence, and underground economy.
+- Economic warfare tools (undercutting, supply disruption, contract poaching)
+- Scanner warfare (ship-mounted scanners, hacked scanners)
+- Black markets and information brokering
+- Insurance (flat NPC service)
+- Passenger transport (freighters with hab modules)
+- Tariffs and lobbying (if playtesting shows demand)
+- Combat (if playtesting shows demand — graduated escalation, auto-resolve)
+- Weapons as dual-use civilian components (if combat is built)
+- LLM full integration (chat interface, NPC voice, news feed, intel briefings)
+
+**Phase 5: Multiplayer** (3–4 months)
+- Server-side simulation (Node.js, same orbital engine)
+- WebSocket protocol (commands up, state diffs down)
+- Lobby system, game creation
+- Mixed human/AI mode
+- Time speed consensus (default 60x, host controls)
+- In-world chat (relay-delayed)
+- Async variant (server-time, players log in/out)
+
+**Phase 6: Endgame & Polish** (ongoing)
+- Warpgate megaproject (inter-system save linking)
+- Sound design
+- Tutorial (guided first contract)
+- Mobile layout
+- Leaderboards
+- Modding support
 
 ## 19. Endgame: Warpgates & Inter-System Travel
 
