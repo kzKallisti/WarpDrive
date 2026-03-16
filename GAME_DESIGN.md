@@ -151,22 +151,40 @@ spacefaring entities. The player is one of these (or aspires to become one).
 - NPC corps generated at game start are affiliated with a bloc (or independent). This
   gives them behavioral tendencies: Commonwealth corps are entrepreneurial, Collective
   corps are methodical and state-backed, Coalition corps are scrappy and efficient.
-- **The player chooses affiliation at game start** (or goes independent). Affiliation
-  provides: starting contracts with affiliated colonies, preferred docking at affiliated
-  ports, access to bloc-specific supply chains. But it also means: rival blocs may
-  distrust you, and your bloc expects loyalty (prioritize their contracts, supply
-  their colonies).
-- Going **independent** means no starting advantages but no obligations. You deal with
-  everyone on equal terms. Harder start, more freedom.
-- **Bloc politics are NPC-driven.** The player doesn't control bloc policy. But their
-  actions influence it — a corp that becomes critical to a bloc's supply chain gains
-  political influence. A corp that defects from its bloc (supplying rivals, ignoring
-  obligations) loses affiliation benefits.
-- **Blocs are not governments in space.** They're Terran political entities with
-  off-world interests. Colonial governance is local (as described in Governance section).
-  A Commonwealth-affiliated colony is culturally and economically tied to the
-  Commonwealth, but governs itself. The bloc provides starting capital, immigration,
-  and political backing — not laws.
+
+**Bloc reputation works like colony standing** — same system, bigger scale. The player
+starts with high reputation in their chosen bloc and neutral elsewhere. Reputation
+shifts based on observable actions:
+
+- Fulfill Commonwealth contracts → Commonwealth rep rises
+- Supply a Collective colony → Collective rep rises, Commonwealth rep drifts down
+  (you're helping their rival)
+- Serve both equally → both stay roughly neutral
+- Go independent from day one → start neutral everywhere, build from scratch
+
+**Reputation effects (same gradient as colony standing):**
+- High bloc rep → preferred contracts from bloc-affiliated colonies, better docking
+  terms at bloc ports, access to bloc supply chains, political backing in disputes
+- Neutral → standard market access, no special treatment
+- Low bloc rep → bloc-affiliated colonies distrust you, contracts dry up, docking
+  fees increase, bloc-affiliated NPC corps may refuse to trade
+
+**No restrictions, only incentives.** The player is never locked out of anything by
+bloc affiliation. You can walk into a Collective port with rock-bottom Collective rep
+and dock (if they let you — colony governance decides, not a game rule). You can take
+Commonwealth contracts while supplying the Coalition. Every action has reputation
+consequences, but the player has absolute corporate freedom.
+
+**Blocs are not governments in space.** They're Terran political entities with off-world
+interests. Colonial governance is local (as described in Governance section). A
+Commonwealth-affiliated colony is culturally and economically tied to the Commonwealth,
+but governs itself. The bloc provides starting capital, immigration, and political
+backing — not laws.
+
+**Late-game dynamics:** A corp powerful enough to be critical to multiple blocs can
+play them against each other — or transcend bloc politics entirely. An independent
+megacorp that controls the system's Casimir matter supply doesn't need bloc approval.
+The blocs need *them*.
 
 ### Playability Constraints
 
