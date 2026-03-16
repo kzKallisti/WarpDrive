@@ -461,10 +461,30 @@ Different engineering, same physics family. The reactor runs continuously at low
 The torch fires during burn phases at enormous output. Both need fuel — reactor fuel
 (uranium/thorium, consumed slowly) and propellant (H₂, consumed rapidly during burns).
 
-**Propulsion technology**: The fusion torch delivers both high acceleration and viable
-cargo economics at Isp ~3,000s (exhaust velocity ~29.4 km/s). Chemical rockets
-(Isp 450s) are hopelessly inadequate. Basic fusion (Isp 1200s) gives 276:1 ratios —
-ships would be 99% fuel. The Tsiolkovsky equation is unforgiving.
+**Propulsion technology**: Fusion torch drives at Isp ~3,000s (exhaust velocity ~29.4
+km/s). Chemical rockets (Isp 450s) are hopelessly inadequate. Basic fusion (Isp 1200s)
+gives 276:1 propellant ratios. The Tsiolkovsky equation is unforgiving.
+
+**Acceleration varies with mass.** Each ship class has a rated engine thrust (in MN).
+Actual acceleration = thrust / total_mass (dry + cargo + remaining fuel). A loaded
+freighter accelerates slower than an empty scout. Escape phases take longer for heavy
+ships. This is real physics: `a = F/m`.
+
+| Ship class | Engine thrust | Accel (empty) | Accel (loaded) |
+|-----------|--------------|---------------|----------------|
+| Scout (500t dry) | 10 MN | ~2.0g | ~1.0g (1,000t) |
+| Freighter (2,000t dry) | 40 MN | ~2.0g | ~0.6g (7,000t) |
+| Heavy hauler (5,000t dry) | 100 MN | ~2.0g | ~0.5g (20,000t) |
+| Mining vessel (1,500t dry) | 30 MN | ~2.0g | ~0.9g (3,500t) |
+
+Empty ships accelerate at ~2g. Loaded ships are noticeably slower. A fully loaded
+heavy hauler at 0.5g takes 4× longer to escape a gravity well than an empty scout
+at 2g. The player FEELS the mass of their cargo in transit time and fuel cost.
+
+This feeds into the existing transit physics: the 7-phase model already computes
+from acceleration. Making acceleration load-dependent just changes `SHIP_ACCEL_MS2`
+from a constant to `ship.thrust / ship.total_mass` — one line of code, dramatically
+more realistic fuel and time calculations.
 
 **Propellant cost depends on Δv, not distance.** Two trips covering the same distance
 can have wildly different fuel costs depending on the gravity wells at each end:
