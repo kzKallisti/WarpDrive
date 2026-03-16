@@ -98,13 +98,21 @@ Resources don't teleport from asteroid to market. The supply chain is the game.
 RAW EXTRACTION          PROCESSING              MANUFACTURING           CONSUMER
 ───────────────────────────────────────────────────────────────────────────────
 Iron ore         →   Refined iron         →   Hull plating        →   Shipyard
-Platinum ore     →   Refined platinum     →   Electronics         →   Colony
+                                          →   Structural frame    →   Station/Hab builder
+Platinum ore     →   Refined platinum     →   Electronics         →   Everything (universal input)
+                                          →   Sensor arrays       →   Ships, Comms relays
 Water ice        →   H₂ + O₂ (fuel)      →   (consumed directly) →   Ships/stations
                      Purified water       →   Life support        →   Colony
-Silicates        →   Glass/ceramics       →   Hab modules         →   Colony
+Silicates        →   Glass/ceramics       →   Hab modules         →   Colony, Station
+                                          →   Optics              →   Comms relays, Sensors
 Rare earth ore   →   Processed RE         →   Drive components    →   Shipyard
+                                          →   Actuators/motors    →   Drone factory, Mining rigs
+                                          →   Superconductors     →   Comms relays, Power systems
 Volatiles        →   Chemical feedstock   →   Propellant          →   Ships
+                                          →   Polymers            →   Drone factory, Hab modules
 He-3 (gas giant) →   Fusion fuel          →   (consumed directly) →   Power plants
+Copper/Aluminum  →   Refined conductor    →   Wiring/cabling      →   Everything (universal input)
+                                          →   Antenna arrays      →   Comms relays
 ```
 
 ### Processing & Refining
@@ -113,11 +121,130 @@ Raw ore is nearly worthless. Value is created at each stage:
 - **Mining rigs** extract raw ore (need equipment, power, crew/robots)
 - **Refineries** process ore into usable materials (fixed installations on bodies)
 - **Factories** turn materials into components (complex, need multiple inputs)
-- **Shipyards** assemble components into ships (the ultimate manufactured good)
+- **Assembly facilities** put components together into final products
 
 A mining corp that builds a refinery at their mining site captures more margin.
-A corp that builds a shipyard controls who gets new ships and at what price.
 Vertical integration is powerful but capital-intensive.
+
+### Manufacturing Sectors
+
+#### Ship Manufacturing
+
+Ships are not bought from a UI shop. They're built at **shipyards**:
+
+1. A shipyard (owned by a corp, located at a body) needs:
+   - Hull plating (from refined iron)
+   - Drive components (from rare earths)
+   - Electronics (from platinum)
+   - Hab modules (from glass/ceramics)
+   - Fuel tankage (from refined metals)
+   - Wiring/cabling (universal input)
+2. The shipyard's owning corp sets the **price and build queue**
+3. Other corps place **orders** via smart contract escrow — pay on delivery
+4. Construction time depends on component availability and shipyard capacity
+5. If a shipyard runs out of drive components, all orders stall until resupplied
+
+Ship classes built from the same components but in different proportions:
+- **Scout**: Light hull, big drive, small cargo. Fast, cheap, low capacity.
+- **Freighter**: Heavy hull, standard drive, huge cargo. Slow, expensive, bulk hauler.
+- **Mining vessel**: Medium hull, mining equipment mounts, ore processing bay.
+- **Tanker**: Specialized fuel transport. Critical for frontier refueling.
+
+#### Drone & Robotics Manufacturing
+
+Drones are the workforce multiplier. **Drone factories** produce:
+
+- **Mining drones**: Autonomous extractors. Deploy at an asteroid, they mine and stockpile.
+  Need: actuators, electronics, structural frame, polymers.
+- **Survey drones**: Sent to unsurveyed bodies to determine composition. Cheap, expendable.
+  Need: sensor arrays, electronics, propellant.
+- **Maintenance drones**: Keep stations and rigs operational. Reduce crew requirements.
+  Need: actuators, electronics, polymers, tools (sub-component).
+- **Construction drones**: Build stations, refineries, habs. Slow but no crew risk.
+  Need: actuators, structural frames, electronics, welding units (sub-component).
+
+Drones wear out. They need replacement parts (same components as manufacturing).
+A drone fleet is an ongoing operating cost, not a one-time purchase.
+
+**Strategic implications:**
+- Drone factories need the same rare earths as shipyards (actuators vs drive components).
+  There's a genuine resource tension between building ships and building drones.
+- A corp with a drone fleet can mine unmanned asteroids — no life support, no crew risk.
+  But drones are dumb: they can't handle unexpected situations (equipment failure, unusual
+  geology). Human-supervised mining is slower to set up but more adaptive.
+- Drone factories are simpler than shipyards (smaller, cheaper). Good mid-game investment.
+
+#### Ship Parts & Components Manufacturing
+
+Between raw refining and final assembly, there's a component manufacturing layer:
+
+**Component factories** (smaller than shipyards, more specialized):
+- **Drive works**: Rare earths + superconductors → drive components. The bottleneck.
+- **Electronics fab**: Platinum + silicates (optics) → electronics, sensor arrays. Universal demand.
+- **Structural mill**: Iron + polymers → hull plating, structural frames. High volume, low margin.
+- **Hab works**: Glass/ceramics + polymers + life support systems → hab modules. Colony demand.
+- **Actuator plant**: Rare earths + electronics → actuators/motors. Drone and rig demand.
+
+A corp can specialize: "We just make drive components." Sell to every shipyard in the system.
+High demand, rare earth supply is the constraint. This is a powerful niche position.
+
+### Communications Infrastructure
+
+Information moves at light speed. In a system where bodies are AU apart, that means
+**comms latency is a gameplay mechanic.**
+
+#### The Problem
+
+- Earth to Mars at opposition: ~3 minute light delay
+- Earth to Jupiter: ~35–50 minutes
+- Earth to Neptune: ~4+ hours
+- Earth to outer system (100+ AU): half a day or more
+
+Market prices, contract offers, fleet status — all information is delayed by the time
+it takes light to cross the system. A player at Jupiter sees Earth's market prices as
+they were 40 minutes ago. By the time their sell order arrives, the price may have moved.
+
+#### Communications Relays
+
+**Comms relays** are infrastructure that players/corps can build:
+
+- **Relay beacon**: Placed at a body or Lagrange point. Amplifies and routes signals.
+  Doesn't reduce light-speed delay, but ensures signals reach their destination
+  (without relays, distant bodies may be in radio shadow behind the star).
+- **Network coverage**: More relays = more reliable signal routing. Redundant paths
+  mean no single relay failure blacks out a region.
+- **Relay ownership**: The corp that builds a relay controls it. They can:
+  - Charge other corps for relay access (bandwidth fees)
+  - Prioritize their own traffic (see price updates before competitors)
+  - Deny access to specific corps (information warfare)
+  - Sell relay capacity as a service (telecom business model)
+
+**Relay components**: Antenna arrays + electronics + superconductors + power systems.
+Expensive to build, cheap to maintain. A relay network is a long-term infrastructure play.
+
+#### Information Asymmetry as Gameplay
+
+Comms delay means **information is a tradeable advantage**:
+
+- A corp with relays near Jupiter knows Jupiter market prices 40 minutes before
+  a corp relying on direct Earth-Jupiter transmission.
+- Frontier bodies with no relay coverage are information dark zones — prices are
+  unknown until a ship physically visits and reports back.
+- A corp can build a relay at a strategic location and sell "early access" to
+  market data as a subscription service.
+- Spoofing: can a corp broadcast false price data from their own relay? Yes,
+  but certified relays (SCA-verified) are trusted. Uncertified relay data is
+  "use at your own risk."
+
+#### Smart Contracts and Latency
+
+This interacts with the contract system:
+- A contract offer broadcast from Earth takes 40 minutes to reach Jupiter.
+  By the time a Jupiter-based corp accepts, someone closer may have already taken it.
+- "Accept" messages propagate at light speed too. First-to-accept wins, determined
+  by arrival time at the contract's originating node.
+- This creates **natural geographic advantages** — corps based near contract-rich
+  colonies react faster to opportunities. Frontier corps trade speed for margin.
 
 ### Who Operates What
 
@@ -125,29 +252,11 @@ Any player or NPC corp can operate at any level of the chain:
 - **Pure miner**: Extract and sell raw ore. Low margin, low capital requirement.
 - **Integrated miner**: Extract + refine on-site. Better margin, needs refinery investment.
 - **Hauler**: Own no mines. Buy processed materials, deliver to where they're needed.
-- **Manufacturer**: Buy refined materials, produce components/ships. Sell to corps/colonies.
+- **Component manufacturer**: Buy refined materials, produce components. Sell to assemblers.
+- **Shipbuilder**: Operate a shipyard. Control who gets ships and when.
+- **Drone manufacturer**: Produce the workforce. Every mining corp is a customer.
+- **Telecom**: Build and operate comms relays. Sell bandwidth and market data.
 - **Conglomerate**: The whole chain. Massive capital, economies of scale, political power.
-
-### Ship Manufacturing (not a menu — a supply chain)
-
-Ships are not bought from a UI shop. They're built:
-
-1. A **shipyard** (owned by a corp, located at a body) needs:
-   - Hull plating (from refined iron)
-   - Drive components (from rare earths)
-   - Electronics (from platinum)
-   - Hab modules (from glass/ceramics)
-   - Fuel tankage (from refined metals)
-2. The shipyard's owning corp sets the **price and queue**
-3. Other corps place **orders** — pay upfront, wait for construction
-4. Construction time depends on component availability and shipyard capacity
-5. If a shipyard runs out of drive components, all orders stall until resupplied
-
-This means:
-- **Shipyard owners have power** — they choose who gets ships first
-- **Supply disruptions cascade** — a platinum shortage → no electronics → no ships → fleet stagnation
-- **A mining corp that controls rare earth supply controls the shipbuilding pace**
-- **A corp can partner with a shipyard** — guaranteed component supply in exchange for priority orders or revenue share
 
 ## Governance & Contract Enforcement
 
@@ -282,29 +391,132 @@ is about strategy, not deception:
 - **Reputation warfare**: Consistently fulfill contracts the competitor abandoned.
   The market learns who's reliable.
 
-## Workforce & Automation
+## Workforce, Population & Life Support
 
-### The AI/Robotics Question
+### Colony Types
 
-By 2058, AI and robotics are mature. This affects the game economy:
+Not all settlements are the same. The human presence (or absence) determines what a
+colony needs, what it can produce, and how it behaves in the economy.
 
-- **Mining rigs** are mostly automated. Crew is 2–3 humans supervising dozens of robots.
-- **Freighters** can be AI-piloted (cheaper operating cost, but slower decision-making in emergencies).
-- **Refineries/factories** are heavily automated. Human labor is management and maintenance.
-- **Colonies** need humans for governance, culture, services. Can't be fully automated.
+**Drone Outpost** (unmanned)
+- Fully automated mining/refining operation
+- No life support costs, no food, no hab modules needed
+- Requires: power, maintenance drones, periodic resupply of replacement parts
+- Limitation: can't handle novel situations. If geology is weird or equipment fails
+  in an unexpected way, the outpost stops and waits for a human visit.
+- No population growth. No local market. Pure extraction node.
+- Cheap to establish, limited upside.
 
-### Labor as a Resource
+**Crewed Station** (small human presence, 10–200 people)
+- Human supervisors + drone workforce
+- Needs: food, water, air (life support consumables), hab modules, medical supplies
+- Capable of: adapting to problems, making on-site decisions, light manufacturing
+- Small local market for crew amenities (entertainment, personal goods — minor economy)
+- Can upgrade to full colony if population grows
 
-Skilled workers are scarce in space:
-- **Engineers**: Needed to build and maintain infrastructure. Recruited from colonies.
-- **Pilots**: Human pilots handle complex maneuvers better than AI (warp transit edge cases). Premium cost.
-- **Managers**: Each facility needs management. More facilities = more overhead.
-- AI crew is cheaper but has limitations (can't improvise, vulnerable to novel situations).
+**Colony** (established settlement, 200–50,000 people)
+- Self-sustaining workforce with families, services, governance
+- Needs: everything. Full supply chain of consumables.
+- Produces: skilled labor, local services, culture, governance
+- Has a real market with diverse demand
+- Can house shipyards, factories, drone plants
+- Population grows if well-supplied, shrinks if neglected
 
-This creates a strategic choice:
-- **All-robot fleet**: Low operating cost, but brittle. One unexpected situation and you lose a ship.
-- **Human crews**: Expensive, but resilient. Can handle pirates, equipment failures, first contact with unknowns.
-- **Mixed**: Robots for routine runs, humans for high-value or frontier missions.
+**City** (major settlement, 50,000+ people)
+- Economic hub. Generates contracts, has deep markets, diverse industry
+- Mostly self-sufficient in basic goods but imports specialty items and raw materials
+- Exports: manufactured goods, skilled labor, financial services
+- Political power — can lobby SCA, influence system-wide policy
+- Only appears in Established/Late Stage start modes or after decades of growth
+
+### The Human Supply Chain
+
+Humans need to eat, breathe, and not die. This creates an entire parallel economy:
+
+```
+FOOD CHAIN
+──────────────────────────────────────────────────────────
+Hydroponics bays  →  Raw produce      →  Colony food supply
+  (need: water, power, nutrients,        (need: regular deliveries
+   grow modules, agricultural drones)     or local production)
+
+Protein synthesis  →  Synthetic protein →  Colony food supply
+  (need: chemical feedstock from          (shelf-stable, shippable,
+   volatiles, power, biotech equipment)    less palatable but reliable)
+
+Earth/Homeworld   →  Premium food      →  Luxury market
+  imports              (real agriculture)    (high price, morale boost)
+```
+
+```
+LIFE SUPPORT CHAIN
+──────────────────────────────────────────────────────────
+Water ice          →  Purified water    →  Drinking, agriculture,
+                                           industrial coolant
+Water electrolysis →  O₂               →  Atmosphere
+                  →  H₂               →  Fuel, chemical feedstock
+CO₂ scrubbers     →  (need: chemical   →  Atmosphere recycling
+                       filters, power)
+Medical supplies   →  (manufactured     →  Colony health
+                       from biotech +       (population growth rate
+                       chemical feedstock)    depends on medical access)
+```
+
+**Food as a strategic resource:**
+- A colony that can't feed itself is dependent on imports — and the corps that supply food
+  have enormous leverage.
+- A corp that controls food supply to a colony controls the colony's workforce availability.
+- Hydroponics can be built locally but takes time and resources. Until then, the colony
+  imports or starves.
+- Frontier outposts with human crews need regular food shipments. Miss a delivery and
+  crew morale drops → productivity drops → eventually they evacuate.
+
+### Crew & Labor Economics
+
+**Humans are expensive but irreplaceable for certain tasks:**
+
+| Role | Monthly cost | What they do | Drone alternative? |
+|------|-------------|-------------|-------------------|
+| Engineer | High | Build/repair complex systems, handle novel failures | Maintenance drones (routine only) |
+| Pilot | High | Navigate edge cases, warp transit decisions, emergency response | AI pilot (cheaper, slower reactions) |
+| Geologist | Medium | Assess deposits, optimize extraction | Survey drones (surface only, miss subsurface) |
+| Manager | Medium | Run facilities, negotiate, make strategic decisions | No alternative |
+| Medic | Medium | Keep crew alive | Telemedicine from colony (delayed by light-speed) |
+| Worker | Low | General labor, loading, maintenance | Construction/mining drones |
+
+**Crew needs (per person per month):**
+- Food: ~0.05 tons (hydroponics produce or imported)
+- Water: ~0.1 tons (recycled at 95% efficiency, need 5% resupply)
+- Air: negligible if recycling works; catastrophic if it doesn't
+- Hab space: 1 hab module per ~10 crew
+- Medical: 0.01 tons medical supplies
+- Morale: entertainment, communication with home, shore leave rotation
+
+**The drone-vs-human calculus:**
+- **Drone outpost**: Zero crew cost, but can't adapt. Works for routine extraction of known deposits.
+- **Human-supervised**: 3–5 crew supervising 50 drones. Expensive but handles surprises. Best for new/complex sites.
+- **Full crew**: 20+ humans. Maximum flexibility, maximum cost. For shipyards, factories, complex operations.
+- **The trap**: Going all-drone saves money until something goes wrong. Then you need to send humans on a multi-week transit to fix it. Opportunity cost can dwarf the savings.
+
+### Population Dynamics
+
+Colonies grow or shrink based on conditions:
+
+```
+Population growth rate = base_rate
+  × food_satisfaction      (0–1, drops below 1 if food supply < demand)
+  × medical_access         (0–1, depends on medical supply and facilities)
+  × economic_opportunity   (0–1, are there jobs? is pay good?)
+  × morale                 (0–1, entertainment, communications, safety)
+  - emigration_rate        (people leave if conditions are bad)
+```
+
+A thriving colony attracts immigrants (from homeworld or other colonies), providing
+more labor supply. A neglected colony hemorrhages population. Ghost towns are possible
+— a colony abandoned when its primary resource was exhausted.
+
+**Immigration/emigration** requires passenger transport — another ship type and revenue
+stream. Corps can run "colony ships" ferrying workers to labor-hungry outposts.
 
 ## Diplomacy & Relationships
 
