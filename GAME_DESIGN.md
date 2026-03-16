@@ -940,6 +940,45 @@ What this means for coverage:
 - **Deep frontier (200+ AU):** Only reachable via premium stations or chains of 7+
   standard relays. The corp that builds this controls frontier information access.
 
+**Bloc relay policies:**
+
+Each political bloc operates relay infrastructure with different policies on
+encrypted traffic. This is a fundamental political division:
+
+- **Commonwealth relays**: Encrypted traffic allowed. Privacy as a right.
+  Corps can send encrypted messages, fleet orders, and private negotiations
+  through Commonwealth relay infrastructure without inspection.
+- **Coalition relays**: Encrypted traffic allowed. Same privacy stance — the
+  Coalition's roots in resistance movements made encryption a cultural value.
+- **Collective relays**: **Encrypted traffic not forwarded.** All traffic must
+  be in cleartext or use Collective-approved "transparent encryption" (keys
+  escrowed with Collective authorities). The state-directed culture views
+  private corporate communication as a potential security threat.
+- **Consortium relays**: **Encrypted traffic not forwarded.** The Consortium's
+  standards-body culture values transparency and auditability. If it can't
+  be inspected for standards compliance, it doesn't get forwarded.
+
+**What this means for gameplay:**
+
+- **Routing is a political choice.** The shortest relay path might go through
+  a Collective relay that strips your encryption. The privacy-preserving path
+  might be longer and more expensive.
+- **Bloc alignment affects comms.** A Commonwealth-aligned corp has natural access
+  to encrypted relay infrastructure. A Collective-aligned corp's own bloc relays
+  won't carry their private traffic — they need to route through Commonwealth or
+  Coalition relays for sensitive communications.
+- **Frontier relays are player-owned.** Beyond bloc infrastructure, corps build
+  their own relays with their own policies. A player's relay can allow or deny
+  encrypted traffic at their discretion — another business decision.
+- **Sneakernet becomes essential for Collective/Consortium space.** Corps
+  operating in regions where only cleartext relays exist MUST physically
+  transport sensitive data. This makes the information-as-cargo mechanic more
+  relevant in certain political geographies.
+- **Espionage opportunity.** Collective and Consortium relay operators can read
+  all traffic that passes through their infrastructure. This is official policy,
+  not hacking. Corps that don't understand the relay landscape leak intelligence
+  through their own comms routing.
+
 **What relay owners control:**
 - **Coverage**: Only relay in range of a frontier body? Monopoly pricing on bandwidth.
 - **Priority**: Own traffic arrives slightly before competitors'. Not forgery — faster delivery.
