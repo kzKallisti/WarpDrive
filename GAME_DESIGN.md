@@ -1329,6 +1329,61 @@ Governance evolves: first corp at a body → company town. Second corp arrives �
 negotiation. Population grows → pressure for independent governance. Multiple independent
 colonies → trade confederations form.
 
+### Taxation
+
+Taxes are local, set by each colony's governance. There is no system-wide tax authority.
+Each colony decides its own rates, and those rates fund local services (defense, port
+authority, infrastructure, education, life support subsidies).
+
+**What's taxed:**
+- **Docking fees**: Per-dock, per-day. The baseline cost of having ships at a port.
+- **Transaction tax**: Percentage of market transactions conducted at the port. This is
+  the big one — every buy/sell at a colony pays a cut to the colony treasury.
+- **Facility lease**: Monthly fee for operating a refinery, factory, or other facility
+  at a colony. Based on footprint and resource usage.
+- **Import/export tariffs**: Some colonies tax specific goods coming in or out.
+  A company town might tariff competing products. An independent colony might tariff
+  luxury imports to fund social programs.
+
+**Tax rates vary by governance:**
+- **Company town**: Low taxes for the owning corp (they ARE the government). High for
+  competitors — or outright access denial. Effective tax haven for the owner.
+- **Independent colony**: Moderate, democratically set. Rates reflect resident priorities
+  — high defense spending means higher taxes, good education means higher taxes.
+  Transparent and predictable.
+- **Consortium**: Negotiated between member corps. Each member may have different
+  effective rates based on their investment share. Complex but generally moderate.
+- **Free port**: Zero taxes. Zero services. You get what you pay for.
+
+**Tax arbitrage is gameplay:**
+- A corp can choose to base operations at low-tax colonies and accept worse services
+  (weaker defense, slower enforcement, less educated workforce).
+- Or base at high-tax colonies and benefit from better infrastructure, defense, labor
+  pool, and enforcement.
+- Or operate through pseudonymous addresses at free ports to avoid taxes entirely —
+  but with no enforcement, no scanner oracles for contract settlement, and no legal
+  recourse if something goes wrong.
+- Colonies compete for corporate tenants. A colony that raises taxes too high loses
+  corps to cheaper neighbors. A colony that cuts taxes too low can't fund services
+  and deteriorates. This dynamic is emergent, not scripted.
+
+**Tax evasion:**
+- Operating through pseudonymous addresses to avoid association with a taxable
+  identity is possible but has costs: you lose reputation history, colony standing,
+  and access to identity-gated services (loans, preferred contracts).
+- Under-reporting transactions by settling off-port (ship-to-ship transfer outside
+  port scanner range) avoids transaction tax but also avoids contract escrow
+  protections. You're trading in the dark.
+- A colony's port authority (if it has one) monitors for tax evasion. Quality of
+  enforcement determines how much evasion they catch. A quality-80 port authority
+  with good analytics catches most evasion. A quality-30 one catches almost none.
+
+The tension: **taxes fund the services that make a colony worth operating at.** A
+corp that evades taxes is free-riding on infrastructure paid for by others. If
+enough corps evade, the colony can't fund defense, port authority, education, or
+life support — and deteriorates into a free port. This is the tragedy of the commons
+playing out at colony scale.
+
 ### Alliances & Confederations
 
 **Trade Confederations**: Colonies agree on shared standards (cargo grades, scanner
