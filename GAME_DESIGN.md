@@ -494,26 +494,38 @@ product in the game.
 
 There is no tech tree. Technology improves through **quality propagation** — a continuous
 scalar that flows through the entire supply chain. Every resource, component, facility,
-and worker has a quality level. Output quality is a function of input qualities:
+and worker has a quality level. Output quality is a weighted function of input qualities:
 
 ```
-output_quality = f(input_material_quality, facility_quality, labor_quality)
+output_quality = (material_quality × 0.5) + (facility_quality × 0.3) + (labor_quality × 0.2)
 ```
 
-The function is bottlenecked by the weakest input — you can't produce quality-80
-electronics from quality-30 platinum, no matter how good the factory or the engineers.
-But a quality-80 factory with quality-80 workers processing quality-50 ore produces
-quality ~50 output — not wasted, just capped by the material.
+Material is the heaviest factor but NOT an absolute ceiling. Skilled workers with good
+tools extract more value from mediocre inputs — a master metallurgist with a quality-80
+refinery gets more out of quality-50 ore than an apprentice with a quality-30 refinery:
+
+| Ore | Facility | Labor | Output | What happened |
+|-----|----------|-------|--------|---------------|
+| 50  | 80       | 80    | **65** | Good tools + skill lifted mediocre ore by 15 points |
+| 80  | 30       | 30    | **55** | Great ore, but bad tools + unskilled labor wasted its potential |
+| 80  | 80       | 80    | **80** | Everything aligned — full quality throughput |
+| 30  | 30       | 30    | **30** | Everything bad — no miracles |
+| 30  | 90       | 90    | **51** | Exceptional tools + skill squeezed 21 points from bad ore |
+
+The weights (50/30/20) are tuning parameters. The principle: **material matters most,
+but skill and equipment are genuine multipliers, not just pass-through.** A corp that
+invests in top-tier facilities and engineers gets meaningfully better output from the
+same ore deposits as a competitor with worse infrastructure.
 
 **How quality propagates:**
 
 ```
 Ore (quality varies by deposit)
   → Refinery (quality = components that built it)
-    → Refined material (quality ≈ min(ore, refinery, labor))
+    → Refined material (quality = weighted function of ore, refinery, labor)
       → Component factory (quality = components that built IT)
-        → Components (quality ≈ min(material, factory, labor))
-          → Ship/facility/drone (quality ≈ component quality)
+        → Components (quality = weighted function of material, factory, labor)
+          → Ship/facility/drone (quality ≈ average of component qualities)
             → Performance (quality scalar on efficiency stats)
 ```
 
