@@ -806,16 +806,87 @@ that plus traffic pattern analysis, market trend computation, competitor activit
 summaries, and LLM-generated intel briefings. The command center is a better camera,
 not a required relay for orders.
 
-**Orders from any asset:** Any manned asset can issue orders locally. Your freighter
-captain at Eris can accept a local contract without waiting for HQ approval. But
-coordinating across assets (telling your Jupiter fleet to reposition based on what
-your Eris freighter just learned) requires relay communication — the freighter sends
-a message, it travels at light speed, your Jupiter command center receives it and
-issues orders to the local fleet.
+### Standing Directives (the core control mechanism)
 
-**Standing orders** still work as before: "sell platinum whenever price > 500₵/t" runs
-locally at the port, no relay delay. The asset executes autonomously within parameters
-you set.
+Assets are not directly controlled in real-time. The player writes **standing
+directives** — behavioral scripts that assets execute autonomously based on their
+local information. This is the fundamental control mechanism of the game.
+
+**Why directives, not direct control:**
+- Your freighter at Eris sees a deal. You're looking at Jupiter. By the time you
+  switch viewpoint and decide, the deal is gone. But a directive you wrote earlier —
+  "buy platinum below 40₵/t if quality ≥ 60" — executes instantly because it's
+  already on the freighter.
+- Direct control across light-speed delay is clunky: issue order, wait 41 seconds,
+  see result, adjust. Directives are fire-and-forget: write once, asset executes
+  locally, you review results when relay reports arrive.
+- This is how real distributed organizations work. A CEO doesn't call every sales rep
+  before every deal. They set policy. The reps execute within policy. The CEO reviews
+  performance and adjusts policy.
+
+**The LLM as directive compiler:**
+
+The built-in LLM translates natural-language intent into structured executable rules.
+The player writes what they want in plain language. The LLM produces a deterministic
+script. The player reviews and approves. The game engine executes the script — no LLM
+in the execution loop, just in the authoring.
+
+```
+PLAYER WRITES:
+"Buy platinum below 40₵/t only if quality 60+, only at ports where our standing
+is Good or better, don't spend more than 30% of available credits, and only when
+fuel reserves allow a return trip to Jupiter with at least 20% margin."
+
+LLM COMPILES TO:
+{
+  trigger: "dock_at_port",
+  conditions: [
+    { resource: "platinum", price_below: 40, quality_min: 60 },
+    { standing_min: "good" },
+    { credits_commitment_max: 0.30 },
+    { fuel_reserve_min: "return_trip_jupiter_120pct" }
+  ],
+  action: { buy: "platinum", max_tonnes: 2000, then: "route_to_jupiter" }
+}
+```
+
+The compiled directive is a deterministic rule — no ambiguity, no LLM interpretation
+at runtime. The player can inspect, edit, and test the compiled version before
+deploying it. Advanced players can write the structured rules directly and skip the
+LLM entirely.
+
+**Directive complexity scales with player skill:**
+
+- **Beginner**: "Deliver cargo to nearest colony" → simple route order
+- **Intermediate**: "Run platinum between Vesta and Terra, buy below 50, sell above 80,
+  refuel at any depot under 15₵/t" → automated trade route with conditions
+- **Advanced**: "If platinum price at any observed port drops below 35₵/t AND our
+  Vesta refinery has less than 500t input inventory AND fuel cost for the trip is
+  less than 20% of cargo value, divert to buy. Otherwise continue current route.
+  If approached by unidentified ships, dump low-value cargo and burn for nearest
+  defended port." → complex conditional behavior with threat response
+
+The game's skill ceiling is in writing better directives. A fleet of 20 ships with
+brilliant directives outperforms a fleet of 50 ships with dumb ones.
+
+**Direct intervention is still possible** — but it's an override, not the default.
+The player can select any asset and issue a one-time order ("go here now, ignore your
+current directive"). This propagates at light speed from the player's current viewpoint
+to the asset. It's the "I see something the directive doesn't account for" escape valve.
+But relying on direct intervention means relying on being faster than physics — which
+works in the inner system and fails in the outer system.
+
+**Directives solve the UI problem:**
+
+Instead of 50 buttons, sliders, and context menus per asset, the interface is:
+1. **Directive editor**: Text input (natural language or structured) + LLM compilation
+   + review screen + deploy
+2. **Directive monitor**: For each asset, show current directive, recent actions taken,
+   and exceptions/alerts where the directive couldn't decide
+3. **Direct override**: One-click "go here" / "buy this" / "flee" for urgent situations
+
+The player spends most of their time writing and refining directives, reviewing
+outcomes, and handling exceptions. Not clicking buttons every 30 seconds.
 
 **Progression:**
 - Early: One ship = one viewpoint. You see the world from wherever your ship is.
@@ -2151,9 +2222,25 @@ LLM renders: *"URGENT — Frontier Station Tau-9 requesting emergency medical su
 'We've had a mining accident and our stocks are depleted. Any corp in range, we'll pay
 triple rate. People are hurt.' — Station Administrator Chen"*
 
+### LLM as Directive Compiler
+
+The LLM's most important role isn't narration — it's **translating player intent into
+executable directives.** This is the primary gameplay interface for fleet management.
+
+The LLM takes natural language ("buy platinum cheap, sell at Jupiter") and produces a
+structured rule the game engine can execute deterministically. The player reviews the
+compiled output before deploying. The LLM is never in the execution loop — only in
+the authoring loop.
+
+This means the LLM quality directly affects gameplay accessibility. A good model
+correctly interprets "don't overcommit on credits" as a percentage cap. A bad model
+might misinterpret it. The review step catches errors, but better models mean fewer
+corrections.
+
 ### What the LLM Does NOT Do
 
-- Does not make game decisions (NPC strategy is deterministic code)
+- Does not execute directives (deterministic game engine does)
+- Does not make NPC decisions (NPC strategy is deterministic code)
 - Does not generate contracts (simulation generates terms, LLM adds flavor text)
 - Does not resolve disputes or combat (pure simulation)
 - Does not have memory across calls (stateless — context is passed per-call from
