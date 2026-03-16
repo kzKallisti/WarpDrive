@@ -1254,6 +1254,136 @@ has a functioning but miserable workforce. A corp that invests through Tier 3 ha
 competitive advantage that compounds over time — and it's an advantage that's hard for
 competitors to replicate quickly, because workforce quality takes time to build.
 
+### Payroll & Labor Economics
+
+Workers are your biggest recurring cost. Every crewed facility, every manned ship,
+every command center has a payroll. Understanding labor economics is the difference
+between a profitable empire and one that bleeds credits.
+
+**Wage determination:**
+
+Workers have a **market wage** set by colony-level supply and demand. The colony's
+labor market is a real market — wages float based on how many workers are available
+vs how many jobs exist.
+
+- **Labor surplus** (more workers than jobs): Market wage drops. Corps can hire cheap.
+  Workers accept lower offers because the alternative is unemployment. Colony morale
+  suffers (unemployment breeds resentment).
+- **Labor shortage** (more jobs than workers): Market wage rises. Corps bid against
+  each other for scarce talent. Workers demand premium pay. This is common at
+  frontier colonies and rapidly growing outposts.
+- **Specialization premium**: Engineers, geologists, and pilots command higher wages
+  than general workers. The premium scales with local scarcity — an engineer at a
+  frontier outpost with only 3 engineers in the labor pool commands extreme wages.
+  The same engineer at a Terra city with 10,000 engineers earns standard rates.
+
+**What you pay:**
+
+| Cost | Per worker/month | Notes |
+|------|-----------------|-------|
+| Base wage | Market rate | Minimum to hire. Set by local supply/demand. |
+| Above-market premium | Optional | Attracts better talent, improves retention, boosts standing |
+| Life support | ~500₵ | Food, water, air, medical per person. Non-negotiable. |
+| Hab space | ~200₵ | Per person. Colony charges rent, or you build your own habs. |
+| Crew transport | One-time | Getting workers to remote locations costs a ship trip. |
+
+**Payroll as operating cost:**
+
+A crewed mining rig with 5 engineers and 15 workers at a belt asteroid:
+- 5 engineers × 3,000₵/month = 15,000₵
+- 15 workers × 1,000₵/month = 15,000₵
+- 20 people × 700₵ life support/hab = 14,000₵
+- **Total: ~44,000₵/month**
+
+That's BEFORE you account for equipment maintenance, propellant, reactor fuel. Crew
+costs dominate facility operating budgets. This is why drone operations are tempting —
+a drone rig at the same asteroid costs maybe 5,000₵/month in maintenance and power.
+But the drone rig can't handle the unexpected geology problem that a geologist solves
+in an afternoon.
+
+**Wage negotiation isn't micro-managed.** The player sets a **wage policy** per
+facility or fleet-wide:
+- **At market**: Pay exactly the going rate. No bonus, no penalty. Workers come and go.
+- **Above market (+X%)**: Attract better workers, improve retention. Standing boost.
+  Higher cost.
+- **Below market (-X%)**: Only attracts desperate workers (low quality). High turnover.
+  Standing penalty. Only viable in labor surplus colonies.
+- **Premium specialist**: Offer above-market rates for specific roles (engineers,
+  geologists) while paying standard for general workers. Targeted investment.
+
+The chat/directive interface handles this naturally: "Pay engineers 20% above market
+at all facilities. Standard rate for everyone else. If local unemployment exceeds 15%,
+drop to market rate across the board."
+
+**Crew retention:**
+
+Workers aren't locked to your corp. They evaluate their employment continuously:
+- Am I paid at or above market?
+- Is this facility safe? (maintenance quality, environmental record)
+- Is this colony livable? (comfort goods, comms access, education for my kids)
+- Does this corp treat people well? (standing reflects accumulated treatment)
+- Is there a better offer? (other corps at this colony, other colonies entirely)
+
+Workers who are unhappy leave — either to a competitor at the same colony or they
+emigrate to a better colony entirely. You lose their training investment and have to
+recruit replacements (which costs time and may mean lower quality).
+
+**Poaching:**
+
+Corps can actively recruit workers employed by competitors. Offer above-market wages
+with a signing bonus and workers switch. This is legal but damages your standing with
+the poached corp (they remember) and may trigger a wage war where both corps bid up
+labor costs, hurting margins for everyone.
+
+**Training investment:**
+
+Hiring a quality-30 worker and training them to quality-60 takes time and resources
+(education facilities, instructor time, lost productivity during training). If that
+worker then gets poached by a competitor, you've lost the investment. This creates
+an incentive to either:
+- Pay trained workers above market (retention through compensation)
+- Build a colony where people WANT to stay (retention through quality of life)
+- Accept turnover and run a training pipeline (always have workers in training)
+
+**Ship crew is separate from facility crew:**
+
+Ships carry their own crew. Ship payroll travels with the ship — you're paying these
+people whether the ship is hauling cargo or sitting in dock. An idle ship with crew
+is bleeding credits. This creates pressure to keep ships moving and to minimize crew
+size (drone-assisted ships with skeleton crews where possible).
+
+Ship crew also needs life support IN TRANSIT — food stores, water recycling, medical
+supplies loaded before departure. A long frontier trip to the outer system means
+loading enough supplies for months. That's cargo capacity used for crew support
+instead of revenue-generating cargo. Another reason drone ships are attractive for
+long hauls.
+
+**The full labor cost picture:**
+
+```
+Monthly operating cost of a crewed facility:
+  Payroll (wages × headcount)              — the biggest line item
+  + Life support (food, water, air, medical) — non-negotiable
+  + Hab lease or hab maintenance            — where they live
+  + Equipment maintenance                   — quality degrades
+  + Power (reactor fuel or solar)           — keeps everything running
+  + Consumables (drone parts, tools)        — operational needs
+  = TOTAL OPERATING COST
+
+Compare to drone-only facility:
+  Power                                     — still needed
+  + Equipment maintenance                   — higher drone attrition
+  + Drone replacement parts                 — ongoing
+  + Periodic human visit for exceptions     — expensive but infrequent
+  = TOTAL (typically 15-25% of crewed cost)
+```
+
+The 75-85% cost savings from going all-drone is real. The question is whether you
+can afford the brittleness. A crewed facility costs 4x more but handles surprises,
+maintains quality, and improves over time (workers learn and get better). A drone
+facility is cheap but static — it produces the same quality forever and breaks when
+something unexpected happens.
+
 ### Colony Standing
 
 Workers choose where to work. A corp's ability to hire depends on how the colony
