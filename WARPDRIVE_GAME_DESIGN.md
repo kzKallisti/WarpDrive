@@ -10,118 +10,58 @@
    - Terra & Luna (constants), Terran political blocs & rivalry axes
    - Playability constraints, start modes (Frontier → Late Stage)
 4. **Resources & Supply Chain**
-   - 9 raw resources + Casimir matter (warp fuel from quantum vacuum energy)
+   - 7 resources + Casimir matter (consolidated: each creates a unique decision)
    - Resource depletion (large bodies inexhaustible, small bodies deplete)
    - Power (solar/fission/fusion gradient), propulsion (fusion torch Isp 3000s,
      variable acceleration: a = thrust / total_mass)
-   - Three ship consumables (reactor fuel, propellant, Casimir fuel rods)
-   - Propellant cost depends on Δv not distance (belt hops cheap, planetary escapes expensive)
-   - Mass, volume & cargo physics (real densities, Tsiolkovsky impact, deadheading penalty)
-   - Body composition types
-   - Full supply chain diagram (extraction → processing → manufacturing → consumer)
-   - Quality & technology progression (60/24/16 weighted formula, chain propagation,
-     inter-corp specialization deals, quality-to-physics: mass_factor & durability)
-   - Maintenance (ships, drones, infrastructure — same component pool)
-   - Processing facilities & corp roles (pure miner → conglomerate)
-   - Human supply chain (food, life support, medical)
-   - Currency (₵) & finance (collateralized loans, insurance DAOs with premium formula)
+   - Two consumables (propellant + Casimir fuel) + reactor core (maintenance item
+     with life %, failure risk, used core secondary market)
+   - Propellant cost depends on Δv not distance (belt hops cheap, escapes expensive)
+   - Mass, volume & cargo physics (real densities, Tsiolkovsky, deadheading)
+   - Supply chain diagram (extraction → processing → manufacturing → consumer)
+   - Quality & technology progression (60/24/16 formula, chain propagation,
+     inter-corp deals, quality-to-physics: mass_factor & durability)
+   - Maintenance, processing facilities, corp roles, human supply chain
+   - Currency (₵) & finance (collateralized loans, flat insurance)
 5. **Communications & Information**
-   - Relays (Nostr-style trust, ~30 AU standard / ~600 AU premium range)
-   - Bloc relay encryption policies (Commonwealth: both, Collective: cleartext only,
-     Consortium: encrypted only, Coalition: 33% each — encryption costs are physical)
-   - Asset-based perspective (each asset is a viewpoint with its own info bubble)
-   - Standing directives & LLM directive compiler (chat as command interface)
-   - Exception handling (configurable default behavior per asset)
-   - All communication is in-world (players and AI obey same physics)
-   - Out-of-band communication resistance (Discord gives social, not mechanical advantage)
-   - Information as cargo (broadcast / encrypted / sneakernet)
-   - Fog of war (you only know what you've observed, intel decays)
-   - Passive intelligence, counterintelligence
+   - Relays (policy-enforcing infrastructure, ~30 AU / ~600 AU range)
+   - Bloc relay policies (2×2 matrix: encryption × logging)
+   - Asset-based perspective, standing directives, chat interface
+   - Exception handling, all comms in-world, OOB resistance
+   - Information as cargo, fog of war, passive intelligence
 6. **Colonies, Workforce & Population**
-   - Colonies vs corps vs private installations (many-to-many)
-   - Colony types (drone outpost → crewed station → colony → city)
-   - Workforce roles & drone-vs-human calculus
-   - Worker needs tiers (survival → comfort → growth/education)
-   - Immigration pipeline & feedback loops
-   - Payroll & labor economics (market wages, retention, poaching, training, ship crew costs)
-   - Colony standing (affected by wages, safety, environment, investment, supply, employment)
-   - Environmental dynamics, population dynamics
+   - Colonies vs corps vs private installations
+   - Colony types, workforce, drone-vs-human calculus
+   - Worker needs (Tier 1-2 for Phase 1-2, Tier 3 in Phase 3+)
+   - Immigration, payroll & labor economics, colony standing
+   - Colony founding, environmental dynamics, population dynamics
 7. **Governance & Law**
-   - Design principle: no game-rule restrictions (all consequences emergent)
-   - Colony governance types (independent, company town, consortium, free port)
-   - Taxation (docking fees, transaction tax, tariffs)
-   - Lobbying (spend credits to influence policy, on-chain transparent, counter-lobbying)
-   - Tax rate ≠ service quality (governance quality is the function)
-   - Corp-funded vs tax-funded services (socialized vs privatized tradeoff)
-   - Colony enforcement apparatus (physical, port authority, legal, impound, summon)
-   - Alliances, confederations, defense pacts
-   - The SCA (one possible emergent institution, not guaranteed)
+   - No game-rule restrictions, colony governance types
+   - Taxation, lobbying, governance quality, enforcement apparatus
+   - Alliances, confederations, defense pacts, the SCA
 8. **Contracts, Commerce & the Underground**
-   - Privacy model (pseudonymous identity, encrypted-by-default, credit mixing)
-   - Smart contract escrow (trustless happy path)
-   - Reputation (observable history, not a score — entities judge independently)
-   - Trust spectrum (certified port → frontier handshake)
-   - Cargo manifests & scanners (scanner detection formula: quality difference)
-   - Scanner warfare (hacked scanners, ship-mounted defense scanners)
-   - Smuggling mechanics (shielded containers, manifest falsification, hidden compartments)
+   - Information visibility (corps are named entities, fog of war is the privacy)
+   - Smart contract escrow, reputation, trust spectrum
+   - Scanner detection formula, smuggling, scanner warfare
    - Black markets & information brokering
 9. **Ships, Fleet & Manufacturing**
-   - Modular component system (universal component types, slot-based assembly)
-   - Ship properties, classes (scout, freighter, heavy hauler, mining, tanker, colony)
-   - Ship & drone manufacturing (supply-chain-built, not menu-bought)
-   - Weapons & combat equipment (railgun, mining laser, EMP, point defense — compete
-     for civilian components, militarization has opportunity cost)
-   - Fleet management & trade routes (emergent from directives)
-   - Passenger transport (immigration, piracy stakes, political leverage, evacuation)
-10. **Combat & Conflict**
-    - Physical constraints (low-speed only, no stealth, ships aren't warships)
-    - Graduated escalation (Level 0–4, emergent consequences not game rules)
-    - Combat mechanics (auto-resolve with directives, not twitch — CEO in situation room)
-    - Economic warfare (Level 0 — most common, invisible on transponder logs)
-11. **AI Corporations**
-    - Decision model (same constraints as players — comms physics, info asymmetry)
-    - Personality archetypes (hauler, prospector, trader, monopolist, frontier)
-    - AI-first design (single player IS multiplayer with all-AI opponents)
-12. **Game Modes**
-    - Single player, multiplayer (authoritative server, deterministic orbits = sync time only)
-    - Time speed (default 60x — 1 real minute = 1 game hour)
-    - Async variant, spectator mode
-13. **User Interface & Gameplay Flow**
-    - Map as primary interface (3D navigation map IS the CEO terminal)
-    - Asset-based interaction model (select asset → see its perspective → act from it)
-    - Chat interface (fleet commands / diplomacy / market — unified, LLM-powered)
-    - Contract system (colony-generated, corp-generated, standing directives, facility demand)
-    - Contract lifecycle (created → visible → accepted → in progress → settlement → complete)
-    - Notification system (critical/important/info, directives suppress routine noise)
-    - Information panels (fleet, finance, reputation, intel)
-    - Multiplayer-specific UI (in-world async chat, diplomatic proposals, time controls)
-14. **Random Events & Emergencies**
-    - Event philosophy (disruptions = problem + opportunity, physically grounded)
-    - Categories (equipment, stellar, colony, discovery, market)
-    - Event probability (condition-based from simulation state, not timer)
-15. **Pacing & Progressive Disclosure**
-    - Early game (hauler → investor → empire → power player)
-    - Mid-game depth (escalating complexity reveals, milestone ladder hours 1–10)
-    - Why the economy doesn't stagnate (orbital cycles, depletion, NPC competition, quality treadmill)
-16. **Economic Parameters (Ballpark)**
-    - Starting conditions (10K₵ seed + 50K₵ starter loan, no assets)
-    - Ship costs, facility costs, resource prices, contract pay
-    - Economic validation (sanity checks: early game profitability, shipyard timeline, Casimir condenser ROI)
-17. **LLM Integration (Narrative Layer)**
-    - Dual model: 0.8B background (news/intel) + 4B interactive (chat/directives/diplomacy)
-    - WASM in-browser via llama.cpp (~3 GB total, cached in IndexedDB)
-    - Inference budget (2–5 calls/min, relay delay hides latency)
-    - LLM as directive compiler (natural language → deterministic rules, player reviews)
-    - Use cases (System Herald, NPC voice, colony narration, intel briefings, contract color)
-    - What the LLM does NOT do (no decisions, no execution, no memory, no hallucination)
-    - Prompt architecture, offline/template fallback
-18. **Technical Architecture**
-    - What WarpDrive already provides (orbital engine, transit physics, Three.js, lit-html)
-    - What changes (static bodies → procedural, single ship → fleet + economy)
-    - New modules (generator, economy, contracts, fleet, comms, combat, ai, save)
-    - Development phases (1: core loop → 2: depth → 3: infrastructure → 4: conflict →
-      5: multiplayer → 6: polish)
-19. **Open Questions**
+   - Modular component system (slot-based, universal components)
+   - Ship properties, classes, manufacturing (supply-chain-built)
+   - Weapons (dual-use civilian components, deferred to Phase 4)
+   - Fleet management, passenger transport
+10. **Combat & Conflict** (deferred — design retained, build on demand)
+11. **AI Corporations** — Decision model, archetypes, NPC-to-NPC, AI-first
+12. **Game Modes** — Single/multiplayer/async, 60x default
+13. **User Interface** — Map primary, chat secondary, contracts, notifications
+14. **Random Events** — Condition-based, cascading, problem + opportunity
+15. **Pacing** — Progressive disclosure, milestone ladder, anti-stagnation
+16. **Economic Parameters** — Ballpark numbers, validation
+17. **LLM Integration** — Dual model WASM, directive compiler, narrative
+18. **Technical Architecture** — Modules, development phases (0.5→6)
+19. **Endgame: Warpgates** — c² wormhole transit, save-file linking
+20. **External Feedback & Design Panel** — Moth/Hamster review, 5-designer synthesis
+21. **Design Notes** — Prototyping notes, deferred decisions
+22. **Open Questions**
 
 ---
 
@@ -373,19 +313,18 @@ Resources don't teleport from asteroid to market. The supply chain is the game.
 
 ### Resource Types
 
-**Raw materials** (mined, must be processed):
+**Raw materials** (mined, must be processed). Consolidated to 7 — each creates a
+decision no other resource creates:
 
-| Resource | Found on | Processed into |
-|----------|----------|----------------|
-| Iron/Nickel ore | Rocky bodies, M-type asteroids | Refined metals → structural, hull |
-| Platinum ore | Rocky bodies, M-type asteroids | Refined platinum → electronics, sensors |
-| Rare earth ore | Rocky bodies, some asteroids | Processed RE → drives, actuators, superconductors |
-| Silicates | S-type asteroids, rocky bodies | Glass/ceramics → optics, habs |
-| Copper/Aluminum ore | Rocky bodies | Refined conductors → wiring, antennas |
-| Uranium/Thorium ore | Rocky bodies, some asteroids | Reactor fuel rods |
-| Water ice | Icy moons, C-type asteroids, comets | H₂/O₂ (propellant), purified water (life support) |
-| Volatiles | Comets, icy bodies, gas giant moons | Chemical feedstock → propellant, polymers |
-| Helium-3 | Gas giant atmospheres (via moons) | Fusion fuel (expensive to extract, natural endgame) |
+| Resource | Found on | Processed into | Unique role |
+|----------|----------|----------------|-------------|
+| Metals ore | Rocky bodies, M-type asteroids | Refined metals → structural, hull, wiring, conductors | Bulk industrial, high volume |
+| Platinum ore | Rocky bodies, M-type asteroids | Refined platinum → electronics, sensors, Casimir plates | High-value, universal demand |
+| Rare earth ore | Rocky bodies, some asteroids | Processed RE → drives, actuators, superconductors | Strategic bottleneck |
+| Silicates | S-type asteroids, rocky bodies | Glass/ceramics → optics, hab modules | Colony construction |
+| Ice/Volatiles | Icy moons, C-type asteroids, comets | H₂ (propellant), water (life support), polymers, feedstock | Fuel + life support |
+| Uranium | Rocky bodies, some asteroids | Reactor cores (manufactured component) | Power infrastructure |
+| Helium-3 | Gas giant atmospheres (via moons) | Fusion fuel (expensive to extract) | Endgame power |
 
 **Casimir matter:**
 
@@ -505,21 +444,41 @@ The ~10:1 ratio cited elsewhere is for full interplanetary transfers with signif
 Δv budgets. Low-Δv hops between small bodies are far cheaper. The game's economic
 geography is shaped by Δv costs, not by distance on the map.
 
-**Three ship consumables:**
-- **Reactor fuel** (uranium/thorium rods): Powers the ship's reactor. Consumed slowly,
-  limits total operational time before refueling.
+**Two ship consumables + one maintenance item:**
 - **Propellant** (H₂ from water electrolysis): Consumed during conventional thrust
   phases (ESCAPE, LAUNCH, BRAKE, INSERTION) by the fusion torch. At Isp 3000s, a
   typical interplanetary trip costs ~10× the cargo mass in propellant. This is why
   **propellant depots** are critical infrastructure — ships refuel at every stop.
 - **Casimir fuel rods**: Consumed during warp phases (WARP ON, CRUISE, WARP OFF). Limits
   how far you can warp per trip. The expensive one.
+- **Reactor core** (manufactured from uranium/thorium + electronics + superconductors):
+  Not a consumable — a component with a **life percentage** that degrades over time.
+  Cores degrade whether the ship is flying or docked (the reactor runs continuously).
+  Below 20% life, failure probability increases. A core failure in transit is a
+  serious emergency (loss of power = loss of life support, sensors, comms).
+
+  **Reactor core economics:**
+  - Replace at any facility with a shipyard (takes the ship out of service briefly)
+  - Used cores have residual value: sell price ≈ remaining_life% × new_core_price
+  - A used core at 40% life is a cheap option for a frontier operator who can't
+    afford new. It works, just runs out sooner and carries more risk.
+  - New cores are manufactured (uranium + electronics + superconductors) — creating
+    supply chain demand without a continuous fuel drain
+  - Core quality affects degradation rate: quality-80 core lasts ~1.6× as long as
+    quality-50 (durability scalar applies)
+
+  This replaces the "reactor fuel gauge" (watch a number drain, always refuel before
+  empty — no decision) with a scheduling decision (when do I replace? do I risk one
+  more trip at 18% life? do I buy used or new?). The anxiety of a low-life core
+  creates drama. "My freighter's core failed at 8%, stranded at a frontier body
+  with no replacement" is a story. "I forgot to refuel" is not.
 
 **Fuel economics shape the game:**
 - A ship without propellant is stranded in orbit.
 - A ship without Casimir fuel can still fly conventionally (fusion torch only) but
   takes weeks/months instead of minutes for interplanetary transits.
-- A ship without reactor fuel is dead in space.
+- A ship with a dead reactor core is dark — no power, no life support, no comms.
+  Emergency beacon only. Call for rescue or abandon ship.
 - **Propellant depots** at colonies and stations are essential. A corp that controls
   propellant supply at a remote body controls access to that body. Running out of
   propellant at a body with no depot means calling for a tanker — expensive and slow.
@@ -608,35 +567,29 @@ Each body gets a composition profile based on type:
 ```
 RAW EXTRACTION          PROCESSING              MANUFACTURING           CONSUMER
 ───────────────────────────────────────────────────────────────────────────────
-Iron ore         →   Refined iron         →   Hull plating        →   Shipyard
+Metals ore       →   Refined metals       →   Hull plating        →   Shipyard
                                           →   Structural frame    →   Stations
+                                          →   Wiring/conductors   →   Everything
 Platinum ore     →   Refined platinum     →   Electronics         →   Everything
                                           →   Sensor arrays       →   Ships, Relays
-Water ice        →   H₂ (propellant)      →   (consumed)          →   Ships (thrust phases)
-                     Purified water       →   Life support        →   Colonies
 Silicates        →   Glass/ceramics       →   Hab modules         →   Colonies
                                           →   Optics              →   Relays, Sensors
 Rare earth ore   →   Processed RE         →   Drive components    →   Shipyard
                                           →   Actuators           →   Drone factory
                                           →   Superconductors     →   Relays, Power
-Volatiles        →   Chemical feedstock   →   Propellant          →   Ships
-                                          →   Polymers            →   Drones, Habs
+Ice/Volatiles    →   H₂ (propellant)      →   (consumed)          →   Ships (thrust)
+                     Purified water       →   Life support        →   Colonies
+                     Chemical feedstock   →   Polymers            →   Drones, Habs
+Uranium          →   Reactor cores        →   (degrades over time)→   Ships, Stations
 He-3 (gas giant) →   Fusion fuel          →   (consumed)          →   Fusion reactors
-Copper/Aluminum  →   Refined conductor    →   Wiring              →   Everything
-                                          →   Antenna arrays      →   Relays
-Uranium/Thorium  →   Reactor fuel rods    →   (consumed)          →   Fission reactors
 
 POWER + Platinum   → Casimir condenser   →   Casimir fuel rods   → Ships (warp phases)
  + Rare earths       (quantum vacuum         THE critical resource
- + Conductors         manipulation)
+ + Metals            manipulation)
 ```
 
-Note: Casimir matter production competes for BOTH power AND materials. Every unit
-produced drains the power grid AND consumes platinum/rare earths that could go to
-electronics or drive components. In the inner system where solar power is abundant,
-the material cost dominates. In the outer system where power is expensive, both costs
-compound. This dual dependency makes Casimir fuel rods the most supply-chain-intensive
-product in the game.
+Note: Casimir matter production competes for BOTH power AND materials. The dual
+dependency makes Casimir fuel rods the most supply-chain-intensive product in the game.
 
 ### Quality & Technology Progression
 
@@ -951,10 +904,16 @@ Comms relays are buildable infrastructure (antenna arrays + electronics + superc
 delay — it ensures signals reach their destination (without relays, distant bodies may be
 in radio shadow behind the star).
 
-**Relay trust model (Nostr-style):** Every message is cryptographically signed at the
-source. Relays are dumb forwarders — they can't forge messages, only delay, drop, or
-refuse to forward. Verification happens at the receiver. The worst a hostile relay can
-do is censor, and censorship is defeated by routing through an alternate path.
+**Relay trust model:** Relays are **policy-enforcing infrastructure**, not dumb
+forwarders. They inspect packet headers (sender, recipient, size, encryption flag),
+enforce bloc encryption/logging policy, and can read cleartext content. But every
+message is **cryptographically signed at the source** — a relay can't forge messages
+or alter content. Signatures are verified at the receiver regardless of relay path.
+
+What relays CAN do: read cleartext, drop encrypted traffic (if policy forbids it),
+log metadata and/or content (per policy), censor specific traffic, prioritize traffic.
+What relays CANNOT do: forge signatures, break encryption, alter signed content.
+Censorship is defeated by routing through an alternate path.
 
 **Relay range (grounded in RF link budget physics):**
 
@@ -2005,61 +1964,28 @@ powerful, and not incorruptible. In Frontier mode, it doesn't exist yet and may 
 
 ## 8. Contracts, Commerce & the Underground
 
-### Privacy Model
+### Information Visibility
 
-The information environment reflects 2058 norms: encryption-by-default, pseudonymous
-identity, and selective transparency. Decades of corporate espionage, nation-state
-hacking, and activist movements through the 2030s–2050s pushed privacy tooling into
-standard infrastructure.
+Corps are **named, known entities** — not pseudonymous addresses. Everyone knows who
+Corp B is. The information asymmetry comes from the fog of war (you only know what
+your assets observe), not from identity puzzles.
 
-**What's public (on-chain, auditable by anyone):**
-- Contract structure — terms, conditions, deadlines, quality thresholds
+**What's public:**
 - Contract outcomes — delivered/failed/disputed, scanner readings
-- Transaction amounts and flows (but between pseudonymous addresses)
-- Ship registrations (linked to pseudonymous keys, not corp names)
-- Scanner attestations (signed readings, on-chain)
-- Reputation history (per-address: deliveries completed, contracts abandoned, disputes)
+- Corp identities — who owns which ships and facilities (if observed)
+- Reputation history — deliveries completed, contracts abandoned, disputes
+- Market prices at ports you have relay data from
 
-**What's pseudonymous:**
-- Participants are addresses, not names. `qz7x...3f` completed 847 deliveries. Which
-  corp is that? You don't know unless they've publicly claimed it or you've done the
-  intelligence work to associate the address with observed behavior.
-- Corps can operate through multiple addresses. A conglomerate might use different
-  addresses for different operations — one for legitimate hauling, one for frontier
-  activities. Linking them requires traffic analysis, not a database lookup.
-- Credit mixing (transaction obfuscation protocols) is routine for general spending.
-  Financial flows between addresses are obfuscated unless the parties choose transparency.
-- Stealth addresses for everyday transactions — payroll, supplies, docking fees.
+**What's private (requires observation or intelligence):**
+- Competitor fleet positions and composition (fog of war — must observe)
+- Competitor facility quality and throughput (must observe output or buy intel)
+- Contract terms between other corps (private unless published)
+- Encrypted relay message contents (per bloc policy)
+- Strategic plans, standing directives, internal corp communications
 
-**What's private (encrypted, requires access or compromise):**
-- Contract contents (parties can choose to publish or keep private — the structure
-  is visible but specific values like price, quantity, quality specs can be encrypted
-  with only the parties holding keys)
-- Relay message contents (encrypted by default, metadata visible)
-- Ship cargo manifests (signed but encrypted — port scanner reads locally, doesn't
-  broadcast contents)
-- Corp internal communications, fleet orders, strategic plans
-
-**What this means for gameplay:**
-
-- **"Who is that ship?"** is a real investigative question. Transponders broadcast a
-  pseudonymous key, not a corp name. You identify ships by observation: this key docks
-  at that corp's facilities, flies their routes, responds to their command center.
-  Building a map of competitor fleets is intelligence work, not a UI label.
-- **Reputation is per-address.** A corp can shed a bad address and start fresh — but
-  loses all accumulated reputation history. Re-establishing trust on a new address
-  takes time. There's a real cost to burning an identity.
-- **Colony standing** tracks known addresses. A corp that operates through one public
-  identity builds deep standing. A corp that rotates addresses appears as multiple
-  unreliable newcomers. Transparency is rewarded in civilized space.
-- **Financial intelligence** — tracking credit flows between addresses to map corporate
-  structure, identify shell entities, or discover hidden partnerships — is a valuable
-  skill. Pattern analysis can cluster addresses that behave as a fleet even without
-  knowing the corp name.
-- **Privacy is the default, transparency is a choice.** Corps that want to build public
-  reputation voluntarily link their addresses to a public identity. Corps that want to
-  operate in the shadows stay pseudonymous. Both are valid strategies with different
-  tradeoffs.
+The fog of war IS the privacy system. You don't need cryptographic identity puzzles
+to create information asymmetry — physics does it naturally. You can't see what you
+haven't observed, and observations decay over time.
 
 ### Smart Contract Escrow
 
@@ -2278,7 +2204,7 @@ Ship stats map directly to existing physics constants:
 | Hull length / dry mass | Cargo capacity, tidal tolerance | `SHIP_LENGTH_KM` |
 | Propellant capacity | How many Δv burns before refueling | Derived from mass ratio |
 | Casimir fuel capacity | Max warp distance per trip | New field |
-| Reactor | Power output, reactor fuel consumption rate | New field |
+| Reactor core | Power output, core life %, failure risk below 20% | Maintenance item, not consumable |
 | Mining equipment | Extraction rate | New field |
 | Drone bays | Combat/utility drone capacity | New field |
 
