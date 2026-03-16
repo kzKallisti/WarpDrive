@@ -455,17 +455,28 @@ Requires He-3 fuel from gas giant moons — the most expensive resource to extra
 facility with a fusion reactor has effectively unlimited power but the fuel supply chain
 is a major ongoing cost.
 
-**Ship power**: All ships run fission reactors (can't depend on solar during warp or at
-arbitrary distances). Reactor quality is a ship stat — better reactors mean more power
-for drives, sensors, and life support.
+**Ship power**: Ships have **two separate systems**: a **fission reactor** for power
+(life support, sensors, comms, electronics) and a **fusion torch drive** for thrust.
+Different engineering, same physics family. The reactor runs continuously at low output.
+The torch fires during burn phases at enormous output. Both need fuel — reactor fuel
+(uranium/thorium, consumed slowly) and propellant (H₂, consumed rapidly during burns).
 
-**Propulsion technology**: Ships use **high-performance fusion torch drives** for
-conventional thrust — the only technology that delivers both 2g acceleration and viable
-cargo economics. Specific impulse ~3,000s (exhaust velocity ~29.4 km/s). This yields
-~10:1 propellant-to-cargo ratios for typical interplanetary transits — expensive enough
-that fuel logistics matter, cheap enough that freight is economically viable. Chemical
-rockets (Isp 450s) are hopelessly inadequate. Basic fusion (Isp 1200s) gives 276:1
-ratios — ships would be 99% fuel. The Tsiolkovsky equation is unforgiving.
+**Propulsion technology**: The fusion torch delivers both high acceleration and viable
+cargo economics at Isp ~3,000s (exhaust velocity ~29.4 km/s). Chemical rockets
+(Isp 450s) are hopelessly inadequate. Basic fusion (Isp 1200s) gives 276:1 ratios —
+ships would be 99% fuel. The Tsiolkovsky equation is unforgiving.
+
+**Propellant cost depends on Δv, not distance.** Two trips covering the same distance
+can have wildly different fuel costs depending on the gravity wells at each end:
+
+- Belt asteroid to belt asteroid (escape <1 km/s each): Δv ~2 km/s. Propellant
+  ratio ~0.07:1. Nearly free. This is where early-game hauling is profitable.
+- Terra to a nearby planet (escape ~11 km/s + warp threshold): Δv ~30+ km/s.
+  Propellant ratio ~10:1. Expensive. Only high-value cargo justifies this.
+
+The ~10:1 ratio cited elsewhere is for full interplanetary transfers with significant
+Δv budgets. Low-Δv hops between small bodies are far cheaper. The game's economic
+geography is shaped by Δv costs, not by distance on the map.
 
 **Three ship consumables:**
 - **Reactor fuel** (uranium/thorium rods): Powers the ship's reactor. Consumed slowly,
@@ -769,9 +780,12 @@ structural mass = less propellant per burn = lower operating cost on every trip,
 downtime. A quality-30 fleet needs maintenance nearly 2× as often as quality-50 —
 more parts consumed, more time in dock, more opportunities for failure events.
 
-Both formulas are linear and unbounded — quality-100 gives mass factor 0.75 and
-durability 2.0×. No hard caps, just diminishing practical returns because achieving
-quality-100 requires near-perfect inputs at every supply chain stage.
+Both formulas are linear. Durability is unbounded (always positive). Mass factor
+has a physical floor — structural mass can't reach zero. In practice, this doesn't
+matter: the quality propagation formula makes quality above ~120 nearly unreachable
+(requires near-perfect inputs at every supply chain stage), and mass_factor at
+quality-120 is 0.65 (35% lighter than baseline) — well within physical plausibility.
+If quality ever exceeds expected ranges, clamp mass_factor to a minimum of 0.5.
 
 **Quality as infinite progression:**
 
@@ -891,12 +905,45 @@ accept a contract that provides a starter ship. You're bankrupt, not dead. It's 
 recover from zero, but a sandbox doesn't force game-over. The player who talked their
 way back from total wipeout has the best story in the lobby.
 
-**Insurance**: Pay a premium to an insurance DAO (NPC-operated smart contract pool).
-Coverage triggers on verifiable events: ship destroyed (transponder goes dark), cargo
-lost at a certified port (scanner records), facility damaged. Premiums vary by route
-danger, cargo value, and your operational history. Not a deep system — just a cost you
-manage. High-risk frontier operations cost more to insure. You can choose to self-insure
-(skip premiums, eat losses directly) if you have the capital reserves.
+**Insurance:**
+
+Insurance DAOs are NPC-operated smart contract pools that pay claims on verifiable
+events. Corps pay premiums; the pool pays out when bad things happen.
+
+**What's insurable** (requires on-chain verifiable trigger):
+- Ship destroyed (transponder goes permanently dark)
+- Cargo lost at a certified port (scanner records show delivery failure)
+- Facility damaged (colony infrastructure monitoring)
+- Contract failure due to force majeure (ship breakdown, provable from logs)
+
+**What's NOT insurable** (can't be verified on-chain):
+- Losses at uncertified ports (no oracle to verify)
+- Deliberate self-sabotage (moral hazard — hard to distinguish from bad luck)
+- Losses during illegal activity (smuggling, piracy)
+
+**Premium calculation:**
+```
+monthly_premium = base_rate × asset_value × route_risk × history_factor
+```
+- `base_rate`: ~0.5–2% of insured value per month (tuning parameter)
+- `asset_value`: total value of insured ships + cargo
+- `route_risk`: inner system (1.0×), belt (1.5×), outer (2.5×), frontier (5.0×)
+- `history_factor`: 0.8× for clean record, 1.0× baseline, up to 2.0× for frequent claimants
+
+**Example:** A 400,000₵ freighter carrying 100,000₵ cargo on a belt route:
+500,000₵ × 1% × 1.5 = 7,500₵/month. About 15% of a mid-game facility's operating
+cost. Meaningful but not crippling.
+
+**Self-insurance:** Skip premiums, absorb losses directly. Viable for large corps
+with capital reserves. Risky for small corps — one lost ship without insurance can
+be game-ending. The insurance decision is a risk management choice that scales with
+corp size.
+
+**Insurance as economic stabilizer:** When piracy occurs, insurance pays the victim.
+This means piracy doesn't destroy value from the system — it transfers value from
+the insurance pool (funded by premiums from everyone) to the victim. The pirate gains
+stolen cargo but everyone's premiums rise slightly. This makes piracy a negative-sum
+activity for the system as a whole, naturally discouraging it without game rules.
 
 ## 5. Communications & Information
 
@@ -1918,8 +1965,8 @@ standard infrastructure.
 - Corps can operate through multiple addresses. A conglomerate might use different
   addresses for different operations — one for legitimate hauling, one for frontier
   activities. Linking them requires traffic analysis, not a database lookup.
-- CashFusion (credit mixing) is routine for general spending. Financial flows between
-  addresses are obfuscated unless the parties choose transparency.
+- Credit mixing (transaction obfuscation protocols) is routine for general spending.
+  Financial flows between addresses are obfuscated unless the parties choose transparency.
 - Stealth addresses for everyday transactions — payroll, supplies, docking fees.
 
 **What's private (encrypted, requires access or compromise):**
@@ -2011,13 +2058,45 @@ capacity).
 
 No "smuggling skill." Just: you have cargo, the port has a scanner, can you get past it?
 
+**Scanner detection mechanics:**
+
+Detection is a probability check when a ship docks at a port with a scanner:
+
+```
+detection_chance = (scanner_quality - countermeasure_quality) / 100
+```
+
+Clamped to 0.05–0.95 (always a small chance either way). Examples:
+
+| Scanner | Countermeasure | Detection chance |
+|---------|---------------|-----------------|
+| Quality-80 port scanner | No countermeasures (0) | 80% — you're probably caught |
+| Quality-80 port scanner | Quality-60 shielded container | 20% — decent odds |
+| Quality-40 frontier scanner | Quality-60 shielded container | 5% (floor) — very safe |
+| Quality-90 port scanner | Quality-80 shielded container | 10% — risky but possible |
+| Quality-60 port scanner | Manifest falsification (quality-50) | 10% — scanner barely notices |
+
+Countermeasure types:
+- **Shielded container**: Manufactured item (refined metals + electronics). Has a
+  quality level. Reduces scanner effectiveness. Takes cargo space.
+- **Manifest falsification**: Skill-equivalent — quality derived from the electronics
+  used to generate the fake manifest. Better electronics = more convincing forgery.
+- **Hidden compartment**: Ship modification. Scanner can't see it at all unless
+  scanner quality > compartment quality. Binary: either found or not.
+- **Bribery**: Available at corrupt ports. Bypasses the check entirely for a fee.
+  Corruption availability is a colony governance property.
+
+A corp investing in quality-80 shielded containers is making a manufactured product
+from the same supply chain as everything else. Smuggling equipment has an economic
+cost, a quality level, and competes for the same components as legitimate equipment.
+
 **Scanner warfare:**
 
 Scanners are oracles — their signed readings settle contracts on-chain. This makes
 them simultaneously critical infrastructure and attack surface.
 
 **Ship-mounted scanners**: Corps can install their own scanners on ships or at private
-facilities. A quality-100 ship scanner lets you independently verify cargo before
+facilities. A high-quality ship scanner lets you independently verify cargo before
 accepting delivery — your defense against a defective or malicious port scanner. If
 the port reads quality-58 and your scanner reads quality-63, you have signed evidence
 of a discrepancy to dispute the settlement.
@@ -2059,6 +2138,72 @@ competitor fleet movements, colony political intel, scanner calibration data. In
 doesn't trigger port scanners. The challenge is acquiring it and finding a buyer.
 
 ## 9. Ships, Fleet & Manufacturing
+
+### Modular Component System
+
+Ships, facilities, and drones are all built from the same component vocabulary.
+The same "electronics" component goes into a ship's navigation system, a refinery's
+process controller, and a drone's sensor package. This keeps the supply chain simple
+while allowing diverse final products.
+
+**Component types (universal building blocks):**
+
+| Component | Made from | Used in |
+|-----------|-----------|---------|
+| Hull plating | Refined iron + polymers | Ship hull, station structure, hab shell |
+| Structural frame | Refined iron | Ship skeleton, facility frame, drone chassis |
+| Drive components | Processed RE + superconductors | Ship drives, high-thrust drone motors |
+| Electronics | Refined platinum + optics | Everything — navigation, sensors, controls, comms |
+| Actuators | Processed RE + electronics | Turrets, manipulator arms, drones, mining rigs |
+| Hab modules | Glass/ceramics + polymers + life support | Crewed ships, stations, colonies |
+| Wiring/cabling | Refined conductors | Everything (universal interconnect) |
+| Power systems | Superconductors + electronics + reactor components | Ships, stations, relays |
+| Sensor arrays | Optics + electronics | Ships, scanners, relays, survey drones |
+| Weapon systems | See weapons section | Combat ships, combat drones, defense installations |
+
+**Slot-based assembly:**
+
+Every constructed thing has **component slots** — typed slots that accept specific
+component types. A ship has slots for hull, drive, electronics, power, and optional
+slots for weapons, mining equipment, drone bays, hab modules. A refinery has slots
+for structure, electronics, power, and process-specific equipment.
+
+The quality of what goes in each slot determines the quality of that subsystem.
+A ship with quality-80 drives but quality-40 electronics has great thrust but poor
+sensors. The overall "ship quality" is the average across all filled slots — but
+individual subsystem quality matters for specific tasks (drive quality for fuel
+efficiency, electronics quality for sensor range, hull quality for structural mass).
+
+**Slot configuration defines capability:**
+
+| Ship class | Required slots | Optional slots |
+|------------|---------------|----------------|
+| Scout | Hull, Drive, Electronics, Power, Wiring | Sensors, Cargo (small) |
+| Freighter | Hull (heavy), Drive, Electronics, Power, Wiring, Cargo (large) | Hab, Sensors |
+| Mining vessel | Hull, Drive, Electronics, Power, Wiring, Mining equipment, Cargo (medium) | Hab |
+| Tanker | Hull, Drive, Electronics, Power, Wiring, Fuel tankage (large) | — |
+| Colony ship | Hull, Drive, Electronics, Power, Wiring, Hab (large), Life support | Cargo (small) |
+| Any ship | — | Weapons, Drone bays, Point defense, Scanner |
+
+Optional slots are what make the same ship class serve different roles. A freighter
+with a weapons slot and drone bay is an armed convoy escort. A freighter without them
+has more cargo capacity. The tradeoff is always: capability vs cargo space. Every
+optional module takes volume and mass that could be revenue-generating cargo.
+
+**Facilities use the same components:**
+
+| Facility | Key slots |
+|----------|-----------|
+| Mining rig | Structure, Power, Electronics, Mining equipment, Cargo storage |
+| Refinery | Structure, Power, Electronics, Process equipment, Storage (in/out) |
+| Factory | Structure, Power, Electronics, Assembly equipment, Storage |
+| Shipyard | Structure (heavy), Power (heavy), Electronics, Assembly (large), Dock |
+| Command center | Structure, Power (heavy), Electronics (heavy), Sensors, Comms relay |
+| Comms relay | Structure (light), Power, Electronics, Antenna array |
+
+This means upgrading a facility is the same action as upgrading a ship: swap a
+component in a slot for a higher-quality one. The supply chain doesn't need to know
+whether an electronics unit is going into a ship or a refinery — it's the same product.
 
 ### Ship Properties
 
@@ -2106,10 +2251,55 @@ A corp that controls rare earth supply controls the shipbuilding pace.
 - **Survey drones**: Sent to unsurveyed bodies. Cheap, expendable.
 - **Maintenance drones**: Keep stations and rigs operational. Reduce crew needs.
 - **Construction drones**: Build stations, refineries, habs. Slow but no crew risk.
-- **Combat drones**: Repurposed mining/construction drones with weapons mounts.
+- **Combat drones**: Mining/construction drones fitted with weapons mounts and
+  targeting electronics. See weapons below.
 
 Drone factories need the same rare earths as shipyards (actuators vs drive components) —
 genuine resource tension.
+
+### Weapons & Combat Equipment
+
+Weapons are manufactured components like any other — they have a supply chain, a
+quality level, and they compete for the same inputs as civilian equipment.
+
+**Weapon types:**
+- **Kinetic accelerator** (railgun): Refined iron (projectiles) + superconductors
+  (magnetic rails) + electronics (targeting). Long range, slow rate of fire.
+  Damages hull. The "serious" weapon.
+- **Mining laser (repurposed)**: Optics + electronics + power coupling. Short range,
+  continuous beam. Originally designed to cut rock. Damages systems and drones.
+  Cheap, available anywhere there's mining equipment.
+- **EMP projector**: Superconductors + electronics + capacitor banks (from refined
+  conductors). Disables electronics without physical damage. Used for boarding
+  operations — knock out a ship's systems, then send boarding drones.
+- **Point defense array**: Sensor arrays + actuators + electronics. Automated
+  interception of incoming projectiles and drones. Defensive only.
+
+**Weapons in the supply chain:**
+
+```
+Refined iron          → Projectiles          → Kinetic accelerator
+Superconductors       → Magnetic rails       → Kinetic accelerator
+                      → EMP coils            → EMP projector
+Optics                → Weapon optics        → Mining laser (repurposed)
+Electronics           → Targeting systems     → All weapons
+                      → Fire control          → Point defense
+Actuators             → Turret mounts         → Ship-mounted weapons
+                      → Weapon mounts         → Combat drone retrofit
+Refined conductors    → Capacitor banks       → EMP projector
+```
+
+**Quality affects weapons** the same way it affects everything else: higher quality
+targeting systems improve accuracy, higher quality rails increase projectile velocity,
+higher quality optics focus the laser tighter. A quality-80 railgun hitting a quality-40
+hull does more damage than a quality-40 railgun hitting a quality-80 hull. Quality
+is the arms race.
+
+**Weapons compete for civilian inputs.** Superconductors used for railgun rails can't
+be used for relay infrastructure. Electronics used for targeting can't be used for
+port scanners. Actuators used for turret mounts can't be used for mining drones.
+Militarization has an economic opportunity cost — every weapon built is a civilian
+component not built. A system at war becomes a system with worse infrastructure.
 
 ### Fleet Management & Trade Routes
 
@@ -2124,7 +2314,7 @@ state.fleet = [
 
 Each ship gets its own transit tick. Camera can track any ship.
 
-**Trade routes are emergent, not a game object.** A ship with standing orders — "load
+**Trade routes are emergent, not a game object.** A ship with standing directives — "load
 platinum at Vesta, deliver to Homeworld, repeat" — is running a trade route. There's no
 explicit "create trade route" action. You just give a ship orders and it executes them.
 The player's fleet management screen shows each ship's current orders, position, cargo,
@@ -2330,7 +2520,7 @@ information bubble. Stale data is visually indicated (dimmed, timestamped).
 - Sensor observations along route (bodies, other ships, transponders)
 - Last relay update before departure (increasingly stale)
 - Ship status: fuel burn rate, ETA, cargo
-- Actions: adjust course (limited), manage standing orders
+- Actions: adjust course (limited), manage standing directives
 
 **Select your facility →**
 - Production: input/output rates, queue, quality levels (CURRENT)
@@ -2695,10 +2885,15 @@ All numbers are tuning targets, not commitments. Final values come from playtest
 
 | Item | Value | Notes |
 |------|-------|-------|
-| Starting credits | 50,000 ₵ | Enough for a few contracts + one small investment |
-| Starting ship | 1 × Scout-class freighter | Quality-40, small cargo (500t), basic drive |
-| Starting ship value | ~100,000 ₵ | You can't afford to lose it |
-| Starting loan available | ~75,000 ₵ | Collateralized against your ship |
+| Starting credits | 10,000 ₵ | Seed money. Not much. |
+| Starting assets | None | You're a new corp with a terminal and a dream. |
+| Starting loan available | ~50,000 ₵ | Unsecured starter loan from your bloc (or colony if independent). Enough to lease a ship or buy a small drone rig. |
+
+The player starts with almost nothing — a corp registration, seed credits, and
+access to the market. First decisions: lease a ship (cheaper, don't own it), buy a
+used ship (own it, collateral for future loans, but costs more), or skip ships
+entirely and buy a drone mining rig at a local asteroid. Multiple viable on-ramps,
+all requiring the player to figure out how to turn a small stake into income.
 
 ### Ship Costs (new construction, quality-50)
 
@@ -3009,7 +3204,7 @@ Mobile layout. Leaderboards.
 
 A different game with the same orbital engine. No human crews in space — players are
 Earth-based corporations remotely operating drone fleets. Simpler supply chain (no food,
-water, medical). Comms delay becomes THE constraint — you write standing orders, drones
+water, medical). Comms delay becomes THE constraint — you write standing directives, drones
 execute, results arrive 40 minutes later. Cyberpunk tone: hacking, signal jamming,
 electronic warfare replace human diplomacy. Faster pace, more aggressive play.
 
