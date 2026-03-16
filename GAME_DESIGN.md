@@ -394,6 +394,43 @@ If information is valuable, protecting it is too:
   A captured freighter crew can't reveal your strategic plans if they were only
   told "deliver cargo to Port X."
 
+#### All Communication is In-World
+
+There is no out-of-band communication channel. Player-to-player chat, AI-to-AI
+negotiation, and player-to-AI diplomacy all use the same relay infrastructure.
+Messages travel at light speed from the sender's nearest command center through
+whatever relay path exists.
+
+**Consequences for multiplayer:**
+
+- **Diplomacy has latency.** Negotiating with a player at Jupiter from Earth is
+  40+ minutes per round trip. You send proposals, wait, receive counters. This
+  makes diplomacy feel like actual interplanetary diplomacy.
+- **Geography shapes politics.** Corps near each other negotiate faster and
+  form alliances more easily. Inner-outer alliances are slow to build and
+  fragile — a misunderstanding takes hours to resolve.
+- **Encrypted player chat is visible as metadata.** Others can see you're
+  exchanging encrypted traffic with another corp. The content is private but
+  the relationship is observable. Secret alliances require sneakernet.
+- **War arrives with the news.** A declaration of war and the attacking fleet
+  can arrive at the same time. You have exactly as much warning as physics allows.
+- **No chat during warp.** Ships between relay-covered bodies are isolated.
+  Crew operates on pre-departure orders.
+
+**Consequences for AI:**
+
+- **AI corps obey the same physics.** An NPC corp at Saturn negotiating with
+  one at Earth also waits 80 minutes per round trip. No omniscience, no cheating.
+- **AI diplomacy is observable.** Players can see NPC corps exchanging messages
+  on the relay network and infer political dynamics.
+- **AI strategic quality comes from decisions, not information.** An AI corp
+  with better relay infrastructure genuinely reacts faster than one without.
+  Their infrastructure investment matters for the same reasons yours does.
+- **This is the "AI-first" guarantee.** If AI corps are subject to the same
+  communication physics as players, the game is fair by construction. No need
+  to artificially handicap or boost AI — the playing field is level because
+  the physics is shared.
+
 #### Smart Contracts and Latency
 
 This interacts with the contract system:
