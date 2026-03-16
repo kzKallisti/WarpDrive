@@ -1026,77 +1026,101 @@ What this means for coverage:
 
 **Bloc relay policies:**
 
-Each political bloc operates relay infrastructure with a hard-coded encryption
-policy. Encryption is unbreakable — no magic decryption, no secret logging of
-cleartext. The physics of cryptography is as inviolable as orbital mechanics.
-A relay either forwards encrypted traffic or it doesn't.
+Relay policy has two independent dimensions: **encryption** (is encrypted traffic
+forwarded?) and **logging** (does the relay record traffic that passes through?).
+These create a 2×2 space. Each bloc occupies a different quadrant.
 
-Encrypted traffic that hits a cleartext-only relay gets **dropped or neutered**
-(signature stripped from payload, rendering it unverifiable). It doesn't get
-"decrypted" — that's not possible.
+Encryption is unbreakable — no magic decryption, no cracking. A relay either
+forwards encrypted traffic or drops it. Encrypted content is never readable by
+operators. Logging records what passes through — metadata always (sender, recipient,
+size, timestamp), and content if cleartext. These policies are hardware-enforced
+and cannot be changed by corruption or lobbying.
 
-| Bloc | Relay policy | Rationale |
-|------|-------------|-----------|
-| **Commonwealth** | Both encrypted and cleartext | Flexible, pragmatic. Privacy available. |
-| **Collective** | Cleartext ONLY | State oversight. All traffic readable by operator. |
-| **Consortium** | Encrypted ONLY | Technical security. No cleartext exposure. |
-| **Coalition** | Varies per relay (33% each: both/cleartext/encrypted) | Politically diverse bloc. Each relay reflects local politics. |
+| Bloc | Encryption | Logging | Character |
+|------|-----------|---------|-----------|
+| **Commonwealth** | Allowed | **Not logged** | Maximum freedom. Private, ephemeral. |
+| **Collective** | Blocked | **Content + metadata logged** | Full surveillance. State archive. |
+| **Consortium** | Allowed | **Metadata logged** (content private) | Private content, catalogued patterns. |
+| **Coalition** | Blocked | **Not logged** | Transparent but ephemeral. No records. |
 
-**Encryption is a hard guarantee:**
-- Encrypted traffic cannot be read by relay operators. Period. No exceptions.
-- A corrupt relay operator's worst move is to **log encrypted traffic** (useless
-  without keys) and **sell metadata** (who's talking to whom, volume, timing).
-  Content is never compromised.
-- A corrupt Collective relay operator can selectively drop messages
-  (censorship-for-hire) or sell the cleartext they legitimately see.
-- Corruption can't upgrade or downgrade a relay's encryption policy. The hardware
-  enforces it.
+**What each quadrant means:**
+
+**Commonwealth** (encrypted, not logged): The privacy bloc. Send encrypted or
+cleartext — the relay doesn't care and doesn't record either way. Maximum corporate
+freedom. No surveillance, no audit trail. You're invisible.
+
+**Collective** (cleartext only, fully logged): The surveillance bloc. All traffic
+is readable and permanently archived. The state sees everything and remembers
+everything. Corps operating here accept total transparency or go sneakernet.
+Encrypted traffic is dropped.
+
+**Consortium** (encrypted allowed, metadata logged): The standards bloc. Your
+content is private (encryption honored) but the relay precisely logs WHO you
+communicated with, WHEN, how much data, and which route. For intelligence analysts,
+this metadata is nearly as valuable as content — communication patterns reveal
+alliances, trade relationships, and strategic intent. The Consortium doesn't read
+your mail, but they catalog every envelope.
+
+**Coalition** (cleartext only, not logged): The ephemeral transparency bloc. All
+traffic is readable in the moment — anyone monitoring the relay in real-time sees
+everything. But the relay keeps no records. Traffic passes through and is gone.
+No archives, no evidence, no audit trail. You're exposed NOW but not forever. This
+fits a resistance-movement culture: "we have nothing to hide, but we don't keep
+files on people either."
+
+**Why this is balanced:**
+
+Each bloc has a genuine advantage and disadvantage:
+- **Commonwealth**: Full privacy, but no intelligence from relay logs (you can't
+  monitor competitors' patterns on your own relays because you don't log)
+- **Collective**: Full intelligence (content + metadata), but corps avoid operating
+  in your space for sensitive work (drives business to rival blocs)
+- **Consortium**: Pattern intelligence (metadata) with content privacy. Best of
+  both worlds? Not quite — the metadata logs make Consortium space valuable for
+  intelligence brokers who sell pattern analysis, which creates its own risks
+- **Coalition**: Real-time transparency without consequences (no records). Good for
+  plausible deniability — "yes I sent that message, prove it." But vulnerable to
+  anyone actively monitoring in the moment.
 
 **Encryption costs are real:**
-Encrypted relays consume more bandwidth (N individually-encrypted copies vs one
-cleartext broadcast) and more power (crypto math draws watts). A Consortium relay
-handling the same traffic volume as a Collective relay needs more power and more
-bandwidth — the privacy tax is physical, not political. In the outer system where
-power is fission-only and expensive, a relay's power budget is split between
-transmission (range) and encryption (privacy). Frontier relays on tight power
-budgets may have to choose between signal strength and encryption throughput.
+Encrypted traffic (Commonwealth, Consortium) consumes more bandwidth (individually-
+encrypted copies vs one cleartext broadcast) and more power (crypto math draws watts).
+The privacy tax is physical, not political. In the outer system where power is
+fission-only, a relay's power budget splits between transmission range and encryption
+throughput.
 
 **Bloc policy vs corp policy:**
 
 Bloc relay policy applies to **bloc-operated infrastructure.** Corp-owned relays
 follow the corp's own policy regardless of bloc alignment. A Collective-aligned corp
-CAN build an encrypted relay. A Consortium-aligned corp CAN build a cleartext one.
-The corp decides — but building infrastructure that contradicts your bloc's norms
-may be viewed as a political statement.
+CAN build an encrypted, non-logging relay. A Commonwealth-aligned corp CAN build a
+cleartext, fully-logged one. Building infrastructure that contradicts your bloc's norms
+is a political statement — but it's allowed.
 
 **Procedural seed implications:**
 
-Different seeds produce different relay landscapes. Coalition relay variance (33%
-each option) means Coalition-dominated regions have an unpredictable patchwork of
-relay policies — some encrypted, some cleartext, some both. This creates interesting
-routing puzzles specific to each seed.
-
-A seed where the Collective controls inner system relays means all inner-system
-corporate comms are readable in cleartext. A seed where the Consortium dominates
-means everything is encrypted — private, but the Consortium's standards bodies
-can't inspect traffic for compliance (their relays won't let them).
+Different seeds produce different relay landscapes based on which bloc controls which
+region's infrastructure. A seed where the Collective controls inner system relays
+means all inner-system corporate comms are archived. A seed where the Consortium
+dominates means your content is private but your communication patterns are
+meticulously catalogued. A seed where the Coalition controls a key transit corridor
+means you're visible to anyone watching but nothing is on the record.
 
 **What this means for gameplay:**
 
-- **Routing is a political choice.** The shortest path might go through a
-  Collective relay that drops your encrypted message. Route through a Commonwealth
-  or Consortium relay instead — longer, but your encryption survives.
-- **Collective space = surveillance zone.** All traffic readable. Corps operating
-  here accept the transparency or go sneakernet for sensitive data.
-- **Consortium space = privacy zone.** All traffic encrypted. But cleartext
-  messages (public market data, contract postings) get neutered too — Consortium
-  relays are all-or-nothing encrypted.
-- **Coalition space = check the map.** Each relay has its own policy. Know your
-  route before you send.
+- **Routing is a political choice.** The shortest path might go through a Collective
+  relay that drops your encryption and archives the cleartext. Route through
+  Commonwealth space instead — longer, but private and unrecorded.
+- **Consortium space is the intelligence goldmine.** Metadata logs are rich:
+  timestamps, routing, packet sizes, communication pairs. Even encrypted content
+  leaves patterns. Intel corps love Consortium relay access.
+- **Coalition space is for deniable operations.** Cleartext (visible if watched) but
+  no records. Send a threatening message to a competitor — they received it, but
+  there's no permanent evidence on the relay. Good for frontier diplomacy.
 - **Corp-owned relays are the escape valve.** Build your own relay with your own
   policy. Expensive, but you control the information environment.
 - **Sneakernet is the universal fallback.** Physical transport is always private
-  regardless of relay landscape. The question is whether you can afford the time.
+  and unlogged regardless of relay landscape.
 
 **What relay owners control:**
 - **Coverage**: Only relay in range of a frontier body? Monopoly pricing on bandwidth.
