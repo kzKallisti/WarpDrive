@@ -1534,15 +1534,25 @@ simulation computes facts. The LLM writes prose. No agency — narration only.
 communicated. Game events are deterministic simulation outputs. The LLM renders them
 into character, context, and atmosphere.
 
-**Implementation:** Qwen2.5-1.5B-Instruct (Q4_K_M quantized, ~1 GB) via llama.cpp.
-Runs on CPU at 40-60 tok/s — a 3-sentence paragraph in 1-2 seconds. Apache 2.0
-license, shippable with the game. Optional upgrade to Qwen2.5-3B (~2 GB, better
-voice differentiation) for players with more hardware. Fine-tuning on 500-1000
-game-specific examples (news/diplomatic/intel/personality styles) makes the 1.5B
-model punch well above its weight for this narrow use case. Called from the game loop
-on event triggers — not every frame, just when narrative-worthy events occur.
-Response cached and displayed in UI panels. Template string fallback when no model
-is available.
+**Implementation:** Qwen2.5-1.5B-Instruct (Q4_K_M quantized, ~1 GB) via llama.cpp
+compiled to **WebAssembly**. Runs entirely in the browser — no server, no install, no
+GPU drivers. Same zero-build static web app architecture as the rest of the game.
+
+- Model file (~1 GB) downloaded on first launch, cached in IndexedDB
+- Inference runs in a **Web Worker** (separate thread, never blocks the game loop
+  or Three.js rendering)
+- 20-40 tok/s in WASM (slower than native but a 3-sentence paragraph still takes
+  2-4 seconds — well within tolerance for narrative text that appears in a feed)
+- Optional upgrade to Qwen2.5-3B (~2 GB download, better voice differentiation)
+- Apache 2.0 license — fully shippable, no restrictions
+- Fine-tuning on 500-1000 game-specific examples (news/diplomatic/intel/personality
+  styles) makes the 1.5B model punch well above its weight for this narrow use case
+- **Template string fallback** when model hasn't loaded yet or player opts out.
+  All gameplay works without it — the LLM is a flavor layer, not a dependency.
+
+The full stack: **Three.js + lit-html + llama.cpp WASM + Keplerian orbital engine.**
+Open a URL, play a game with real orbital mechanics, an AI narrator, and a full
+economic simulation. Nothing to install. Everything in the browser.
 
 ### Use Cases
 
