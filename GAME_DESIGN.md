@@ -360,71 +360,45 @@ political fallout, fences the stolen cargo through frontier contacts, and rebuil
 their reputation over years of clean operations — that's not an exploit. That's a
 great story.
 
-### Smart Contract Infrastructure
+### Contract & Reputation Infrastructure
 
-By 2058, cryptocurrency-based smart contract escrow is a solved problem. This
-fundamentally changes what "contract enforcement" means — for most transactions,
-you don't need to trust your counterparty at all. The code enforces the deal.
+Inspired by the BCH Pseudonymous Reputation Protocol (bch-reputation-spec-v1.5), but
+tuned for a game where operational failure is expected, not exceptional.
 
-**How it works in-game:**
+**Core primitive: escrow contracts.** Buyer locks funds, conditions are met (port scanner
+confirms delivery), funds release automatically. Trustless for the happy path. This is
+the backbone of all commerce — delivery contracts, supply agreements, ship orders.
 
-Contracts are on-chain programs with locked collateral. When conditions are met
-(cargo delivered, verified by destination port transponder), funds release automatically.
-No arbitration needed. No trust needed. No regulatory body needed for the common case.
+**Reputation is observable history, not a score.** Every corp's trade record is public:
+deliveries completed, contracts abandoned, disputes, combat incidents. Other corps and
+colonies read this history and make their own judgments. No single "reputation number" —
+different entities weight different factors. A colony that desperately needs water
+doesn't care that you have a sketchy combat record. A shipyard consortium might.
 
-```
-DELIVERY CONTRACT (on-chain)
-├─ Buyer deposits: 50,000 credits (locked in escrow)
-├─ Seller bonds: 5,000 credits (performance guarantee)
-├─ Conditions:
-│   ├─ Cargo: 200 tons water ice
-│   ├─ Destination: Port Kepler-7b
-│   ├─ Deadline: Tau 2058.347
-│   └─ Quality: ≥95% purity (verified by port assay scanner)
-├─ On fulfillment: buyer escrow → seller, bond returned
-├─ On deadline expiry: bond → buyer as compensation, escrow returned
-└─ On partial delivery: pro-rata release based on tonnage delivered
-```
+**Game-appropriate reputation tuning:**
+- Operational failures (ship broke down, missed deadline) are common and expected.
+  Small reputation impact. Recovery matters — sending a replacement shipment partially
+  redeems the failure.
+- Abandoned contracts (took the escrow, never delivered, never tried) are a bigger deal.
+  Consistent abandonment makes you unhirable.
+- Deliberate hostile acts (theft, sabotage, combat) are observable through transponder
+  evidence and are weighted heavily by most entities. But a frontier free port might
+  not care.
+- The market decides. There are no game-imposed reputation penalties — only the
+  collective response of every other entity that can see your history.
 
-**What smart contracts solve (no gameplay here — it just works):**
-- Payment for delivered goods — automatic, trustless
-- Simple delivery deadlines — binary pass/fail
-- Collateral/bonds — locked, released by code
-- Multi-party splits — revenue sharing agreements execute automatically
-- Escrow for ship purchases — funds release when title transfers
+**What contracts handle automatically:**
+- Payment for delivered goods (port scanner confirms → funds release)
+- Deadline enforcement (bond forfeit on expiry, no human needed)
+- Multi-party revenue splits
+- Escrow for ship/facility purchases
 
-### What Smart Contracts Can't Enforce
-
-The interesting gameplay is in everything the blockchain CAN'T verify:
-
-**1. Quality of goods in transit**
-The contract says "200 tons water ice, ≥95% purity." The port scanner verifies on arrival.
-But what if the cargo was contaminated in transit? What if the seller loaded 95% pure ice
-but stored it next to volatile chemicals? The contract pays out — the scanner reads 94.8% —
-bond is forfeit. Was it the seller's fault or a transit accident? The contract doesn't know.
-
-**2. Exclusive dealing**
-"I'll supply your refinery exclusively" can't be enforced on-chain because the blockchain
-can't see what deals you make elsewhere. Exclusivity is reputation-based — if you're caught
-supplying a competitor, the partnership dissolves but there's no automatic penalty.
-
-**3. Non-compete and territory**
-"Don't mine in the belt between 2.5–3.0 AU" — there's no on-chain mechanism to prevent
-a ship from going somewhere. Territory claims are social/reputational, not code-enforced.
-
-**4. Best-effort obligations**
-"Prioritize our shipments during high-demand periods" — how does code measure "prioritize"?
-These soft commitments are where trust, reputation, and relationships matter.
-
-**5. Emergent situations**
-Ship breaks down mid-transit. Contract deadline is impossible. The smart contract just
-sees a missed deadline and forfeits the bond. There's no "act of God" clause in code.
-This creates demand for insurance markets (also smart-contract-based, but with oracle
-disputes).
-
-**6. Physical interference**
-What if someone sabotages your mining rig? What if a competitor "accidentally" parks their
-ship in your planned docking slot? Code can't prevent meatspace interference.
+**What contracts can't handle (where gameplay lives):**
+- Quality disputes (contamination in transit — whose fault?)
+- Exclusive dealing (can't prevent off-chain deals)
+- Territory claims (social/political, not code-enforced)
+- Acts of god (ship breakdown — the contract just sees a missed deadline)
+- What's actually in the cargo hold
 
 ### Governance is Local and Plural
 
@@ -520,6 +494,95 @@ and growth, and governance types emerge from the simulation:
 Different procedural seeds produce different political landscapes. One system might
 have a dominant SCA. Another might be fragmented into rival confederations. Another
 might be a patchwork of company towns and free ports with no overarching structure.
+
+### Cargo Manifests, Port Scanners & Smuggling
+
+Every ship has a **cargo manifest** — a signed declaration of what's in the hold.
+Every certified port has a **scanner** that verifies manifests on docking. This
+is infrastructure that exists for contract settlement (the scanner is the oracle
+that triggers escrow release). But it also creates the conditions for smuggling.
+
+**Why contraband exists:**
+
+Colonies set their own laws. What's legal at one colony may be banned at another.
+This isn't hard-coded — it emerges from colony governance:
+
+- A colony with strict environmental laws might ban certain chemical feedstocks
+  that produce toxic processing byproducts.
+- A company town might ban goods that compete with the owning corp's products.
+- A religious/ideological colony might ban recreational substances, certain
+  biotech, or AI components.
+- A defense-conscious colony might restrict weapons components, encryption
+  hardware, or military-grade drones.
+- A colony under blockade (economic conflict between corps) might have
+  unofficial shortages that create demand for anything, legal or not.
+
+The banned goods still have demand. Someone at that colony wants them. The question
+is: can you get them past the port scanner?
+
+**The scanner game:**
+
+Port scanners aren't magic — they're equipment with specs, calibration, and
+limitations. This creates counterplay:
+
+- **Scanner quality varies by colony.** A wealthy established colony has top-tier
+  scanners. A frontier outpost has basic ones. A free port might have none.
+- **Shielded cargo containers.** Manufactured item (needs refined metals +
+  electronics). Reduces scanner detection probability. Expensive, takes cargo
+  space, but makes smuggling viable at lower-tier ports.
+- **Manifest falsification.** Declare platinum as iron. Scanner checks mass and
+  spectral signature — close but not identical. Better scanners catch it. Worse
+  ones might not.
+- **Bribery.** Not a game mechanic per se — but a port official (NPC) at a
+  corrupt colony might "overlook" a scan discrepancy for a fee. This is a
+  colony-governance property: well-governed colonies have honest port staff,
+  poorly-governed ones have corruption available.
+- **Compartmentalized holds.** Legitimate cargo in the main hold, contraband in a
+  hidden compartment. Scanner coverage doesn't reach hidden compartments (ship
+  modification — costs cargo capacity).
+
+**What smuggling looks like in practice:**
+
+```
+1. Colony A bans chemical feedstock (environmental law)
+2. Colony A's underground economy still needs it (black market demand)
+3. A corp buys chemical feedstock at Colony B (legal, cheap)
+4. Loads it in a shielded container, manifests it as "industrial solvents"
+5. Docks at Colony A — scanner checks manifest against cargo
+6. If scanner doesn't catch it: deliver to black market contact, get paid premium
+7. If scanner catches it: cargo seized, fine, standing hit, possible docking ban
+```
+
+No "smuggling skill" or "smuggler class." Just: you have cargo, the port has a scanner,
+can you get past it? The answer depends on scanner quality, your equipment, and how
+corrupt the port is. All of which are properties of other systems that exist for
+other reasons.
+
+**Black markets:**
+
+Where there's contraband, there's a black market. Black market contacts at colonies
+are NPCs who:
+- Post buy orders for banned goods (at premium prices)
+- Offer information in exchange for deliveries (intel on competitor operations,
+  unsurveyed body compositions, colony political dynamics)
+- Connect you to other underground operators (fixer network)
+- Operate through encrypted comms (not on public relay channels)
+
+Black market reputation is separate from public reputation — and inversely correlated.
+A corp with a squeaky-clean public record and deep black market contacts is playing
+both sides. Getting caught collapses both positions.
+
+**Information brokering:**
+
+Some of the most valuable contraband isn't physical — it's information:
+- Survey data for unsurveyed bodies (sell to the highest bidder before publishing)
+- Competitor fleet movements and cargo manifests (corporate espionage)
+- Colony governance deliberations (insider knowledge of upcoming regulations)
+- Scanner calibration data (know exactly what a port can and can't detect)
+
+Information doesn't trigger port scanners. It moves through encrypted relay
+messages. The challenge isn't smuggling it through a port — it's acquiring it and
+finding a buyer willing to pay.
 
 ### The Trust Spectrum (Revised)
 
