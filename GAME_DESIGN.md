@@ -149,20 +149,56 @@ Resources don't teleport from asteroid to market. The supply chain is the game.
 
 ### Resource Types
 
-| Resource | Found on | Used for |
-|----------|----------|----------|
-| Iron/Nickel | Rocky bodies, M-type asteroids | Hull plating, structural frames |
-| Platinum group | Rocky bodies, M-type asteroids | Electronics, sensor arrays |
-| Water ice | Icy moons, C-type asteroids, comets | Fuel (H₂/O₂), life support |
-| Rare earths | Rocky bodies, some asteroids | Drive components, actuators, superconductors |
-| Silicates | S-type asteroids, rocky bodies | Glass/ceramics, optics, hab modules |
-| Volatiles | Comets, icy bodies, gas giant moons | Propellant, polymers, chemical feedstock |
-| Helium-3 | Gas giant atmospheres (via moons) | Fusion fuel (endgame) |
-| Copper/Aluminum | Rocky bodies | Wiring, antenna arrays |
-| Uranium/Thorium | Rocky bodies, some asteroids | Fission reactor fuel |
+**Raw materials** (mined, must be processed):
+
+| Resource | Found on | Processed into |
+|----------|----------|----------------|
+| Iron/Nickel ore | Rocky bodies, M-type asteroids | Refined metals → structural, hull |
+| Platinum ore | Rocky bodies, M-type asteroids | Refined platinum → electronics, sensors |
+| Rare earth ore | Rocky bodies, some asteroids | Processed RE → drives, actuators, superconductors |
+| Silicates | S-type asteroids, rocky bodies | Glass/ceramics → optics, habs |
+| Copper/Aluminum ore | Rocky bodies | Refined conductors → wiring, antennas |
+| Uranium/Thorium ore | Rocky bodies, some asteroids | Reactor fuel rods |
+| Water ice | Icy moons, C-type asteroids, comets | H₂/O₂ (propellant), purified water (life support) |
+| Volatiles | Comets, icy bodies, gas giant moons | Chemical feedstock → propellant, polymers |
+| Helium-3 | Gas giant atmospheres (via moons) | Fusion fuel (expensive to extract, natural endgame) |
+
+**Special resource:**
+
+| Resource | Source | Used for |
+|----------|--------|----------|
+| Exotic matter | Synthesized at particle accelerators from heavy elements (platinum, rare earths) | Warp drive fuel — consumed during WARP ON, CRUISE, WARP OFF phases |
+
+Exotic matter is the primary cost of warp travel. Conventional thrust phases consume
+standard propellant (H₂/O₂). The warp drive consumes exotic matter. A ship without
+exotic matter can still fly conventionally — it just can't warp. This makes exotic matter
+the single most strategically important resource in the system: control the exotic matter
+supply chain and you control who can warp.
+
+Exotic matter synthesis requires a **particle accelerator** facility (the most expensive
+and complex installation after shipyards). Input: heavy elements (platinum, rare earths).
+Output is small relative to input. This creates a tension: platinum used for exotic matter
+can't be used for electronics. Rare earths used for exotic matter can't be used for drive
+components.
+
+### Resource Depletion
 
 Resource quantity scales with body radius³ (volume proxy). Large bodies have more
 resources but deeper gravity wells — more expensive to leave.
+
+**Depletion is real but slow for large bodies.** A 100km asteroid contains more iron than
+humanity has ever mined on Earth. At game-scale extraction rates, planets and large
+asteroids are effectively inexhaustible — the constraint is extraction rate and
+infrastructure, not total supply.
+
+**Small bodies deplete within campaign timescales.** Sub-kilometer asteroids, comets, and
+small moons can be mined out. This creates natural economic cycles: gold rush when a
+rich small body is discovered → infrastructure boom → depletion → ghost town → corps
+relocate. Comets are especially volatile (pun intended) — huge volatile supply during
+perihelion passage, but the comet is small and depletes across a few passes.
+
+The economic game is primarily about **extraction rate and logistics**, not about running
+out of stuff. But small-body depletion adds drama and keeps the map dynamic.
 
 ### Power
 
@@ -174,9 +210,9 @@ distance from the star. At 1 AU, a solar array is efficient. At 5 AU (Jupiter), 
 is 4% of that. At 30 AU (Neptune), 0.1%. Solar is dominant in the inner system and
 useless in the outer system.
 
-**Fission reactors**: Reliable at any distance. Fuel is refined uranium/thorium (rare
-earth supply chain). Moderate output. Standard for outer system facilities and crewed
-stations. Needs periodic refueling and maintenance.
+**Fission reactors**: Reliable at any distance. Fuel is refined uranium/thorium (actinide
+supply chain — separate from rare earths). Moderate output. Standard for outer system
+facilities and crewed stations. Needs periodic refueling and maintenance.
 
 **Fusion reactors** (He-3): Endgame power source. Enormous output, compact, long-lived.
 Requires He-3 fuel from gas giant moons — the most expensive resource to extract. A
@@ -185,8 +221,20 @@ is a major ongoing cost.
 
 **Ship power**: All ships run fission reactors (can't depend on solar during warp or at
 arbitrary distances). Reactor quality is a ship stat — better reactors mean more power
-for drives, sensors, and life support. Reactor fuel is a consumable that limits
-operational range independent of propellant.
+for drives, sensors, and life support.
+
+**Three ship consumables:**
+- **Reactor fuel** (uranium/thorium rods): Powers the ship's reactor. Consumed slowly,
+  limits total operational time before refueling.
+- **Propellant** (H₂/O₂ from water electrolysis): Consumed during conventional thrust
+  phases (ESCAPE, LAUNCH, BRAKE, INSERTION). Limits how many gravity wells you can
+  enter/exit per trip.
+- **Exotic matter**: Consumed during warp phases (WARP ON, CRUISE, WARP OFF). Limits
+  how far you can warp per trip. The expensive one.
+
+A ship without propellant is stranded in orbit. A ship without exotic matter can still
+fly conventionally but can't warp — stuck doing brachistochrone transits at a fraction
+of c. A ship without reactor fuel is dead in space.
 
 **Power as infrastructure investment:**
 - Inner system: Solar arrays are cheap. Low barrier to establishing operations.
@@ -220,20 +268,48 @@ Iron ore         →   Refined iron         →   Hull plating        →   Ship
                                           →   Structural frame    →   Stations
 Platinum ore     →   Refined platinum     →   Electronics         →   Everything
                                           →   Sensor arrays       →   Ships, Relays
-Water ice        →   H₂ + O₂ (fuel)      →   (consumed)          →   Ships
+                                          →   Exotic matter ←←←  →   Warp drives (ships)
+                                               (particle accel,       THE critical resource
+                                                also needs RE)
+Water ice        →   H₂ + O₂             →   Propellant          →   Ships (thrust phases)
                      Purified water       →   Life support        →   Colonies
 Silicates        →   Glass/ceramics       →   Hab modules         →   Colonies
                                           →   Optics              →   Relays, Sensors
 Rare earth ore   →   Processed RE         →   Drive components    →   Shipyard
                                           →   Actuators           →   Drone factory
                                           →   Superconductors     →   Relays, Power
+                                          →   Exotic matter ←←←  →   Warp drives (ships)
 Volatiles        →   Chemical feedstock   →   Propellant          →   Ships
                                           →   Polymers            →   Drones, Habs
-He-3 (gas giant) →   Fusion fuel          →   (consumed)          →   Fusion reactors (endgame)
+He-3 (gas giant) →   Fusion fuel          →   (consumed)          →   Fusion reactors
 Copper/Aluminum  →   Refined conductor    →   Wiring              →   Everything
                                           →   Antenna arrays      →   Relays
-Uranium/Thorium  →   Reactor fuel rods    →   (consumed)          →   Fission reactors (ships, stations)
+Uranium/Thorium  →   Reactor fuel rods    →   (consumed)          →   Fission reactors
 ```
+
+Note: Exotic matter consumes both platinum AND rare earths. Every unit of exotic matter
+produced is platinum and rare earths NOT available for electronics or drive components.
+This is the central resource tension in the game.
+
+### Maintenance
+
+Ships, drones, and infrastructure all degrade over time and need maintenance. The system
+is simple: everything consumes **maintenance components** from the same supply chain that
+built it. No granular per-part tracking — just a periodic component cost.
+
+- **Ships**: Consume a small amount of hull plating, electronics, and drive components
+  per operational month. Skip maintenance → random system failures (drive malfunction,
+  sensor degradation, hull breach risk). A neglected ship eventually becomes unflyable.
+  Major maintenance requires docking at a shipyard (takes the ship out of service).
+- **Drones**: Consume actuators, electronics, polymers. Higher attrition rate than ships
+  (drones are expendable by design). Drone fleet size naturally decays without resupply.
+- **Infrastructure** (refineries, factories, stations): Consume structural components,
+  electronics, wiring. Less frequent than ship/drone maintenance but higher per-event
+  cost. Neglected facilities lose throughput before failing entirely.
+
+Maintenance creates steady demand for components at every level of the economy. A corp
+with 20 ships and 100 drones has a significant ongoing maintenance bill — empire size
+has a carrying cost.
 
 ### Processing Facilities
 
@@ -269,6 +345,38 @@ Colonies with humans need food, water, air, and medical supplies:
 Food is a strategic resource. Control a colony's food supply and you control its
 workforce availability.
 
+### Currency & Finance
+
+**The credit (₵)** — a system-wide cryptocurrency inspired by Bitcoin Cash. Fixed supply
+(sound money — no central bank can print more). All smart contracts, escrow, market
+orders, and payments denominate in credits. Credits are mined by validators (not the
+player's problem — it's infrastructure, like the internet existing).
+
+**Loans**: Simple, collateralized, on-chain. Inspired by Rollercoaster Tycoon's loan
+system but grounded in smart contracts:
+
+- A corp can borrow credits from a **colony treasury** or from **another corp**.
+- Loans are collateralized by registered assets (ships, facilities). The smart contract
+  locks a lien on the collateral — if you default, the lender can seize the asset
+  automatically via on-chain execution.
+- Interest rate is set by the lender (colony treasuries offer standard rates; corp-to-corp
+  loans are negotiated). Higher risk borrowers pay more — reputation history affects
+  rates offered.
+- **Default = asset seizure.** No bankruptcy protection. If you can't pay and the lender
+  calls the loan, the collateral transfers. This is a real risk: over-leveraging to expand
+  fast can result in losing your fleet.
+
+Early game, loans are how you expand beyond your starting capital. Borrow against your
+one ship to buy a refinery. Make the refinery profitable before the interest eats you.
+Classic tycoon tension.
+
+**Insurance**: Pay a premium to an insurance DAO (NPC-operated smart contract pool).
+Coverage triggers on verifiable events: ship destroyed (transponder goes dark), cargo
+lost at a certified port (scanner records), facility damaged. Premiums vary by route
+danger, cargo value, and your operational history. Not a deep system — just a cost you
+manage. High-risk frontier operations cost more to insure. You can choose to self-insure
+(skip premiums, eat losses directly) if you have the capital reserves.
+
 ## 5. Communications & Information
 
 Information moves at light speed. In a system spanning hundreds of AU, this means
@@ -285,6 +393,14 @@ in radio shadow behind the star).
 source. Relays are dumb forwarders — they can't forge messages, only delay, drop, or
 refuse to forward. Verification happens at the receiver. The worst a hostile relay can
 do is censor, and censorship is defeated by routing through an alternate path.
+
+**Relay range:** Signal strength falls off with inverse square distance, just like solar
+power. A standard relay can reach ~10 AU reliably. Beyond that, signal degrades — messages
+may be lost or corrupted. To span the outer system (50+ AU) you need relay chains:
+inner relay → belt relay → outer relay → frontier relay. Each link is infrastructure that
+someone built, maintains, and charges for. This makes telecom a genuine business — the
+corp that builds a relay chain to the frontier controls information access to that region.
+Higher-grade relay equipment extends range but costs more to build and power.
 
 **What relay owners control:**
 - **Coverage**: Only relay in range of a frontier body? Monopoly pricing on bandwidth.
@@ -653,18 +769,54 @@ A corp that controls rare earth supply controls the shipbuilding pace.
 Drone factories need the same rare earths as shipyards (actuators vs drive components) —
 genuine resource tension.
 
-### Fleet Management
+### Fleet Management & Trade Routes
 
 The single-ship state extends to a fleet:
 
 ```js
 state.fleet = [
-  { id: 'ship-1', route: [...], jumpIndex: 0, elapsed: 0, cargo: {...}, ... },
-  { id: 'ship-2', route: null, docked: 'Ceres', cargo: {...}, ... },
+  { id: 'ship-1', route: [...], jumpIndex: 0, elapsed: 0, cargo: {...}, orders: {...} },
+  { id: 'ship-2', route: null, docked: 'Ceres', cargo: {...}, orders: {...} },
 ];
 ```
 
 Each ship gets its own transit tick. Camera can track any ship.
+
+**Trade routes are emergent, not a game object.** A ship with standing orders — "load
+platinum at Vesta, deliver to Homeworld, repeat" — is running a trade route. There's no
+explicit "create trade route" action. You just give a ship orders and it executes them.
+The player's fleet management screen shows each ship's current orders, position, cargo,
+and fuel status. Optimization is about choosing which ships run which orders and when.
+
+### Passenger Transport
+
+Colony ships carry passengers instead of (or alongside) cargo. Immigration and emigration
+are driven by economic conditions: colonies with jobs and good quality of life attract
+immigrants from the homeworld and from declining colonies. Corps that run passenger
+services earn per-head fees.
+
+**Where immigrants come from:**
+- **Homeworld**: The largest population reservoir. Effectively infinite supply at game
+  timescales, but homeworld-to-colony transit is expensive (long distance, life support).
+- **Other colonies**: Workers emigrate from declining colonies to thriving ones. This can
+  cascade: a colony losing workers becomes less productive, loses more workers, eventually
+  becomes a ghost town.
+
+**Why passenger transport matters:**
+- **Workforce supply**: A colony's labor pool only grows through immigration (natural
+  growth is slow). Corps that need workers at a remote facility can fund immigrant
+  transport to boost the local population.
+- **Colony founding**: Establishing a new colony requires transporting the initial
+  population. A corp that controls passenger transport decides where new colonies form.
+- **Piracy stakes**: Attacking a freighter means lost cargo. Attacking a colony ship
+  means lost lives. The political consequences are proportionally more severe — every
+  colony in the system reacts harshly to civilian casualties.
+- **Evacuation**: When a colony fails (resource depletion, environmental disaster,
+  economic collapse), someone needs to evacuate the population. Emergency evacuation
+  contracts pay well but require ships on short notice.
+- **Political leverage**: A corp that controls immigration to a colony can throttle or
+  boost its population growth. Combined with food supply control, this is enormous power
+  over a colony's future.
 
 ## 10. Combat & Conflict
 
@@ -843,6 +995,42 @@ js/
 
 ### Development Phases
 
+### Early Game Pacing & Progressive Disclosure
+
+The first 30 minutes must hook the player. The full system complexity (9 resources, 4
+processing tiers, communications, labor, governance, combat...) is revealed gradually
+through natural gameplay progression, not dumped upfront.
+
+**First session (hauler phase):**
+- Player has one ship, docked at homeworld, some starting credits.
+- Contract board has simple delivery jobs: "Haul 50t water ice from Asteroid X to
+  Homeworld. Pay: 5,000₵. Deadline: 30 days."
+- Player learns: navigation, transit physics, orbital windows, basic trading.
+- Variety: delivery, survey (fly to unsurveyed body, scan it), rescue (retrieve
+  stranded drone). Not just "haul X to Y" for an hour.
+- The orbital mechanics novelty carries this phase — watching your ship warp across
+  the system for the first time is inherently cool.
+
+**Early expansion (investor phase):**
+- After a few contracts: enough credits to borrow against your ship and buy a small
+  facility (refinery or drone outpost). Classic tycoon leverage moment.
+- Player learns: processing, supply chain basics, colony presence, maintenance costs.
+- Niche contracts that big NPC corps ignore: frontier survey runs, rush deliveries to
+  understocked outposts, hauling for small colonies the megacorps don't bother with.
+
+**Mid-game (empire phase):**
+- Multiple ships, at least one facility, maybe a command center in a second region.
+- Player encounters: fleet management, labor economics, colony standing, communications
+  latency, market dynamics, competition.
+- Systems reveal themselves as needed: you don't think about colony standing until you
+  try to hire workers. You don't think about relay infrastructure until your orders to
+  the outer system take hours to arrive.
+
+**Late game (power player phase):**
+- The full system is in play: manufacturing chains, exotic matter production, political
+  maneuvering, combat posturing, information warfare, smuggling.
+- Player is shaping the system, not just reacting to it.
+
 **Phase 1: Core Loop** — Procedural generator. Resource model. Single ship with cargo.
 Two AI colonies with markets. Delivery contracts with deadlines. Money counter. One AI
 corp competing.
@@ -866,7 +1054,12 @@ Mobile layout. Leaderboards.
 
 - **Combat balance**: What prevents the richest corp from dominating through force?
   Coalitions? Diminishing returns on military spending? Insurance making piracy
-  net-negative?
+  net-negative? Maintenance costs scaling with fleet size?
 - **Mercenaries**: Can corps hire NPC military outfits for deniable operations?
-- **Campaign length**: How many game-years constitute a "satisfying" sandbox session?
-  Is there a soft endpoint or do games run indefinitely?
+- **Exotic matter balance**: How much exotic matter per AU of warp travel? This single
+  number determines whether warp is cheap (everyone warps everywhere) or expensive
+  (warp is a strategic choice, conventional travel is the default for short hops).
+- **Loan interest rates**: What range keeps loans useful without making over-leverage
+  trivially safe? Needs playtesting.
+- **Colony governance transitions**: What triggers a company town becoming an independent
+  colony? Population threshold? Worker unrest? External pressure? How is this simulated?
