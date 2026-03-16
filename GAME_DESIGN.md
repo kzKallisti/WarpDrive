@@ -1343,12 +1343,37 @@ it, consortiums negotiate it. Defense drones are purchased from drone manufactur
 (player or NPC corps) — creating demand in the drone supply chain. A corp that supplies
 defense drones to a colony earns standing AND creates a dependency.
 
-In Established/Late Stage start modes, bloc-affiliated colonies start with defense
-proportional to bloc military investment. Commonwealth colonies tend to have moderate
-professional defense. Collective colonies tend to have heavy state-funded defense.
-Coalition colonies tend to have scrappy, improvised defense. Consortium colonies tend
-to rely on defense pacts rather than local forces. The procedural generator seeds
-defense levels from bloc affiliation and colony wealth.
+**Colony enforcement is layered** — defense drones are just the physical layer:
+
+| Layer | What it does | Requirements |
+|-------|-------------|-------------|
+| **Physical defense** | Combat drones, patrol ships, point-defense | Drone supply + power + crew |
+| **Port authority** | Inspects ships, enforces docking rules, scanner oversight, warrants | Trained personnel, command infrastructure |
+| **Legal/arbitration** | Resolves disputes smart contracts can't (quality, environmental, labor) | Legal expertise, governance maturity |
+| **Impound capability** | Seize ships as evidence or penalty | Requires a shipyard or armed dock facility |
+| **Summon capability** | Call for help from defense pact allies | Relay coverage + pact membership |
+
+Each layer costs money and infrastructure. A colony that can't afford port authority
+doesn't have one. A colony without a shipyard can't impound ships — they can deny
+docking but can't physically detain a vessel. Frontier colonies are lawless not by
+game rule but by resource constraint.
+
+**Governance type shapes enforcement character:**
+- **Company town**: Corporate security. Effective, serves the owning corp's interests.
+  "Law" is whatever the owning corp says it is.
+- **Independent colony**: Elected law enforcement. Slower, more bureaucratic, but
+  legitimate and accountable to residents.
+- **Consortium**: Shared security funded by member corps. Professional but politically
+  complicated — enforcement priorities are negotiated.
+- **Free port**: Nothing. No police, no port authority, no courts. That's the point.
+  Disputes are settled between the parties or not at all.
+
+In Established/Late Stage start modes, bloc-affiliated colonies start with enforcement
+proportional to bloc investment. Commonwealth colonies tend toward professional
+independent law enforcement. Collective colonies tend toward heavy state security.
+Coalition colonies tend toward community-based enforcement. Consortium colonies rely
+on shared professional security forces. The procedural generator seeds enforcement
+levels from bloc affiliation, colony wealth, and governance type.
 
 **Corporate Alliances**: Shared intelligence, trade preferences, coordinated pricing.
 Reputation-based, not code-enforced. Betrayal always possible.
