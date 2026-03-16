@@ -1525,7 +1525,89 @@ be converted to smart contracts.
 the host sets speed (default 60x). Players can request speed changes, host approves.
 Pause requires majority vote or host override.
 
-## 15. Technical Architecture
+## 15. LLM Integration (Narrative Layer)
+
+A small but capable language model adds immersion without replacing game logic. The
+simulation computes facts. The LLM writes prose. No agency — narration only.
+
+**Principle:** The LLM never decides what happens. It decides how what happened is
+communicated. Game events are deterministic simulation outputs. The LLM renders them
+into character, context, and atmosphere.
+
+**Implementation:** A lightweight local model (e.g. quantized 7B–13B, runs on GPU or
+MLX on Apple Silicon). Called from the game loop on event triggers — not every frame,
+just when narrative-worthy events occur. Response cached and displayed in UI panels.
+Latency-tolerant: a 2-second generation delay for a news article is fine.
+
+### Use Cases
+
+**System Herald (news feed):**
+Simulation event: `{type: 'supply_crisis', body: 'Kepler-7b', resource: 'water', level: 0.28}`
+LLM renders: *"Water crisis deepens at Kepler-7b as stockpiles hit critical 28%. Colony
+administrator urges shipping corps to prioritize deliveries. Port price for water ice
+has tripled this week. Analysts warn that failure to resupply within 30 days could
+trigger evacuation protocols."*
+
+News items appear in a scrollable feed panel. They surface simulation events the player
+might miss in raw data — and make the world feel alive.
+
+**NPC corp voice:**
+Simulation decides: `{type: 'offer', from: 'apex_industrial', terms: {...}, personality: 'monopolist'}`
+LLM renders: *"We notice you've been supplying refined platinum to the same ports we
+service. We'd prefer to discuss territory before this becomes... unproductive. — Apex
+Industrial"*
+
+Each NPC corp has a personality prompt prefix (hauler = professional/reliable, monopolist
+= aggressive/territorial, prospector = enthusiastic/risk-loving). The LLM applies tone
+consistently. All comms arrive through the in-world relay system with appropriate delay.
+
+**Colony political narration:**
+Simulation event: `{type: 'governance_change', body: 'Kepler-7b', from: 'company_town', to: 'independent'}`
+LLM renders: *"After months of tension, Kepler-7b residents voted 73–27 to establish an
+independent council. OmniCorp retains its facilities but will no longer set docking
+policy unilaterally. Workers celebrated in the hab commons as the vote results were
+announced."*
+
+**Intel briefings:**
+Simulation data: `{sightings: [{ship: 'pk_8a3f', near: 'Vesta', count: 3, pattern: 'surveying'}]}`
+LLM renders: *"INTEL BRIEF: Three passes by an unregistered vessel near your Vesta
+operation this week. Flight pattern consistent with geological surveying. Possible
+competitor prospecting or pre-positioning for a claim jump. Recommend increasing
+patrol drone presence."*
+
+**Contract color:**
+Simulation: `{type: 'contract', origin: 'frontier_colony', resource: 'medical', urgency: 'critical'}`
+LLM renders: *"URGENT — Frontier Station Tau-9 requesting emergency medical supply run.
+'We've had a mining accident and our stocks are depleted. Any corp in range, we'll pay
+triple rate. People are hurt.' — Station Administrator Chen"*
+
+### What the LLM Does NOT Do
+
+- Does not make game decisions (NPC strategy is deterministic code)
+- Does not generate contracts (simulation generates terms, LLM adds flavor text)
+- Does not resolve disputes or combat (pure simulation)
+- Does not have memory across calls (stateless — context is passed per-call from
+  game state)
+- Does not hallucinate game state (prompt includes only verified simulation data)
+
+### Prompt Architecture
+
+Each LLM call includes:
+1. **System prompt**: Game setting, tone guide, current date
+2. **Entity context**: Who is speaking or being described (personality, history, standing)
+3. **Event data**: The simulation output being narrated (structured JSON)
+4. **Instruction**: What to produce (news article, diplomatic message, intel brief, etc.)
+
+The prompt never asks "what should happen?" — only "describe what happened" or "voice
+this message as this character."
+
+### Offline / Performance Fallback
+
+If no LLM is available (hardware too weak, player preference), the game falls back to
+template strings: "Water supply critical at Kepler-7b (28%). Price: 75₵/t." Functional,
+just less immersive. All gameplay works without the LLM — it's pure flavor.
+
+## 16. Technical Architecture
 
 ### What WarpDrive Already Provides
 
