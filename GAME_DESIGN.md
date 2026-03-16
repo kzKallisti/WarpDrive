@@ -6,6 +6,11 @@ Asteroid mining tycoon set in procedurally generated solar systems. Each new gam
 
 **Core thesis: orbital mechanics IS the economy.** Physics creates natural scarcity, timing pressure, and strategic depth without artificial game mechanics. A player who understands launch windows and gravity wells outperforms one who brute-forces routes.
 
+**The player is a corporation.** Not a pilot, not a colonist — a corporate entity that
+owns ships, facilities, and contracts. The player makes strategic decisions: where to
+mine, what to build, which routes to run, who to partner with. Ships and drones execute.
+Human crews and AI managers operate facilities. The player is the board of directors.
+
 ## Setting & Premise
 
 **Year 2058.** Humanity has achieved warp speed (c) but hasn't broken the light-speed barrier. Advanced AI and robotics are mature technologies — autonomous mining rigs, AI-piloted freighters, and algorithmic trading are the norm. The player isn't necessarily sitting in a cockpit; they're running a corporation from a terminal.
@@ -464,6 +469,46 @@ is about strategy, not deception:
   The market learns who's reliable.
 
 ## Workforce, Population & Life Support
+
+### Colonies vs Corps
+
+A colony is a **place** — shared infrastructure (port, life support, hab space, governance)
+on a body. A corp is a **tenant** — they lease dock space, build facilities, hire workers,
+and operate within the colony.
+
+Multiple corps can operate at one colony:
+- Shared port (docking fees, not exclusive)
+- Shared life support and hab infrastructure (colony provides, corps pay rent)
+- Separate facilities (your refinery, their shipyard — both at the same colony)
+- Shared labor pool (colony workers can be hired by any corp present)
+- Shared market (buyers and sellers are co-located — competitive pricing)
+- Colony governance sets local rules: tax rates, environmental standards, docking priority
+
+A corp can have presence at many colonies simultaneously. A colony can host many corps.
+This is a many-to-many relationship, not ownership.
+
+**Who "owns" a colony?**
+- In established modes: the colony is self-governing. Corps are tenants.
+- In frontier mode: the first corp to build a hab at a body effectively founds the colony.
+  They set initial rules, but as other corps arrive, governance becomes shared or contested.
+- A corp can build a **private facility** on an uninhabited body — this is NOT a colony.
+  It's a corporate installation (drone outpost, private station). No shared infrastructure,
+  no docking for others unless the owner permits it.
+
+**Colony vs private installation:**
+
+| | Colony | Private installation |
+|---|--------|---------------------|
+| Governance | Self-governing or charter | Owner controls |
+| Docking | Open (with fees) | Owner's discretion |
+| Market | Public, competitive | Private/negotiated |
+| Labor pool | Shared | Owner's crew only |
+| Expansion | Any corp can build facilities | Owner only |
+| SCA oversight | Yes (if certified) | Minimal |
+
+The tension: colonies are better for commerce (shared market, labor pool, infrastructure)
+but you share the space with competitors. Private installations are yours alone but you
+bear all costs and have no local market.
 
 ### Colony Types
 
