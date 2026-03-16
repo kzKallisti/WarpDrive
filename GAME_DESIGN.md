@@ -223,18 +223,34 @@ is a major ongoing cost.
 arbitrary distances). Reactor quality is a ship stat — better reactors mean more power
 for drives, sensors, and life support.
 
+**Propulsion technology**: Ships use **fusion torch drives** for conventional thrust —
+the only technology that delivers both 2g acceleration and reasonable fuel efficiency.
+Specific impulse ~1,200s (exhaust velocity ~12 km/s). Chemical rockets can't provide
+the Δv budget; ion drives can't provide the thrust. Fusion torch is the realistic
+2058 technology that makes the transit physics work.
+
 **Three ship consumables:**
 - **Reactor fuel** (uranium/thorium rods): Powers the ship's reactor. Consumed slowly,
   limits total operational time before refueling.
-- **Propellant** (H₂/O₂ from water electrolysis): Consumed during conventional thrust
-  phases (ESCAPE, LAUNCH, BRAKE, INSERTION). Limits how many gravity wells you can
-  enter/exit per trip.
+- **Propellant** (H₂ from water electrolysis): Consumed during conventional thrust
+  phases (ESCAPE, LAUNCH, BRAKE, INSERTION) by the fusion torch. Mass ratios are
+  significant: a 10,000-tonne freighter escaping Earth burns ~16,000 tonnes of
+  propellant. This is why **propellant depots** are critical infrastructure — ships
+  refuel at every stop, not carry round-trip fuel.
 - **Exotic matter**: Consumed during warp phases (WARP ON, CRUISE, WARP OFF). Limits
   how far you can warp per trip. The expensive one.
 
-A ship without propellant is stranded in orbit. A ship without exotic matter can still
-fly conventionally but can't warp — stuck doing brachistochrone transits at a fraction
-of c. A ship without reactor fuel is dead in space.
+**Fuel economics shape the game:**
+- A ship without propellant is stranded in orbit.
+- A ship without exotic matter can still fly conventionally (fusion torch only) but
+  takes weeks/months instead of minutes for interplanetary transits.
+- A ship without reactor fuel is dead in space.
+- **Propellant depots** at colonies and stations are essential. A corp that controls
+  propellant supply at a remote body controls access to that body. Running out of
+  propellant at a body with no depot means calling for a tanker — expensive and slow.
+- Deep gravity wells (Jupiter: 59.5 km/s escape, ~50 min burn, enormous propellant
+  cost) are genuinely expensive to operate at. This is why Jupiter's moons are
+  high-value but high-cost — the gravity well tax is real.
 
 **Power as infrastructure investment:**
 - Inner system: Solar arrays are cheap. Low barrier to establishing operations.
@@ -727,10 +743,11 @@ Ship stats map directly to existing physics constants:
 |----------|-----------|----------------|
 | Engine thrust | Acceleration, escape time | `SHIP_ACCEL_MS2` |
 | Drive quality | Warp threshold speed | `WARP_THRESHOLD_KMS` |
-| Hull length | Cargo capacity, tidal tolerance | `SHIP_LENGTH_KM` |
-| Fuel capacity | Max range without refueling | New field |
+| Hull length / dry mass | Cargo capacity, tidal tolerance | `SHIP_LENGTH_KM` |
+| Propellant capacity | How many Δv burns before refueling | Derived from mass ratio |
+| Exotic matter capacity | Max warp distance per trip | New field |
+| Reactor | Power output, reactor fuel consumption rate | New field |
 | Mining equipment | Extraction rate | New field |
-| Reactor | Power output, fuel consumption rate | New field |
 | Drone bays | Combat/utility drone capacity | New field |
 
 ### Ship Classes
