@@ -1538,15 +1538,18 @@ into character, context, and atmosphere.
 compiled to **WebAssembly**. Runs entirely in the browser — no server, no install, no
 GPU drivers. Same zero-build static web app architecture as the rest of the game.
 
-- Model file (~1 GB) downloaded on first launch, cached in IndexedDB
+- **Default: fine-tuned Qwen2.5-0.5B** (~380 MB download, cached in IndexedDB).
+  Fine-tuned on 500-1000 examples of game-specific prose styles. Sub-second generation
+  in WASM (60-80 tok/s). The use case is narrow enough that a fine-tuned 0.5B nails it.
+- **Enhanced: Qwen2.5-1.5B** (~1 GB, 2-4 seconds per paragraph). Better voice
+  differentiation, richer prose. For players who want the premium experience.
 - Inference runs in a **Web Worker** (separate thread, never blocks the game loop
   or Three.js rendering)
-- 20-40 tok/s in WASM (slower than native but a 3-sentence paragraph still takes
-  2-4 seconds — well within tolerance for narrative text that appears in a feed)
-- Optional upgrade to Qwen2.5-3B (~2 GB download, better voice differentiation)
 - Apache 2.0 license — fully shippable, no restrictions
-- Fine-tuning on 500-1000 game-specific examples (news/diplomatic/intel/personality
-  styles) makes the 1.5B model punch well above its weight for this narrow use case
+- **Hybrid calling strategy**: template strings for routine events ("Ship arrived at
+  Vesta"), LLM reserved for high-value narration (NPC personality messages, political
+  events, intel briefings, dramatic moments). Reduces LLM calls to a few per game-
+  minute rather than every event.
 - **Template string fallback** when model hasn't loaded yet or player opts out.
   All gameplay works without it — the LLM is a flavor layer, not a dependency.
 
