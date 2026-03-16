@@ -837,6 +837,62 @@ powerful, and not incorruptible. In Frontier mode, it doesn't exist yet and may 
 
 ## 8. Contracts, Commerce & the Underground
 
+### Privacy Model
+
+The information environment reflects 2058 norms: encryption-by-default, pseudonymous
+identity, and selective transparency. Decades of corporate espionage, nation-state
+hacking, and activist movements through the 2030s–2050s pushed privacy tooling into
+standard infrastructure.
+
+**What's public (on-chain, auditable by anyone):**
+- Contract structure — terms, conditions, deadlines, quality thresholds
+- Contract outcomes — delivered/failed/disputed, scanner readings
+- Transaction amounts and flows (but between pseudonymous addresses)
+- Ship registrations (linked to pseudonymous keys, not corp names)
+- Scanner attestations (signed readings, on-chain)
+- Reputation history (per-address: deliveries completed, contracts abandoned, disputes)
+
+**What's pseudonymous:**
+- Participants are addresses, not names. `qz7x...3f` completed 847 deliveries. Which
+  corp is that? You don't know unless they've publicly claimed it or you've done the
+  intelligence work to associate the address with observed behavior.
+- Corps can operate through multiple addresses. A conglomerate might use different
+  addresses for different operations — one for legitimate hauling, one for frontier
+  activities. Linking them requires traffic analysis, not a database lookup.
+- CashFusion (credit mixing) is routine for general spending. Financial flows between
+  addresses are obfuscated unless the parties choose transparency.
+- Stealth addresses for everyday transactions — payroll, supplies, docking fees.
+
+**What's private (encrypted, requires access or compromise):**
+- Contract contents (parties can choose to publish or keep private — the structure
+  is visible but specific values like price, quantity, quality specs can be encrypted
+  with only the parties holding keys)
+- Relay message contents (encrypted by default, metadata visible)
+- Ship cargo manifests (signed but encrypted — port scanner reads locally, doesn't
+  broadcast contents)
+- Corp internal communications, fleet orders, strategic plans
+
+**What this means for gameplay:**
+
+- **"Who is that ship?"** is a real investigative question. Transponders broadcast a
+  pseudonymous key, not a corp name. You identify ships by observation: this key docks
+  at that corp's facilities, flies their routes, responds to their command center.
+  Building a map of competitor fleets is intelligence work, not a UI label.
+- **Reputation is per-address.** A corp can shed a bad address and start fresh — but
+  loses all accumulated reputation history. Re-establishing trust on a new address
+  takes time. There's a real cost to burning an identity.
+- **Colony standing** tracks known addresses. A corp that operates through one public
+  identity builds deep standing. A corp that rotates addresses appears as multiple
+  unreliable newcomers. Transparency is rewarded in civilized space.
+- **Financial intelligence** — tracking credit flows between addresses to map corporate
+  structure, identify shell entities, or discover hidden partnerships — is a valuable
+  skill. Pattern analysis can cluster addresses that behave as a fleet even without
+  knowing the corp name.
+- **Privacy is the default, transparency is a choice.** Corps that want to build public
+  reputation voluntarily link their addresses to a public identity. Corps that want to
+  operate in the shadows stay pseudonymous. Both are valid strategies with different
+  tradeoffs.
+
 ### Smart Contract Escrow
 
 Trustless commerce is the backbone. Buyer locks funds in escrow; port scanner confirms
