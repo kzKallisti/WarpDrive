@@ -1525,7 +1525,261 @@ be converted to smart contracts.
 the host sets speed (default 60x). Players can request speed changes, host approves.
 Pause requires majority vote or host override.
 
-## 15. LLM Integration (Narrative Layer)
+## 15. Random Events & Emergencies
+
+Deterministic economics + unpredictable events = interesting decisions. Without
+randomness, the mid-game becomes spreadsheet optimization. Events force reactive play
+and create stories.
+
+### Event Philosophy
+
+Events are **disruptions to plans, not punishments.** Every event creates a problem AND
+an opportunity. A solar flare disables your mining rig — but it also disables your
+competitor's. A disease outbreak at a colony spikes medical supply prices — if you have
+medical supplies, you just got rich. The player who adapts fastest wins.
+
+Events are **physically grounded**, not arbitrary. Nothing happens that couldn't happen
+in the real world. The simulation rolls probability checks based on physical conditions,
+not a "bad luck" timer.
+
+### Event Categories
+
+**Equipment failures** (most common, small impact):
+- Drive malfunction: ship drops out of warp early, finishes trip on conventional thrust.
+  Frequency scales inversely with quality level and maintenance status.
+- Mining rig breakdown: extraction halts until repaired. Drones can't fix novel failures
+  — need human crew or a maintenance ship.
+- Reactor scram: facility loses power temporarily. Production stops. Life support switches
+  to batteries (limited duration at crewed stations).
+- Cargo container breach: partial cargo loss in transit. Insurance covers it if insured.
+
+These are the "maintenance matters" events. A well-maintained quality-80 fleet rarely
+sees them. A neglected quality-30 fleet sees them constantly. The player's investment
+in quality and maintenance directly controls this risk.
+
+**Stellar events** (rare, system-wide impact):
+- Solar flare / coronal mass event: Radiation spike affects inner system operations.
+  Ships in transit can shelter (minor delay). Unshielded facilities and drones take
+  damage. Colonies with good hab shielding are fine. Frequency depends on star type
+  (M-dwarfs flare more often — a real physics factor in star selection).
+- Orbital resonance shift: A body's orbit changes slightly over long timescales.
+  Not catastrophic but trade routes that were optimized for the old orbit become
+  suboptimal. Recompute and adapt.
+
+**Colony crises** (moderate frequency, localized impact):
+- Disease outbreak: Colony medical demand spikes. Population growth halts or reverses.
+  Workforce availability drops. Medical supply prices soar. Corps that can deliver
+  medical supplies fast earn massive standing and profit.
+- Labor strike: Workers at a colony refuse to work for corps below a certain wage or
+  standing threshold. Facilities with poor standing go offline. Drone-operated
+  facilities unaffected. Creates pressure to improve worker conditions.
+- Environmental incident: Industrial accident contaminates colony water/air. Could be
+  caused by player (corner-cutting) or NPC or random equipment failure. Colony standing
+  hit for responsible corp. Emergency cleanup contracts generated.
+- Political crisis: Governance transition (company town → independent, consortium
+  deadlock, free port declaring regulations). Changes tax rates, docking policies,
+  environmental rules. Creates winners and losers among corps operating there.
+
+**Discovery events** (rare, high impact):
+- Unsurveyed body turns out to have exceptional resource quality (quality-90+ deposit).
+  Gold rush dynamics — every corp wants to establish operations.
+- Comet perihelion approach: A frontier comet enters the inner system. Temporary volatile
+  bonanza. Window lasts weeks/months then it's gone for decades.
+- Derelict discovery: An abandoned facility or ship found at a frontier body. Salvage
+  opportunity — free components, possibly functional equipment. First to arrive claims it.
+
+**Market shocks** (moderate frequency, economic impact):
+- Demand spike: A colony suddenly needs massive quantities of a resource (population
+  boom, new facility construction, military buildup). Contract prices surge.
+- Supply disruption: A major NPC corp's refinery goes offline (equipment failure, labor
+  strike, combat damage). Market supply drops, prices rise. Opportunity for competitors.
+- Price crash: Oversupply of a resource (multiple corps deliver large shipments
+  simultaneously). Price collapses. Corps stuck with inventory take losses.
+
+### Event Probability
+
+Events aren't random dice rolls on a timer. They emerge from simulation conditions:
+
+- Equipment failure probability = f(quality, maintenance_status, age, environmental_stress)
+- Disease probability = f(population_density, medical_supply_level, hab_quality)
+- Labor strike probability = f(avg_wage_vs_colony_avg, worst_corp_standing, unemployment)
+- Solar flare probability = f(star_type, star_activity_cycle)
+- Market shocks = f(supply/demand_ratio, concentration_of_supply, colony_growth_rate)
+
+High-quality equipment in well-maintained facilities with good colony standing and
+adequate supplies → events are rare. Neglected infrastructure, unhappy workers,
+depleted medical stocks → events are frequent. The player's choices directly shape
+their risk profile.
+
+## 16. Mid-Game Depth
+
+The first hour hooks you (first ship, first contract, learning orbital mechanics).
+The late game excites (empire, politics, combat, market manipulation). The mid-game
+(hours 2-10) is where tycoon games lose players to the grind. Here's what keeps it
+engaging:
+
+### Escalating Complexity Reveals
+
+New systems reveal themselves as the player grows, each adding a new decision layer:
+
+| Trigger | System revealed | New decisions |
+|---------|----------------|---------------|
+| Buy second ship | Fleet management | Which ship goes where? Deadheading penalty. |
+| Build first facility | Production chains | What to produce? Where to source inputs? |
+| First quality bottleneck | Quality system | Better ore? Better facility? Better crew? |
+| Reach outer system | Power economics | Fission fuel logistics, command center placement |
+| First competitor conflict | Economic warfare | Undercut? Vertically integrate? Lobby colony? |
+| First maintenance failure | Maintenance economics | Pay for quality or accept risk? |
+| First loan | Financial leverage | Borrow to grow fast or organic growth? |
+| First smuggling opportunity | Underground economy | Risk vs reward, scanner game |
+| First combat encounter | Security posture | Escorts? Combat drones? Avoid the area? |
+
+The player never gets all of these at once. Each emerges when the player's operations
+naturally encounter it. By hour 5, the player is juggling fleet logistics, production
+optimization, quality management, and political relationships — not because the game
+forced it, but because growth created the need.
+
+### The "Next Big Thing" Ladder
+
+The mid-game always has a visible next milestone:
+
+**Milestone 1 (~hour 1):** First profitable delivery route. "I can make money."
+**Milestone 2 (~hour 2):** First facility (refinery or depot). "I own infrastructure."
+**Milestone 3 (~hour 3):** Second ship. Fleet management begins. "I'm a fleet operator."
+**Milestone 4 (~hour 4):** First command center outside homeworld. "I have reach."
+**Milestone 5 (~hour 5-6):** First component factory or shipyard investment. "I'm a manufacturer."
+**Milestone 6 (~hour 6-8):** First political entanglement (colony standing matters, bloc reputation shifts). "I'm a political actor."
+**Milestone 7 (~hour 8-10):** First major competitive conflict. "I'm fighting for territory."
+
+Each milestone changes what the game feels like. The player who just built a shipyard
+is playing a different game than the player who's still hauling ore. But both are
+valid — the shipyard owner needs the hauler's deliveries.
+
+### Why the Economy Doesn't Stagnate
+
+- **Orbital mechanics create natural cycles.** The same route is profitable this month
+  and unprofitable next month because distances changed. Players must continuously
+  re-evaluate and adapt.
+- **Resource depletion at small bodies** forces expansion. Your belt mining operation
+  runs dry, you need to prospect new sites.
+- **Random events disrupt plans.** Equipment failure, colony crisis, market shock —
+  something always needs attention.
+- **NPC corps are competing.** They expand, undercut, claim resources. Standing still
+  means falling behind.
+- **Quality improvement is a treadmill.** Better inputs exist somewhere. Better engineers
+  can be attracted. There's always a marginal improvement to chase.
+- **New colonies and infrastructure create new markets.** As the system develops (both
+  player and NPC-driven), new demand centers appear. The economic map is constantly
+  shifting.
+
+## 17. Economic Parameters (Ballpark)
+
+These are order-of-magnitude estimates for validating that the economy works on paper.
+All numbers are tuning targets, not commitments. Final values come from playtesting.
+
+### Starting Conditions
+
+| Item | Value | Notes |
+|------|-------|-------|
+| Starting credits | 50,000 ₵ | Enough for a few contracts + one small investment |
+| Starting ship | 1 × Scout-class freighter | Quality-40, small cargo (500t), basic drive |
+| Starting ship value | ~100,000 ₵ | You can't afford to lose it |
+| Starting loan available | ~75,000 ₵ | Collateralized against your ship |
+
+### Ship Costs (new construction, quality-50)
+
+| Class | Cost | Cargo capacity | Notes |
+|-------|------|---------------|-------|
+| Scout | 80,000–120,000 ₵ | 500t | Fast, cheap. Courier/exploration. |
+| Freighter | 200,000–400,000 ₵ | 5,000t | The workhorse. |
+| Heavy hauler | 500,000–1,000,000 ₵ | 15,000t | Bulk transport. Mid-game purchase. |
+| Mining vessel | 300,000–500,000 ₵ | 2,000t + mining equipment | Extraction + hauling combo. |
+| Tanker | 150,000–300,000 ₵ | 8,000t (liquid H₂) | Fuel logistics. |
+| Colony ship | 400,000–800,000 ₵ | 200–500 passengers | Immigration/evacuation. |
+
+Ship costs scale with quality. A quality-80 freighter costs ~3x a quality-50 freighter
+(premium components throughout).
+
+### Facility Costs (construction, quality-50)
+
+| Facility | Cost | Monthly operating | Notes |
+|----------|------|-------------------|-------|
+| Mining rig (drone) | 50,000–100,000 ₵ | 2,000–5,000 ₵ | Cheapest entry to production |
+| Mining rig (crewed) | 100,000–200,000 ₵ | 10,000–20,000 ₵ | Higher throughput, adaptable |
+| Refinery | 200,000–400,000 ₵ | 8,000–15,000 ₵ | Ore → refined materials |
+| Component factory | 300,000–600,000 ₵ | 15,000–30,000 ₵ | Specialized (drives, electronics, etc) |
+| Drone factory | 200,000–400,000 ₵ | 10,000–20,000 ₵ | Produces all drone types |
+| Shipyard | 1,000,000–2,000,000 ₵ | 40,000–80,000 ₵ | The big investment. Late mid-game. |
+| Casimir condenser | 2,000,000–5,000,000 ₵ | 100,000–200,000 ₵ | Endgame. Power-hungry. |
+| Command center | 200,000–400,000 ₵ | 10,000–20,000 ₵ | Strategic infrastructure. |
+| Comms relay | 50,000–100,000 ₵ | 2,000–5,000 ₵ | Earns bandwidth fees passively |
+| Propellant depot | 80,000–150,000 ₵ | 3,000–8,000 ₵ | Essential at every stop |
+
+### Resource Prices (ballpark, at Terra/homeworld market)
+
+| Resource | Price per tonne | Notes |
+|----------|----------------|-------|
+| Iron ore | 5–15 ₵ | Bulk, low margin |
+| Refined iron | 20–40 ₵ | ~3x markup over ore |
+| Platinum ore | 50–100 ₵ | Higher base value |
+| Refined platinum | 200–400 ₵ | High-value material |
+| Water ice | 10–25 ₵ | Cheap at source, expensive far from ice |
+| Rare earth ore | 80–150 ₵ | Scarce, strategic |
+| Processed rare earths | 300–600 ₵ | The bottleneck material |
+| Casimir fuel rods | 1,000–3,000 ₵ | THE premium product |
+| Propellant (H₂) | 5–15 ₵ | Cheap but consumed in enormous quantities |
+| Electronics (component) | 500–1,000 ₵ | Universal demand |
+| Drive components | 800–1,500 ₵ | Shipyard bottleneck |
+
+Prices vary by location (distance premium), supply/demand, and quality. Quality-80
+refined platinum commands 2–3x the price of quality-40. Frontier prices for imported
+goods can be 5–10x homeworld baseline.
+
+### Contract Pay (typical, at 60x game speed)
+
+| Contract type | Pay | Duration | Notes |
+|--------------|-----|----------|-------|
+| Short inner-system delivery | 5,000–15,000 ₵ | 1–3 game-days | Bread and butter early game |
+| Belt mining run + delivery | 15,000–40,000 ₵ | 5–10 game-days | Requires cargo capacity |
+| Outer system expedition | 50,000–150,000 ₵ | 15–30 game-days | Needs fuel logistics |
+| Emergency supply (colony crisis) | 3–5x normal rate | Tight deadline | High reward, high risk |
+| Survey (unsurveyed body) | 10,000–30,000 ₵ | Varies by distance | Information is the real value |
+| Passenger transport | 2,000–5,000 ₵/passenger | Varies | 200 passengers = 400K–1M ₵ |
+
+### Economic Validation
+
+Does the math work? Quick sanity checks:
+
+**Can a new player make money?**
+Starting ship (500t cargo). Short delivery: 500t iron ore × 15₵ = 7,500₵ revenue.
+Propellant cost for inner system hop: ~5,000t H₂ × 10₵ = 50,000₵. Wait — that's
+more than the cargo value. This means **short hops between nearby bodies must have
+low Δv** (belt asteroids with tiny escape velocities, or orbital transfers between
+moons of the same planet). The starting contracts should be between bodies with low
+gravity wells — asteroid-to-asteroid or Luna-to-Terra-orbit transfers where propellant
+cost is minimal.
+
+Revised: starting contracts are specifically **low-Δv routes** where propellant cost
+is a small fraction of cargo value. 500t refined platinum (quality-40) between two
+belt asteroids (escape <1 km/s each): propellant ~50t × 10₵ = 500₵. Cargo value:
+500t × 200₵ = 100,000₵. Profit after fuel: ~99,500₵. That works. The game naturally
+pushes early players toward low-gravity-well bodies — which is where the accessible
+mining is anyway.
+
+**Can a mid-game player afford a shipyard?**
+Shipyard costs ~1.5M₵. At 50,000₵ profit per mid-game contract, that's 30 contracts
+— roughly 30 game-weeks of operation with one ship. With 3 ships running parallel
+routes, ~10 game-weeks. At 60x speed, that's ~7 real hours of play. About right for
+a major mid-game milestone.
+
+**Is a Casimir condenser a late-game investment?**
+Casimir condenser: 3M₵ + 150K₵/month operating. A single Casimir fuel rod sells for
+~2,000₵. Need to produce ~75 rods/month to break even on operating costs. Plus the
+3M₵ capital recovery. This is a serious late-game investment that only makes sense with
+cheap power (inner system solar) and reliable rare earth + platinum supply chains. Not
+something you build on a whim. About right.
+
+## 18. LLM Integration (Narrative Layer)
 
 A small but capable language model adds immersion without replacing game logic. The
 simulation computes facts. The LLM writes prose. No agency — narration only.
