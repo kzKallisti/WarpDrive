@@ -1341,9 +1341,9 @@ authority, infrastructure, education, life support subsidies).
   the big one — every buy/sell at a colony pays a cut to the colony treasury.
 - **Facility lease**: Monthly fee for operating a refinery, factory, or other facility
   at a colony. Based on footprint and resource usage.
-- **Import/export tariffs**: Some colonies tax specific goods coming in or out.
-  A company town might tariff competing products. An independent colony might tariff
-  luxury imports to fund social programs.
+- **Import/export tariffs**: Taxes on specific goods entering or leaving the port.
+  Tariffs are the most politically interesting tax — they're targeted, they create
+  winners and losers, and they're a tool for economic warfare between colonies.
 
 **Tax rates vary by governance:**
 - **Company town**: Low taxes for the owning corp (they ARE the government). High for
@@ -1356,16 +1356,25 @@ authority, infrastructure, education, life support subsidies).
 - **Free port**: Zero taxes. Zero services. You get what you pay for.
 
 **Tax arbitrage is gameplay:**
-- A corp can choose to base operations at low-tax colonies and accept worse services
-  (weaker defense, slower enforcement, less educated workforce).
-- Or base at high-tax colonies and benefit from better infrastructure, defense, labor
-  pool, and enforcement.
-- Or operate through pseudonymous addresses at free ports to avoid taxes entirely —
+- Base at a high-tax colony and benefit from tax-funded infrastructure, defense,
+  labor pool, and enforcement. Pay for it through taxes. Simple.
+- Base at a low-tax colony and invest directly in your own services — build your own
+  defense drones, fund your own training programs, run your own port authority. Lower
+  taxes but higher direct capital investment. You control the infrastructure but bear
+  the full cost. A low-tax colony with heavy corp investment can have excellent
+  services — the corps just pay directly instead of through the tax system.
+- Operate through pseudonymous addresses at free ports to avoid taxes entirely —
   but with no enforcement, no scanner oracles for contract settlement, and no legal
   recourse if something goes wrong.
 - Colonies compete for corporate tenants. A colony that raises taxes too high loses
-  corps to cheaper neighbors. A colony that cuts taxes too low can't fund services
-  and deteriorates. This dynamic is emergent, not scripted.
+  corps to cheaper neighbors. A colony that cuts taxes too low AND has no direct corp
+  investment deteriorates. This dynamic is emergent, not scripted.
+
+**The real choice isn't high-tax vs low-tax** — it's **socialized services (tax-funded,
+shared, colony-controlled) vs privatized services (corp-funded, owned, corp-controlled).**
+A company town with zero taxes but massive corp investment in infrastructure can be
+better-serviced than a high-tax independent colony with a bloated budget. The tradeoff
+is control: tax-funded services serve the colony. Corp-funded services serve the corp.
 
 **Tax evasion:**
 - Operating through pseudonymous addresses to avoid association with a taxable
@@ -1378,11 +1387,67 @@ authority, infrastructure, education, life support subsidies).
   enforcement determines how much evasion they catch. A quality-80 port authority
   with good analytics catches most evasion. A quality-30 one catches almost none.
 
+**Tariffs as economic warfare:**
+
+Tariffs aren't just revenue — they're protectionism, retaliation, and political tools:
+
+- **Protect local industry**: Colony has a refinery. Imports of refined metals get
+  tariffed to make the local refinery competitive. Corps operating the local refinery
+  benefit. Corps that import from elsewhere pay the premium.
+- **Retaliation**: Colony A tariffs Colony B's exports after a political dispute.
+  Colony B retaliates. Trade war ensues. Corps caught in the middle either eat the
+  costs, reroute supply chains, or lobby for resolution.
+- **Strategic control**: Tariff Casimir fuel rod imports to force local production.
+  Expensive short-term but builds domestic capability long-term.
+- **Bloc policy**: Bloc-affiliated colonies may coordinate tariffs against rival
+  bloc exports. Commonwealth colonies collectively tariff Collective-origin goods.
+  The player's bloc alignment affects which tariffs help or hurt them.
+
+Tariffs are set by colony governance. Who decides depends on governance type:
+independent colonies vote, company towns decree, consortiums negotiate.
+
+**Lobbying:**
+
+Corps can spend credits to influence colony governance decisions. This isn't
+corruption — it's how political systems actually work. The mechanics:
+
+- **Lobby target**: A specific upcoming policy decision (tax rate change, new tariff,
+  environmental regulation, defense budget, infrastructure spending).
+- **Lobby spend**: Credits invested in influencing the outcome. Higher spend = more
+  influence, but with diminishing returns. Multiple corps can lobby the same issue
+  on different sides.
+- **Governance type determines effectiveness:**
+  - **Independent colony**: Lobbying competes with popular opinion. A corp can spend
+    heavily but if the policy is unpopular with residents, the council may still
+    reject it. Colony standing affects how much weight your lobby carries.
+  - **Company town**: No lobbying needed if you own it — you just set policy. Other
+    corps can lobby the owner (effectively negotiation/bribery).
+  - **Consortium**: Lobbying weighted by investment share. Bigger investors have more
+    votes. Pay-to-play by design.
+  - **Free port**: Nothing to lobby. No governance, no policy.
+
+- **What you can lobby for:**
+  - Lower your tax rate (or raise a competitor's)
+  - Impose tariffs on imports that compete with your products
+  - Remove tariffs on goods you import
+  - Increase defense budget (if you sell defense drones to this colony)
+  - Relax environmental standards (cheaper operations, lower colony quality of life)
+  - Tighten environmental standards (hurts corner-cutting competitors)
+  - Fund education (improves labor quality for everyone, including you)
+  - Change docking priorities
+
+- **Lobby visibility**: Lobbying spend is observable (it's on-chain). Other corps can
+  see you're spending credits to influence Colony X's policy. They can counter-lobby.
+  This creates a transparent political economy — not secret backroom deals, but
+  visible influence campaigns.
+
 The tension: **taxes fund the services that make a colony worth operating at.** A
 corp that evades taxes is free-riding on infrastructure paid for by others. If
 enough corps evade, the colony can't fund defense, port authority, education, or
 life support — and deteriorates into a free port. This is the tragedy of the commons
-playing out at colony scale.
+playing out at colony scale. And lobbying means corps don't just passively accept
+the tax environment — they actively shape it. The political landscape is as dynamic
+as the economic one.
 
 ### Alliances & Confederations
 
