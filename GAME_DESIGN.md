@@ -403,6 +403,79 @@ the material cost dominates. In the outer system where power is expensive, both 
 compound. This dual dependency makes Casimir fuel rods the most supply-chain-intensive
 product in the game.
 
+### Quality & Technology Progression
+
+There is no tech tree. Technology improves through **quality propagation** — a continuous
+scalar that flows through the entire supply chain. Every resource, component, facility,
+and worker has a quality level. Output quality is a function of input qualities:
+
+```
+output_quality = f(input_material_quality, facility_quality, labor_quality)
+```
+
+The function is bottlenecked by the weakest input — you can't produce quality-80
+electronics from quality-30 platinum, no matter how good the factory or the engineers.
+But a quality-80 factory with quality-80 workers processing quality-50 ore produces
+quality ~50 output — not wasted, just capped by the material.
+
+**How quality propagates:**
+
+```
+Ore (quality varies by deposit)
+  → Refinery (quality = components that built it)
+    → Refined material (quality ≈ min(ore, refinery, labor))
+      → Component factory (quality = components that built IT)
+        → Components (quality ≈ min(material, factory, labor))
+          → Ship/facility/drone (quality ≈ component quality)
+            → Performance (quality scalar on efficiency stats)
+```
+
+**What quality affects:**
+
+| Thing | Quality effect |
+|-------|---------------|
+| Ore deposit | Base quality — some deposits are simply better |
+| Refined material | Purity, consistency. Higher quality = less waste in manufacturing |
+| Drive components | Ship Isp and thrust efficiency. Quality-80 drives burn less fuel than quality-40 |
+| Electronics | Sensor range, comms encryption grade, scanner precision |
+| Hull plating | Structural integrity, maintenance interval |
+| Hab modules | Life support efficiency, crew morale bonus |
+| Mining equipment | Extraction rate, ore quality preservation |
+| Drones | Operational reliability, task efficiency |
+| Port scanners | Detection capability (directly affects smuggling counterplay) |
+| Casimir fuel rods | Warp efficiency — higher quality = more AU per rod |
+
+**Quality as infinite progression:**
+
+Quality is unbounded in theory. In practice it's asymptotic — each step up requires
+proportionally better inputs across the entire chain. Getting from quality-50 to
+quality-60 is achievable. Getting from quality-90 to quality-100 requires near-perfect
+inputs at every stage — any weak link caps the output. This creates natural diminishing
+returns without a hard ceiling.
+
+**Improving quality (no research button — just better inputs):**
+- Find a higher-quality ore deposit (exploration pays off)
+- Build a better refinery (requires better components, which require better inputs...)
+- Hire better engineers (colony standing + wages attract top talent)
+- Upgrade a facility (replace components with higher-quality ones)
+- Specialize (a factory that only produces one thing can be optimized for quality)
+
+**Economic implications:**
+- **Quality is a competitive moat.** A corp with a high-quality supply chain produces
+  better ships, better drones, better everything. Competitors can't just copy it — they
+  need to build their own quality chain from the bottom up.
+- **Quality costs compound.** Higher-quality ore may be farther away. Higher-quality
+  facilities cost more to build. Better engineers demand higher wages. Premium products
+  require premium investment at every level.
+- **Niche markets emerge.** Not every customer needs quality-80 components. A frontier
+  mining corp running disposable drones buys quality-30 and saves money. A shipyard
+  building warships buys quality-80 and pays the premium. Different quality tiers
+  serve different markets naturally.
+- **Quality degrades if not maintained.** A facility's quality drops over time as
+  components wear. Maintenance with high-quality replacement parts preserves it.
+  Maintenance with whatever's available lets it decay. Neglect a quality-80 refinery
+  and it becomes quality-50 over time.
+
 ### Maintenance
 
 Ships, drones, and infrastructure all degrade over time and need maintenance. The system
