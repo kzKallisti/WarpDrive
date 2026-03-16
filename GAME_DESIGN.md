@@ -1370,11 +1370,36 @@ authority, infrastructure, education, life support subsidies).
   corps to cheaper neighbors. A colony that cuts taxes too low AND has no direct corp
   investment deteriorates. This dynamic is emergent, not scripted.
 
-**The real choice isn't high-tax vs low-tax** — it's **socialized services (tax-funded,
-shared, colony-controlled) vs privatized services (corp-funded, owned, corp-controlled).**
-A company town with zero taxes but massive corp investment in infrastructure can be
-better-serviced than a high-tax independent colony with a bloated budget. The tradeoff
-is control: tax-funded services serve the colony. Corp-funded services serve the corp.
+**Tax rate ≠ service quality.** Taxes are an input. Service quality is an output. The
+function between them is governance — which has its own quality dynamics:
+
+- A high-tax colony with quality-30 bureaucrats and no accountability wastes revenue
+  on bloated payroll and bad procurement. Services are mediocre despite high spending.
+  Corps pay a lot and get little.
+- A low-tax colony with a quality-70 manager running lean operations delivers
+  effective services on a thin budget. Corps pay less and get more.
+- A high-tax colony with quality-80 governance and educated labor force delivers
+  excellent services that justify the cost. The premium taxes attract premium corps
+  that demand premium results.
+- A company town with zero taxes but massive direct corp investment can outperform
+  all of the above — but the services serve the corp's interests, not the public's.
+
+**Governance quality** depends on the same inputs as everything else: labor quality
+(educated administrators make better decisions), facility quality (good systems reduce
+waste), and investment (more resources = more capability). A colony that invests in
+education produces better governors, which produces better policy, which produces a
+more attractive colony. The virtuous cycle runs through governance too.
+
+**Corruption** is the inverse: low-accountability governance (company towns with
+absentee owners, independent colonies with apathetic voters, consortiums with
+deadlocked decision-making) degrades service quality regardless of tax revenue. Tax
+money gets misallocated, contracts go to connected corps instead of competent ones,
+infrastructure maintenance gets deferred. This is emergent from governance quality,
+not a separate "corruption stat."
+
+The real choice for a corp: **which colony's governance do I trust to convert my tax
+credits into services I actually benefit from?** Sometimes the answer is "none — I'll
+do it myself."
 
 **Tax evasion:**
 - Operating through pseudonymous addresses to avoid association with a taxable
