@@ -110,7 +110,15 @@ Seeded randomness produces recognizable system shapes:
 - At least one body in the habitable zone (starting colony)
 - At least 3–5 minable asteroids within reasonable transit range
 - No body inside the star's tidal danger zone
-- No crossing orbits within campaign timescales
+- **Orbital stability**: No two bodies close enough to gravitationally perturb each other
+  out of stable orbits within the campaign timescale. Adjacent planet orbits should
+  respect Hill sphere separation (typically 10+ mutual Hill radii apart). Crossing orbits
+  are fine — Pluto crosses Neptune's orbit in reality. What matters is that bodies at
+  crossing points aren't at the same place at the same time. The generator checks for
+  close-approach minimums and rejects configurations where minimum separation < sum of
+  tidal danger zones. Crossing orbits (especially comets dipping into inner system)
+  actually create interesting gameplay — seasonal resource windows and periodic
+  close-approach events where transit between two bodies is briefly cheap.
 - Procedural names for star, planets, moons, and notable asteroids
 
 ### Start Modes
