@@ -216,24 +216,148 @@ js/
   save.js         — Game state serialization (localStorage or file)
 ```
 
+## Game Modes
+
+### Single Player — Campaign
+
+Real-time strategy on simulator time. Player vs AI corporations in a procedurally generated
+system. The AI is always there — it IS the economy. Single player is just multiplayer
+where all other players are NPCs.
+
+- **Start**: One ship, one contract, starting colony. AI corps already operating.
+- **Mid-game**: Fleet of 5–10 ships, established routes, competing for contracts.
+- **End-game**: Market manipulation, monopolies, founding new colonies.
+- **Win condition**: Control X% of system trade volume, or accumulate $X net worth, or
+  be the first to complete a "megaproject" (e.g., build a station at the system's edge).
+- **Difficulty**: System archetype (dense inner = forgiving, scattered = brutal) +
+  number/aggression of AI corps.
+
+### Multiplayer — Shared System
+
+Same game, but some of the corporations are human players. The key insight: **the AI
+corps and human players use the exact same interface.** An AI corp is just a decision
+engine that calls the same fleet/market/contract APIs a human player does.
+
+This means:
+- Single player works day one (AI corps populate the economy)
+- Multiplayer is "replace some AI corps with WebSocket connections"
+- Mixed mode: 2 humans + 4 AI corps in the same system
+- Spectator mode: watch AI corps compete (screensaver/demo mode)
+
+### Multiplayer Architecture
+
+**Authoritative server model** — the simulation runs on the server. Clients send commands
+(assign ship, accept contract, buy/sell), server validates and broadcasts state updates.
+
+```
+Client (browser)                    Server
+  ├─ Three.js rendering              ├─ Orbital engine (same orbits.js)
+  ├─ UI / input                      ├─ Economy tick
+  ├─ Local prediction                ├─ AI corp decision loops
+  └─ WebSocket ←──────────────────→  ├─ Contract generation
+                                     ├─ Fleet state for all players
+                                     └─ WebSocket broadcast
+```
+
+Why this works well for our game:
+- **Orbital mechanics is deterministic.** Given a time T, all body positions are the same
+  for every client. No need to sync positions — just sync T and each client computes locally.
+- **Actions are infrequent.** Players issue commands (assign route, buy cargo) maybe once
+  per real-time minute. Not a twitch game — low bandwidth.
+- **Time can be paused in single player, voted on in multiplayer.** Speed controls become
+  a consensus mechanism: game runs at the slowest player's preferred speed, or majority vote.
+
+### Server tech options
+
+- **Lightweight**: Node.js + WebSocket (ws). The orbital engine is already JS — `orbits.js`
+  runs identically on server. No port needed.
+- **Persistence**: Game state serialized to JSON. SQLite or flat file for save/load.
+  No heavy database needed — the entire game state is: fleet positions, cargo, money,
+  market prices, contract list. Small enough for localStorage in single player.
+
+### Async / Turn-based variant
+
+For players in different timezones: the game runs on server time (1 real hour = X game days).
+Players log in, issue orders, log out. Ships execute routes. Market ticks. Contracts expire.
+Check back later to see results. Like a slower Ogame/Travian but with real orbital mechanics.
+
+## AI Corporations (NPCs)
+
+AI corps are first-class entities — same state structure as human players. They make the
+economy feel alive in single player and fill seats in multiplayer.
+
+### AI decision model
+
+Each AI corp has a personality (risk tolerance, specialization, aggression) and runs a
+simple decision loop each game tick:
+
+```
+1. Evaluate available contracts (filter by ship capability and time feasibility)
+2. Estimate profit: (contract pay) - (fuel cost) - (opportunity cost of ship time)
+3. Check market prices: any arbitrage opportunities? (buy cheap at A, sell expensive at B)
+4. Assign idle ships to best opportunity
+5. Consider fleet expansion: if profitable routes > available ships, buy another
+6. Occasionally: found a new colony if sitting on enough capital
+```
+
+### AI personality archetypes
+
+- **Hauler**: Prefers safe, reliable delivery contracts. Avoids speculation. Builds large fleet.
+- **Prospector**: Focuses on exploration and mining. First to reach new bodies. Volatile income.
+- **Trader**: Plays the market — buys low, sells high. Few ships but high margins.
+- **Monopolist**: Aggressive — undercuts competitors on key routes, tries to corner markets.
+- **Frontier**: Targets distant, high-value bodies. Long transits, big payoffs. High risk.
+
+### Why AI-first design matters
+
+Building the AI corps BEFORE multiplayer means:
+1. The economy works in single player from day one
+2. The game API is proven (if AI can play, humans can play)
+3. Multiplayer is just "swap an AI decision loop for a WebSocket"
+4. AI corps handle the boring parts (baseline trade volume, price stability)
+5. Balance testing is automated — run 8 AI corps overnight, check if economy collapses
+
 ## Open Questions
 
-- **Multiplayer?** Real-time or async? Shared system or separate? (Probably out of scope for v1)
-- **AI competitors?** NPC mining companies running their own routes? Adds pressure but complexity.
 - **Campaign length?** How many game-years before "winning"? Or is it endless sandbox?
-- **Difficulty tuning?** Star system archetype = difficulty setting? Dense inner = easy, scattered = hard?
 - **Name generation?** Procedural star/body names? Or let player name discoveries?
 - **Tutorial?** The orbital mechanics learning curve is steep. Guided first contract?
 - **Mobile?** Three.js works on mobile but the UI density is challenging.
 - **Sound?** Ambient, notification sounds, engine hum during transit?
+- **Lobby system?** How do multiplayer games get created and joined?
+- **Anti-griefing?** Can a player sabotage others' routes? Ram ships? Or is competition purely economic?
+- **Alliances?** Can players form corporations together? Shared fleet, shared revenue?
 
-## MVP Scope (Minimum Playable Game)
+## Development Phases
 
+### Phase 1: Core Game Loop (single player, AI economy)
 1. Procedural system generator (star + 15–25 bodies with orbits and resources)
-2. Single ship with cargo hold
-3. Two colonies with buy/sell markets
-4. Delivery contracts with deadlines
-5. Money counter, basic progression (engine upgrade)
-6. Win condition: accumulate $X net worth
+2. Resource model on bodies (composition, quantity)
+3. Single ship with cargo hold
+4. Two AI colonies with buy/sell markets
+5. Delivery contracts with deadlines
+6. Money counter
+7. One AI corporation competing for contracts
+8. Win condition: accumulate $X net worth
 
-Everything else is depth added after the core loop works.
+### Phase 2: Depth (still single player)
+1. Ship upgrades (engine, drive, cargo, mining equipment)
+2. Fleet expansion (buy additional ships, assign to routes)
+3. More AI corporations with different personalities
+4. Market dynamics (supply/demand price shifts)
+5. New colony founding
+6. Exploration contracts (discover body composition)
+
+### Phase 3: Multiplayer
+1. Server-side simulation (Node.js, same orbital engine)
+2. WebSocket protocol (commands up, state diffs down)
+3. Lobby / game creation
+4. Mixed mode (humans + AI corps)
+5. Time control consensus (speed voting)
+
+### Phase 4: Polish
+1. Sound design
+2. Tutorial / guided first game
+3. Leaderboards
+4. Async / turn-based mode
+5. Mobile layout
