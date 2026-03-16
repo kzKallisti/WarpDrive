@@ -826,6 +826,59 @@ compromise, cryptanalysis, endpoint hacking. Used for: fleet orders, negotiation
 metadata, nothing to intercept. Vulnerable to physical piracy and ship capture. Used for:
 the most sensitive data — survey results, strategic plans, black market intel.
 
+### Fog of War: You Only Know What You've Observed
+
+Information asymmetry is the game's fog of war. Unlike spatial fog in a traditional RTS,
+this fog is **informational and time-decaying.** You don't know what your comms
+infrastructure and ships haven't directly observed. And what you observed last month
+might not be true anymore.
+
+**What you know about a competitor is ONLY:**
+- What your ships/drones saw near their operations (passive observation)
+- What's publicly broadcast on relay channels (market transactions, contract postings)
+- What you can infer from on-chain pseudonymous data (address → corp mapping is work)
+- What your relays forwarded (traffic metadata, not content)
+- What you bought from information brokers
+- What they voluntarily disclosed
+
+**Everything else shows as "unknown" in the UI.** Click on a competitor's facility:
+you might see "Refinery — quality: unknown, throughput: unknown, owner: suspected
+Corp B (confidence: 72%)." You know it's a refinery because your survey drone flew
+past and saw the structure. You suspect it's Corp B because ships associated with
+Corp B's known addresses dock there. But you don't know its quality level, production
+rate, or what it's processing unless you have specific intelligence.
+
+**Intelligence decays.** An observation from 30 game-days ago is labeled "STALE" in the
+UI. The competitor may have upgraded their facility, hired new workers, or changed
+production. Current intel requires ongoing observation — either regular ship flyovers,
+a relay in the area monitoring traffic, or informants.
+
+**What's observable vs hidden:**
+
+| Information | How you learn it | Decay rate |
+|------------|-----------------|------------|
+| Facility exists (type, location) | Ship flyover, survey drone | Slow (buildings don't vanish) |
+| Facility owner | Address association (observation + inference) | Slow |
+| Facility quality level | Observe output quality on market, or informant | Medium |
+| Workforce quality | Observe output quality trends, labor market monitoring | Medium |
+| Fleet composition | Ship transponder sightings near their operations | Fast (ships move) |
+| Cargo contents | Only if you scan them (ship scanner) or see market transactions | Immediate (per-trip) |
+| Financial position | On-chain analysis of pseudonymous addresses (hard, noisy) | Fast (changes constantly) |
+| Strategic plans | Informant, intercepted comms, or inference from behavior patterns | Instant decay |
+| New hire quality | See posting on labor market → see it disappear → infer who hired | Medium |
+
+**Labor market as intelligence source:** When a colony's labor market shows a quality-80
+engineer available, then the listing disappears — someone hired them. If Corp B's
+factory output quality improves shortly after, you can infer the connection. But only
+if you were watching the labor market AND monitoring Corp B's output. Miss either
+observation and you don't know.
+
+**The intelligence investment loop:** Better comms infrastructure (more relays, command
+centers in more regions) → more observations → better competitor intelligence → better
+strategic decisions. A corp flying blind in a region they don't monitor is at a massive
+disadvantage against one with deep intel. This is why command centers and relay networks
+aren't just about order latency — they're about knowing what's happening.
+
 ### Passive Intelligence
 
 Ships and drones observe as they travel:
