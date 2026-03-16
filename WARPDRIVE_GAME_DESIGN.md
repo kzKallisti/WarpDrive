@@ -123,8 +123,6 @@
       5: multiplayer → 6: polish)
 19. **Open Questions**
 
-**Appendix A:** Variant — All-Drone Universe
-
 ---
 
 ## 1. Concept
@@ -395,17 +393,9 @@ Resources don't teleport from asteroid to market. The supply chain is the game.
 |----------|--------|----------|
 | Casimir fuel rods | Manufactured at Casimir condensers | Warp drive fuel — consumed during WARP ON, CRUISE, WARP OFF phases |
 
-Casimir matter is the substance that makes warp travel possible. It's a stabilized form
-of **negative vacuum energy** — derived from the Casimir effect (a real quantum phenomenon
-where restricted vacuum fluctuations between closely-spaced surfaces create measurable
-force). By 2058, physicists learned to amplify this effect at industrial scale: extracting
-negative energy from the quantum vacuum, condensing it into stable matter with exotic
-gravitational properties, and packaging it into containment rods.
-
-The warp drive uses Casimir matter to create a localized gravity vacuum — a region of
-negative energy density that warps spacetime around the ship. This is the theoretical
-basis of the Alcubierre drive, grounded in real general relativity. The Casimir effect
-is the real-physics hook that makes it plausible.
+Casimir matter is stabilized **negative vacuum energy** — derived from the Casimir effect
+(a real quantum phenomenon). The warp drive uses it to create a localized gravity vacuum
+that warps spacetime around the ship (Alcubierre drive principle). The one sci-fi conceit.
 
 **Production requires both power AND materials:**
 - **Power** (enormous amounts): Vacuum energy manipulation is extremely energy-intensive.
@@ -942,45 +932,12 @@ accept a contract that provides a starter ship. You're bankrupt, not dead. It's 
 recover from zero, but a sandbox doesn't force game-over. The player who talked their
 way back from total wipeout has the best story in the lobby.
 
-**Insurance:**
-
-Insurance DAOs are NPC-operated smart contract pools that pay claims on verifiable
-events. Corps pay premiums; the pool pays out when bad things happen.
-
-**What's insurable** (requires on-chain verifiable trigger):
-- Ship destroyed (transponder goes permanently dark)
-- Cargo lost at a certified port (scanner records show delivery failure)
-- Facility damaged (colony infrastructure monitoring)
-- Contract failure due to force majeure (ship breakdown, provable from logs)
-
-**What's NOT insurable** (can't be verified on-chain):
-- Losses at uncertified ports (no oracle to verify)
-- Deliberate self-sabotage (moral hazard — hard to distinguish from bad luck)
-- Losses during illegal activity (smuggling, piracy)
-
-**Premium calculation:**
-```
-monthly_premium = base_rate × asset_value × route_risk × history_factor
-```
-- `base_rate`: ~0.5–2% of insured value per month (tuning parameter)
-- `asset_value`: total value of insured ships + cargo
-- `route_risk`: inner system (1.0×), belt (1.5×), outer (2.5×), frontier (5.0×)
-- `history_factor`: 0.8× for clean record, 1.0× baseline, up to 2.0× for frequent claimants
-
-**Example:** A 400,000₵ freighter carrying 100,000₵ cargo on a belt route:
-500,000₵ × 1% × 1.5 = 7,500₵/month. About 15% of a mid-game facility's operating
-cost. Meaningful but not crippling.
-
-**Self-insurance:** Skip premiums, absorb losses directly. Viable for large corps
-with capital reserves. Risky for small corps — one lost ship without insurance can
-be game-ending. The insurance decision is a risk management choice that scales with
-corp size.
-
-**Insurance as economic stabilizer:** When piracy occurs, insurance pays the victim.
-This means piracy doesn't destroy value from the system — it transfers value from
-the insurance pool (funded by premiums from everyone) to the victim. The pirate gains
-stolen cargo but everyone's premiums rise slightly. This makes piracy a negative-sum
-activity for the system as a whole, naturally discouraging it without game rules.
+**Insurance:** NPC-operated service. Pay a monthly fee based on asset value and
+operating region (inner system cheap, frontier expensive). Claims pay automatically
+on verifiable events (ship destroyed, cargo lost at certified port). Self-insurance
+is always an option — skip premiums, absorb losses. Small corps need insurance;
+large corps with capital reserves can self-insure. Simple risk management decision,
+not a deep system.
 
 ## 5. Communications & Information
 
@@ -1282,10 +1239,14 @@ The **chat interface** is a first-class overlay — the same text input for ever
 - **Market**: "Post a buy order for 1000t quality-60 platinum at Vesta, max 45₵/t."
   → Creates the contract on the local market board.
 
-In 2058, talking to your corporate AI to manage operations is as natural as email
-is today. The chat IS the command line. Point-and-click is the visual shortcut.
-Both do the same things. Simple actions are faster to click. Complex multi-step
-behaviors are faster to type. The player uses whichever fits the moment.
+**Point-and-click is the primary interface.** It must be complete, polished, and
+fully functional on its own. Every action has a button, dropdown, or slider. A
+player who never touches the chat can play the entire game.
+
+**Chat is the power-user secondary interface.** In 2058, talking to your corporate
+AI is natural — but the game doesn't DEPEND on it. Simple actions are faster to
+click. Complex multi-step behaviors are faster to type. The player uses whichever
+fits the moment. The chat is opt-in, not required.
 
 **The chat unifies three systems that would otherwise need separate interfaces:**
 1. Fleet management (directing your own assets)
@@ -2329,7 +2290,8 @@ Built from the same components in different proportions:
 - **Freighter**: Heavy hull, standard drive, huge cargo. Slow, expensive. Bulk hauler.
 - **Mining vessel**: Medium hull, mining equipment, ore processing bay.
 - **Tanker**: Specialized fuel transport. Critical for frontier refueling.
-- **Colony ship**: Passenger transport. Hab modules instead of cargo. Immigration/evacuation.
+- **Colony transport**: Any freighter fitted with hab modules instead of cargo. Not a
+  separate class — the modular slot system handles this naturally.
 
 ### Ship Manufacturing
 
@@ -3563,6 +3525,58 @@ LLM integration spans multiple development phases:
   Intel briefings. Contract color text.
 - Fallback to templates always available at every phase.
 
+### Feedback Analysis (what to act on, what to reject)
+
+**Acting on (they're right):**
+- Point-and-click is primary UI. Chat is secondary/power-user. The visual interface
+  must be complete and good on its own without the LLM.
+- Insurance: simplify to flat NPC service. Cut the premium formula.
+- All-Drone appendix: cut.
+- Colony ships: just freighters with hab modules. Modular slot system handles this.
+  No dedicated ship class.
+- Casimir matter lore: trim to one paragraph in the design doc. Quantum vacuum
+  explanation is for flavor text, not design spec.
+
+**Rejecting (they're wrong, or wrong for this design):**
+
+- **"Cut bloc politics"** (Hamster): Blocs seed the starting political landscape,
+  give NPC corps behavioral identity, and create rivalry axes that drive inter-corp
+  conflict. Without them, NPC corps are random economic agents with no political
+  coherence. Colony-level standing alone doesn't explain WHY two NPC corps are rivals.
+  Keep but keep simple (2×2 relay matrix is already clean).
+
+- **"Cut smuggling/scanner warfare"** (Hamster): Smuggling isn't a dedicated system —
+  it emerges from colonies having different laws + ships having cargo + ports having
+  scanners. The scanner detection formula is one line of code. The depth comes free
+  because the systems exist for other reasons (scanners for contract settlement,
+  governance for local laws). Nothing to cut — it's just system interaction.
+
+- **"Cut combat entirely"** (both): The threat of violence is what makes frontier
+  different from civilized space. Without it, "frontier" is just "far away with bad
+  infrastructure." Keep the design, defer the build decision to prototyping. If
+  economic warfare is sufficient, combat stays unbuilt. If players feel frustrated
+  at powerlessness, add it. The graduated escalation design supports either choice.
+
+- **"Cut LLM entirely for MVP"** (Hamster): Correct for Phase 1 (template strings
+  only). Wrong as a permanent cut — the directive compiler is a core innovation.
+  Prototype it in Phase 2, not Phase 6.
+
+- **"Cut reactor fuel (third consumable)"** (Hamster): Reactor fuel is the "cost of
+  being in space" — drains continuously even when not burning propellant or warping.
+  It's what makes long frontier deployments expensive. One number on a gauge. Not
+  complex. Keep.
+
+- **"Cut crew quality as colony property"** (Moth): This IS the labor input to the
+  60/24/16 quality formula. Cutting it makes the 16% labor weight meaningless. The
+  colony education → worker quality → production quality pipeline is the quality
+  system working as designed. Keep.
+
+- **"Make weapons dual-use only, no dedicated manufacturing"** (Moth): Already mostly
+  the design — weapons are manufactured from the same components (electronics,
+  superconductors, actuators). The weapon types (railgun, mining laser, EMP, point
+  defense) ARE dual-use civilian tech with weapons mounts. No separate military
+  supply chain exists. Moth is agreeing with the design without realizing it.
+
 ## 22. Open Questions
 
 - **Combat balance**: What prevents the richest corp from dominating through force?
@@ -3577,14 +3591,3 @@ LLM integration spans multiple development phases:
 - **Colony governance transitions**: What triggers a company town becoming an independent
   colony? Population threshold? Worker unrest? External pressure? How is this simulated?
 
----
-
-## Appendix A: Variant — All-Drone Universe
-
-A different game with the same orbital engine. No human crews in space — players are
-Earth-based corporations remotely operating drone fleets. Simpler supply chain (no food,
-water, medical). Comms delay becomes THE constraint — you write standing directives, drones
-execute, results arrive 40 minutes later. Cyberpunk tone: hacking, signal jamming,
-electronic warfare replace human diplomacy. Faster pace, more aggressive play.
-
-Probably a separate game, noted here for reference.
