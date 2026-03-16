@@ -3425,7 +3425,121 @@ amount of quality propagation formulas saves it.
 orbital engine. One ship, cargo hold, two markets, one contract, money counter. Can
 you make that loop fun for 10 minutes? If yes, everything else is "more of what works."
 
-## 21. Open Questions
+## 21. Design Notes (to address during prototyping)
+
+### Map visibility
+Only celestial bodies (predictable orbits) and your own assets are visible on the 3D
+map by default. Competitor ships, facilities, and installations are invisible until
+one of your assets has observed them. Observed competitor assets fade to "stale" over
+time and eventually disappear if not re-observed. This makes the map itself the fog
+of war — you see the geography, not the players.
+
+### Event chains
+Cascading crises are emergent from the probability system, not scripted sequences.
+Low medical supplies → disease probability rises → disease outbreak → workforce drops
+→ production drops → supply shortage → more disease. Each event changes simulation
+state that feeds into the next event's probability check. The system should be tuned
+so cascades are possible but recoverable — a player who reacts quickly can break the
+chain, a player who ignores warnings gets a spiral.
+
+### Crew death
+Ships destroyed with crew aboard = those people are dead. Permanent removal from the
+labor pool. Colony that lost residents grieves — standing hit with that colony even if
+the corp wasn't at fault (association with danger). A corp known for crew casualties
+has trouble hiring — hazard premium on wages, workers prefer safer employers. Attacking
+a crewed ship carries heavier political consequences than attacking a drone ship.
+Attacking a colony ship (passengers) is the most extreme act — system-wide condemnation.
+
+### Naming
+Players can name their ships, facilities, colonies, and trade routes. Names appear
+in the UI, on the map, in relay messages, and in LLM-generated narration. NPC corps
+also name their assets (procedurally generated). Naming is how players form emotional
+attachment to their empire. Trivial to implement, significant for player experience.
+
+### Warpgate transit details
+- Transit cost: fixed Casimir fuel charge per gate crossing (not per-tonne — the gate
+  does the spacetime folding, the ship just needs enough fuel to engage its drive)
+- Gate camping: ships exit the gate at low speed (insertion phase). An attacker
+  positioned at the gate has a massive advantage. This is intentional — gate defense
+  is the ultimate security concern. Defenders should invest in gate-adjacent defense
+  drones, patrol ships, and sensor arrays.
+- Economic shock: connecting two systems with different resource distributions creates
+  immediate price disruption. Resources abundant in one system flood into the other.
+  The first months after gate activation should be economically chaotic — arbitrage
+  opportunities for fast-moving traders, price crashes for incumbents whose monopolies
+  just broke. This is a feature, not a bug.
+- Time sync between connected systems: both systems run on the same game clock once
+  linked. If one player was at Year 50 and the other at Year 5, the Year 5 system
+  fast-forwards its economic simulation to match. This is the same fast-forward the
+  generator uses for start modes — proven mechanic.
+
+### Directive templates
+New players shouldn't have to write directives from scratch. A template library
+provides starting points:
+- "Run deliveries between A and B" (basic hauling loop)
+- "Buy [resource] below X₵, sell above Y₵ in this region" (trade route)
+- "Mine and stockpile at current location" (passive extraction)
+- "Survey unsurveyed bodies within N AU" (exploration)
+- "Flee if approached by unidentified armed ships" (safety)
+- "Maintain fuel reserves above X%" (self-preservation)
+
+Templates are editable. The LLM can modify templates based on natural language
+("take the hauling template but add a quality minimum of 60"). Advanced players
+write from scratch or skip the LLM entirely.
+
+### Combat: build or cut?
+External feedback questions whether combat is worth building. The economic warfare
+system (Level 0) may be sufficient as the conflict mechanic. Combat (Levels 1-4)
+adds drama but also adds: weapon supply chain, drone combat resolution, damage
+model, boarding mechanics, defense infrastructure.
+
+Decision deferred to prototyping. If the economic warfare loop is engaging without
+physical combat, cut it. If players feel frustrated that they "can see the enemy but
+can't do anything," add it. The graduated escalation design supports either choice —
+Levels 1-4 can be added without changing Level 0.
+
+### Economy testbed
+Before tuning economic parameters, build a headless fast-forward simulation:
+- Same economy code as the game but no rendering
+- 8 AI corps with different personalities
+- Run 100 game-years overnight
+- Check: does the economy collapse? Does one strategy dominate? Do prices stabilize
+  or oscillate? Do colonies grow and shrink realistically? Do corps found new colonies?
+- Expose a debug panel for parameter tuning during development
+- Procedural seed selection as difficulty control (some seeds are harder than others)
+
+### LLM prototype priority
+The directive compiler is the highest-risk LLM feature. Prototype it before building
+the economy:
+1. Take 50 example natural-language directives
+2. Fine-tune Qwen3.5-0.8B to compile them into structured rules
+3. Test reliability: does it correctly handle conditionals, thresholds, resource names?
+4. If reliable: proceed with chat-as-command-interface design
+5. If unreliable: fall back to template-only directives with parameter sliders
+
+This derisks the core interface before building systems that depend on it.
+
+### Save system
+Single player games need save/load. Implementation:
+- Game state serialized to JSON (fleet, economy, contracts, colony state, NPC corps,
+  reputation, relay network, survey data)
+- Stored in IndexedDB (same as LLM model cache — browser-native, no server)
+- Autosave every N game-days (configurable)
+- Manual save slots (at least 3)
+- Export/import as file (for backup, sharing seeds, warpgate linking)
+- Save format versioned for forward compatibility (critical for warpgate feature)
+
+### Development phase for LLM
+LLM integration spans multiple development phases:
+- **Phase 1**: Template strings only. No LLM dependency.
+- **Phase 2**: Prototype directive compiler (LLM fine-tuning experiment).
+  If successful, integrate into fleet management.
+- **Phase 3**: NPC personality voicing via LLM. News feed narration.
+- **Phase 4**: Full chat interface (fleet + diplomacy + market unified).
+  Intel briefings. Contract color text.
+- Fallback to templates always available at every phase.
+
+## 22. Open Questions
 
 - **Combat balance**: What prevents the richest corp from dominating through force?
   Coalitions? Diminishing returns on military spending? Insurance making piracy
