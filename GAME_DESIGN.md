@@ -1,5 +1,115 @@
 # WarpDrive: Asteroid Mining Tycoon
 
+## Table of Contents
+
+1. **Concept** — Core thesis, player identity, sandbox
+2. **Setting** — 2058, one race, tech level, system not empty
+3. **System Scale & Procedural Generation**
+   - System scale, body count, star properties
+   - Procedural generation, system archetypes
+   - Terra & Luna (constants), Terran political blocs & rivalry axes
+   - Playability constraints, start modes (Frontier → Late Stage)
+4. **Resources & Supply Chain**
+   - 9 raw resources + Casimir matter
+   - Resource depletion
+   - Power (solar, fission, fusion) & economic gradient
+   - Propulsion (fusion torch Isp 3000s), three ship consumables, fuel economics
+   - Mass, volume & cargo physics (densities, Tsiolkovsky impact)
+   - Body composition types
+   - Full supply chain diagram (extraction → processing → manufacturing → consumer)
+   - Quality & technology progression (60/24/16 formula, chain propagation, inter-corp deals)
+   - Quality-to-physics formulas (mass factor, durability)
+   - Maintenance (ships, drones, infrastructure)
+   - Processing facilities & corp roles
+   - Human supply chain (food, life support, medical)
+   - Currency (₵) & finance (collateralized loans, insurance)
+5. **Communications & Information**
+   - Relays (Nostr-style trust, 30 AU standard / 600 AU premium range)
+   - Asset-based perspective (each asset is a viewpoint)
+   - Standing directives & LLM directive compiler
+   - Chat interface (fleet / diplomacy / market unified)
+   - Exception handling (configurable default behavior)
+   - All communication is in-world (players and AI same physics)
+   - Out-of-band communication resistance
+   - Information as cargo (broadcast / encrypted / sneakernet)
+   - Fog of war (you only know what you've observed)
+   - Passive intelligence, counterintelligence
+6. **Colonies, Workforce & Population**
+   - Colonies vs corps vs private installations
+   - Colony types (drone outpost → crewed station → colony → city)
+   - Workforce roles & drone-vs-human calculus
+   - Worker needs (survival → comfort → growth)
+   - Immigration pipeline & feedback loops
+   - Payroll & labor economics (wages, retention, poaching, training)
+   - Colony standing
+   - Environmental dynamics
+   - Population dynamics
+7. **Governance & Law**
+   - Design principle: no game-rule restrictions
+   - Colony governance types (independent, company town, consortium, free port)
+   - Taxation (docking fees, transaction tax, tariffs, lobbying)
+   - Governance quality ≠ tax rate
+   - Colony enforcement apparatus (physical, legal, impound, summon)
+   - Alliances & confederations
+   - The SCA (one possible emergent institution)
+8. **Contracts, Commerce & the Underground**
+   - Privacy model (pseudonymous, encrypted-by-default)
+   - Smart contract escrow
+   - Reputation (observable history, not a score)
+   - Trust spectrum (certified port → frontier handshake)
+   - Cargo manifests, scanners & smuggling
+   - Scanner warfare (hacked scanners, ship-mounted defense)
+   - Black markets & information brokering
+9. **Ships, Fleet & Manufacturing**
+   - Ship properties & classes
+   - Ship & drone manufacturing (supply-chain-built, not menu-bought)
+   - Fleet management & trade routes (emergent from directives)
+   - Passenger transport (immigration, piracy stakes, political leverage)
+10. **Combat & Conflict**
+    - Physical constraints (low-speed only, no stealth, not warships)
+    - Graduated escalation (Level 0–4, emergent consequences)
+    - Combat mechanics (auto-resolve, directives, not twitch)
+    - Economic warfare (Level 0)
+11. **AI Corporations**
+    - Decision model, personality archetypes, AI-first design
+12. **Game Modes**
+    - Single player, multiplayer (authoritative server), async variant, spectator
+    - Time speed (default 60x)
+13. **User Interface & Gameplay Flow**
+    - Map as primary interface
+    - Asset-based interaction model
+    - Contract system (creation, lifecycle, board, player-initiated)
+    - Notification system
+    - Information panels (fleet, finance, reputation, intel)
+    - Multiplayer-specific UI
+14. **Random Events & Emergencies**
+    - Event philosophy (disruptions, not punishments)
+    - Categories (equipment, stellar, colony, discovery, market)
+    - Event probability (condition-based, not timer)
+15. **Pacing & Progressive Disclosure**
+    - Early game pacing (hauler → investor → empire → power player)
+    - Mid-game depth (escalating complexity reveals, milestone ladder)
+    - Why the economy doesn't stagnate
+16. **Economic Parameters (Ballpark)**
+    - Starting conditions, ship costs, facility costs
+    - Resource prices, contract pay
+    - Economic validation (sanity checks)
+17. **LLM Integration (Narrative Layer)**
+    - Dual model (0.8B background + 4B interactive), WASM in-browser
+    - Use cases (news, NPC voice, intel, contracts, directive compiler)
+    - Inference budget management
+    - What the LLM does NOT do
+    - Prompt architecture, offline fallback
+18. **Technical Architecture**
+    - What WarpDrive already provides
+    - What changes, new modules
+    - Development phases (1–6)
+19. **Open Questions**
+
+**Appendix A:** Variant — All-Drone Universe
+
+---
+
 ## 1. Concept
 
 An asteroid mining tycoon set in procedurally generated solar systems. Real Keplerian
