@@ -261,6 +261,48 @@ about speed and coverage, not about truth:
 - **No one can lie about prices** — but they can be the first to see them. In a market
   where prices move, being 40 minutes ahead of your competitor is worth real money.
 
+#### Command Centers & Player Presence
+
+The player sees everything (omniscient camera) but acts through **command centers** —
+physical installations where their orders originate. Orders propagate at light speed
+from the nearest command center to the target.
+
+**Headquarters**: Your starting command center. Located at the homeworld colony. All
+orders originate here at game start.
+
+**Remote command centers**: As you grow, you can build additional command centers at
+other colonies/stations. Each one gives you local-speed reaction time in its region.
+
+- Building a command center requires: hab modules, electronics, comms relay, power.
+  Comparable cost to a small factory. Significant mid-game investment.
+- When you issue an order (assign ship, accept contract, buy/sell), it originates
+  from the nearest command center to the target. The game shows you the latency
+  before you confirm: "This order will arrive in 12m 34s. Confirm?"
+- **Standing orders** execute at local speed regardless of command center distance.
+  "Sell platinum whenever price > 500/ton" runs on the local port's smart contract
+  engine. No latency. But standing orders can't adapt to context — they're dumb.
+
+**Strategic implications:**
+- Early game: one HQ, slow reaction everywhere except home. Favors local operations.
+- Mid game: build a command center at your busiest remote region. Suddenly competitive there.
+- Late game: network of command centers across the system. Near-instant reaction everywhere.
+  But each one costs capital and ongoing maintenance (crew, power, supplies).
+- **Placement is permanent** (expensive to relocate). Choose wrong and you've sunk capital
+  into a region that dried up.
+- Competitors' command center locations are visible (they're physical installations).
+  You can see where they have fast reaction and where they're slow.
+
+**Why this is fun (not frustrating):**
+- Comms delay is a **planning and investment** problem, not a waiting problem. You're
+  making strategic infrastructure decisions ahead of time, not staring at a timer.
+- At game speed (100x–10,000x), a 40-minute light delay is seconds of real time.
+  The delay is felt in missed opportunities and suboptimal order timing, not in
+  literal waiting.
+- Standing orders give you a zero-latency escape hatch for routine operations.
+  The delay only bites when you need to make a novel decision remotely.
+- Building a command center at a new location feels like "unlocking" a region —
+  a tangible progression reward.
+
 #### Smart Contracts and Latency
 
 This interacts with the contract system:
