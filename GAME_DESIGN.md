@@ -615,6 +615,72 @@ Medical supplies   →  (manufactured     →  Colony health
 - **Full crew**: 20+ humans. Maximum flexibility, maximum cost. For shipyards, factories, complex operations.
 - **The trap**: Going all-drone saves money until something goes wrong. Then you need to send humans on a multi-week transit to fix it. Opportunity cost can dwarf the savings.
 
+### Labor Relations & Colony Standing
+
+Workers aren't a commodity you buy — they're people who live at a colony and choose
+where to work. A corp's ability to hire depends on its **colony standing**: a composite
+score reflecting how the local population perceives the corp.
+
+**Colony standing is affected by:**
+- **Wages**: Pay above colony average → attracts workers. Below → hemorrhages them.
+- **Safety record**: Crew deaths, accidents, drone malfunctions near populated areas.
+  One bad incident tanks standing for months.
+- **Environmental impact**: Mining operations near a colony generate waste heat, dust,
+  vibration, radiation risk. Colonies care about their habitat.
+- **Investment**: Did you build infrastructure that benefits the colony? (Power plants,
+  hab modules, medical facilities.) Colony remembers.
+- **Supply reliability**: If you're the corp that keeps the water flowing, you're popular.
+  If you're the corp that let food shipments lapse, you're not.
+- **Employment**: More local jobs = more standing. Replacing human workers with drones
+  when the colony has unemployment will cost you.
+
+**Standing effects:**
+
+| Standing | Hiring | Docking | Taxes | Other |
+|----------|--------|---------|-------|-------|
+| Excellent | Priority hiring, best talent | Priority slots | Tax breaks | Colony council consults you on policy |
+| Good | Full access to labor pool | Normal | Standard | — |
+| Neutral | Hire at market rate | Normal | Standard | — |
+| Poor | Hiring penalty (workers avoid you) | Deprioritized | Surcharge | Protests reduce facility output |
+| Hostile | Can't hire locals | Docking denied | — | Forced to evacuate facilities |
+
+**The productivity-liquidity tradeoff:**
+- Happy workers (high wages, good conditions, benefits) → high productivity, low turnover.
+  But labor is your biggest operating cost. Overpaying erodes margins.
+- Lean operations (low wages, skeleton crew, all-drone where possible) → more cash on hand,
+  faster expansion. But high turnover, accidents, colony resentment.
+- The optimal point depends on context: in a labor-scarce frontier colony, you MUST pay well
+  or nobody works for you. In an established city with unemployment, you have leverage.
+
+**Environmental & ecosystem dynamics:**
+
+Colonies exist in fragile artificial ecosystems — pressurized habs, recycled atmosphere,
+managed water cycles. Corporate activity can threaten this:
+
+- **Mining near a colony**: Dust, vibration, risk of hull breach from blasting. Colony
+  governance may impose setback distances, noise limits, or outright bans.
+- **Refinery emissions**: Chemical processing produces waste gases and heat. Must be
+  vented away from hab zones. Improper venting → environmental incident → standing crash.
+- **Water contamination**: Mining runoff or refinery discharge near water recycling intake
+  is catastrophic for a colony. Severe standing penalty, potential SCA intervention.
+- **Orbital debris**: Careless ship operations (jettisoned cargo, failed drones) near a
+  colony create collision hazards. Colony governance tracks this.
+
+**Corps can choose how to operate:**
+
+- **Clean operations**: Invest in containment, waste processing, setback compliance.
+  Higher capital cost, slower setup, but maintains colony standing and avoids fines.
+- **Cut corners**: Cheaper, faster, but accumulates environmental incidents. Works in
+  the short term at frontier outposts with weak governance. Blows up in your face at
+  established colonies with active SCA oversight.
+- **Off-site operations**: Build your refinery on an uninhabited body nearby, ship
+  processed materials to the colony for sale. No environmental friction, but transit cost.
+
+The interplay: a corp that invests in clean operations AND pays well AND supplies the
+colony reliably becomes a **pillar of the community**. Colony governance gives them
+favorable treatment. Other corps have to compete against that embedded advantage.
+The first corp to build deep relationships with a colony has a moat.
+
 ### Population Dynamics
 
 Colonies grow or shrink based on conditions:
