@@ -837,6 +837,111 @@ Humans are expensive but irreplaceable for complex tasks:
 Drones wear out. They need replacement parts from the same supply chain that manufactures
 them. A drone fleet is an ongoing operating cost, not a one-time purchase.
 
+### Worker Needs & Labor Quality
+
+Workers have **three tiers of needs** that determine their quality, productivity, and
+willingness to stay:
+
+**Tier 1 — Survival** (must be met or workers leave/die):
+- Food (hydroponics produce, synthetic protein, or imported)
+- Water (purified, recycled at 95% — need 5% resupply)
+- Air (atmosphere recycling, CO₂ scrubbers, filters)
+- Medical supplies (biotech + chemical feedstock)
+- Hab space (1 hab module per ~10 crew)
+
+If survival needs aren't met, productivity collapses immediately. Prolonged shortage
+triggers evacuation — workers leave on the next available transport. A colony that
+can't feed its people empties fast.
+
+**Tier 2 — Comfort** (affects morale and retention):
+- **Recreation**: Entertainment goods, social spaces, comms access to home. Manufactured
+  from electronics + polymers, or imported cultural goods from homeworld.
+- **Personal goods**: Clothing, tools, creature comforts. Light manufactured goods.
+- **Communications**: Relay access for personal messages home. Workers at a frontier
+  body with no relay coverage have terrible morale — they're cut off from everyone
+  they know.
+- **Safety**: Quality of hab shielding, emergency systems, medical facility (not just
+  supplies — a staffed clinic vs a first aid kit). Workers at a dangerous facility
+  with poor safety record demand hazard pay or leave.
+
+When comfort needs are unmet, workers don't leave immediately — but morale drops,
+productivity drops, and the colony becomes unattractive to immigrants. You can run a
+bare-survival operation, but you'll have a miserable, low-quality workforce that turns
+over constantly.
+
+**Tier 3 — Growth** (affects worker quality level over time):
+- **Education**: Training facilities, educational materials, mentorship programs.
+  Requires: electronics (simulators/terminals), specialized instructors (high-quality
+  workers teaching others), and time (workers in training aren't producing).
+- **Career advancement**: Promotion paths, skill development opportunities. Workers
+  who see a future stay longer and work harder.
+- **Research access**: For engineers and geologists — access to data, experimentation
+  facilities. Improves their ability to solve novel problems.
+
+Education is the key to the quality system's labor input. An uneducated worker is
+quality-20. Basic training gets them to quality-40. A colony with a proper training
+program produces quality-60 workers. A colony with a full educational infrastructure
+(university-equivalent, research labs, simulators) produces quality-80+ workers.
+
+**Worker quality is a colony property, not a corp property.** Corps hire from the colony's
+labor pool. If the colony has invested in education, ALL corps operating there benefit
+from higher-quality workers. This creates an interesting collective action problem:
+education investment benefits everyone, so who pays for it?
+
+- **Colony-funded**: Tax revenue funds education. Corps that pay more taxes indirectly
+  invest in workforce quality. Fair but slow.
+- **Corp-funded**: A corp can build training facilities at a colony (counts as
+  infrastructure investment → standing boost). They get first pick of graduates.
+  But other corps also benefit from the improved labor pool.
+- **Poaching**: Instead of investing in education, hire quality-80 workers away from a
+  colony that DID invest. Cheaper short-term but damages standing at the origin colony
+  and doesn't scale.
+
+### The Immigration Pipeline
+
+Not all immigrants are equal. Who you attract depends on what you offer:
+
+**Survival-only colony** → attracts desperate workers. Low quality, high turnover.
+They come because they have no better option. They leave the moment one appears.
+
+**Comfortable colony** → attracts stable workers. Medium quality, reasonable retention.
+Families settle. Population grows organically. This is the baseline for a functional
+colony.
+
+**Growth colony** (education + opportunity) → attracts ambitious, skilled workers.
+High quality, strong retention. The colony becomes a talent magnet. Engineers and
+specialists actively choose to immigrate because the career opportunities are best here.
+This is how you build a quality-80 labor force — not by paying more, but by building
+a place where talented people want to live.
+
+**The feedback loop:** High-quality workers → better production → more profit → more
+investment in colony infrastructure → better living conditions → attracts more
+high-quality workers. The virtuous cycle is the real mid-to-late-game progression.
+The reverse is also true: neglect a colony and it spirals — workers leave, production
+drops, less investment, worse conditions, more workers leave.
+
+### Labor Supply Chain Summary
+
+```
+SURVIVAL GOODS (Tier 1)        → Workers alive and present
+  Food, Water, Air, Medical,      Minimum for operation
+  Hab space
+
+COMFORT GOODS (Tier 2)         → Workers happy and staying
+  Recreation, Personal goods,     Morale + retention + immigration
+  Comms access, Safety
+
+GROWTH INVESTMENT (Tier 3)     → Workers skilled and improving
+  Education facilities,           Labor quality increases over time
+  Training programs,              Colony becomes talent magnet
+  Research access
+```
+
+Each tier has its own supply chain feeding into it. A corp that only supplies Tier 1
+has a functioning but miserable workforce. A corp that invests through Tier 3 has a
+competitive advantage that compounds over time — and it's an advantage that's hard for
+competitors to replicate quickly, because workforce quality takes time to build.
+
 ### Colony Standing
 
 Workers choose where to work. A corp's ability to hire depends on how the colony
