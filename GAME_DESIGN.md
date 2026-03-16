@@ -10,100 +10,117 @@
    - Terra & Luna (constants), Terran political blocs & rivalry axes
    - Playability constraints, start modes (Frontier → Late Stage)
 4. **Resources & Supply Chain**
-   - 9 raw resources + Casimir matter
-   - Resource depletion
-   - Power (solar, fission, fusion) & economic gradient
-   - Propulsion (fusion torch Isp 3000s), three ship consumables, fuel economics
-   - Mass, volume & cargo physics (densities, Tsiolkovsky impact)
+   - 9 raw resources + Casimir matter (warp fuel from quantum vacuum energy)
+   - Resource depletion (large bodies inexhaustible, small bodies deplete)
+   - Power (solar/fission/fusion gradient), propulsion (fusion torch Isp 3000s,
+     variable acceleration: a = thrust / total_mass)
+   - Three ship consumables (reactor fuel, propellant, Casimir fuel rods)
+   - Propellant cost depends on Δv not distance (belt hops cheap, planetary escapes expensive)
+   - Mass, volume & cargo physics (real densities, Tsiolkovsky impact, deadheading penalty)
    - Body composition types
    - Full supply chain diagram (extraction → processing → manufacturing → consumer)
-   - Quality & technology progression (60/24/16 formula, chain propagation, inter-corp deals)
-   - Quality-to-physics formulas (mass factor, durability)
-   - Maintenance (ships, drones, infrastructure)
-   - Processing facilities & corp roles
+   - Quality & technology progression (60/24/16 weighted formula, chain propagation,
+     inter-corp specialization deals, quality-to-physics: mass_factor & durability)
+   - Maintenance (ships, drones, infrastructure — same component pool)
+   - Processing facilities & corp roles (pure miner → conglomerate)
    - Human supply chain (food, life support, medical)
-   - Currency (₵) & finance (collateralized loans, insurance)
+   - Currency (₵) & finance (collateralized loans, insurance DAOs with premium formula)
 5. **Communications & Information**
-   - Relays (Nostr-style trust, 30 AU standard / 600 AU premium range)
-   - Asset-based perspective (each asset is a viewpoint)
-   - Standing directives & LLM directive compiler
-   - Chat interface (fleet / diplomacy / market unified)
-   - Exception handling (configurable default behavior)
-   - All communication is in-world (players and AI same physics)
-   - Out-of-band communication resistance
+   - Relays (Nostr-style trust, ~30 AU standard / ~600 AU premium range)
+   - Bloc relay encryption policies (Commonwealth: both, Collective: cleartext only,
+     Consortium: encrypted only, Coalition: 33% each — encryption costs are physical)
+   - Asset-based perspective (each asset is a viewpoint with its own info bubble)
+   - Standing directives & LLM directive compiler (chat as command interface)
+   - Exception handling (configurable default behavior per asset)
+   - All communication is in-world (players and AI obey same physics)
+   - Out-of-band communication resistance (Discord gives social, not mechanical advantage)
    - Information as cargo (broadcast / encrypted / sneakernet)
-   - Fog of war (you only know what you've observed)
+   - Fog of war (you only know what you've observed, intel decays)
    - Passive intelligence, counterintelligence
 6. **Colonies, Workforce & Population**
-   - Colonies vs corps vs private installations
+   - Colonies vs corps vs private installations (many-to-many)
    - Colony types (drone outpost → crewed station → colony → city)
    - Workforce roles & drone-vs-human calculus
-   - Worker needs (survival → comfort → growth)
+   - Worker needs tiers (survival → comfort → growth/education)
    - Immigration pipeline & feedback loops
-   - Payroll & labor economics (wages, retention, poaching, training)
-   - Colony standing
-   - Environmental dynamics
-   - Population dynamics
+   - Payroll & labor economics (market wages, retention, poaching, training, ship crew costs)
+   - Colony standing (affected by wages, safety, environment, investment, supply, employment)
+   - Environmental dynamics, population dynamics
 7. **Governance & Law**
-   - Design principle: no game-rule restrictions
+   - Design principle: no game-rule restrictions (all consequences emergent)
    - Colony governance types (independent, company town, consortium, free port)
-   - Taxation (docking fees, transaction tax, tariffs, lobbying)
-   - Governance quality ≠ tax rate
-   - Colony enforcement apparatus (physical, legal, impound, summon)
-   - Alliances & confederations
-   - The SCA (one possible emergent institution)
+   - Taxation (docking fees, transaction tax, tariffs)
+   - Lobbying (spend credits to influence policy, on-chain transparent, counter-lobbying)
+   - Tax rate ≠ service quality (governance quality is the function)
+   - Corp-funded vs tax-funded services (socialized vs privatized tradeoff)
+   - Colony enforcement apparatus (physical, port authority, legal, impound, summon)
+   - Alliances, confederations, defense pacts
+   - The SCA (one possible emergent institution, not guaranteed)
 8. **Contracts, Commerce & the Underground**
-   - Privacy model (pseudonymous, encrypted-by-default)
-   - Smart contract escrow
-   - Reputation (observable history, not a score)
+   - Privacy model (pseudonymous identity, encrypted-by-default, credit mixing)
+   - Smart contract escrow (trustless happy path)
+   - Reputation (observable history, not a score — entities judge independently)
    - Trust spectrum (certified port → frontier handshake)
-   - Cargo manifests, scanners & smuggling
-   - Scanner warfare (hacked scanners, ship-mounted defense)
+   - Cargo manifests & scanners (scanner detection formula: quality difference)
+   - Scanner warfare (hacked scanners, ship-mounted defense scanners)
+   - Smuggling mechanics (shielded containers, manifest falsification, hidden compartments)
    - Black markets & information brokering
 9. **Ships, Fleet & Manufacturing**
-   - Ship properties & classes
+   - Modular component system (universal component types, slot-based assembly)
+   - Ship properties, classes (scout, freighter, heavy hauler, mining, tanker, colony)
    - Ship & drone manufacturing (supply-chain-built, not menu-bought)
+   - Weapons & combat equipment (railgun, mining laser, EMP, point defense — compete
+     for civilian components, militarization has opportunity cost)
    - Fleet management & trade routes (emergent from directives)
-   - Passenger transport (immigration, piracy stakes, political leverage)
+   - Passenger transport (immigration, piracy stakes, political leverage, evacuation)
 10. **Combat & Conflict**
-    - Physical constraints (low-speed only, no stealth, not warships)
-    - Graduated escalation (Level 0–4, emergent consequences)
-    - Combat mechanics (auto-resolve, directives, not twitch)
-    - Economic warfare (Level 0)
+    - Physical constraints (low-speed only, no stealth, ships aren't warships)
+    - Graduated escalation (Level 0–4, emergent consequences not game rules)
+    - Combat mechanics (auto-resolve with directives, not twitch — CEO in situation room)
+    - Economic warfare (Level 0 — most common, invisible on transponder logs)
 11. **AI Corporations**
-    - Decision model, personality archetypes, AI-first design
+    - Decision model (same constraints as players — comms physics, info asymmetry)
+    - Personality archetypes (hauler, prospector, trader, monopolist, frontier)
+    - AI-first design (single player IS multiplayer with all-AI opponents)
 12. **Game Modes**
-    - Single player, multiplayer (authoritative server), async variant, spectator
-    - Time speed (default 60x)
+    - Single player, multiplayer (authoritative server, deterministic orbits = sync time only)
+    - Time speed (default 60x — 1 real minute = 1 game hour)
+    - Async variant, spectator mode
 13. **User Interface & Gameplay Flow**
-    - Map as primary interface
-    - Asset-based interaction model
-    - Contract system (creation, lifecycle, board, player-initiated)
-    - Notification system
+    - Map as primary interface (3D navigation map IS the CEO terminal)
+    - Asset-based interaction model (select asset → see its perspective → act from it)
+    - Chat interface (fleet commands / diplomacy / market — unified, LLM-powered)
+    - Contract system (colony-generated, corp-generated, standing directives, facility demand)
+    - Contract lifecycle (created → visible → accepted → in progress → settlement → complete)
+    - Notification system (critical/important/info, directives suppress routine noise)
     - Information panels (fleet, finance, reputation, intel)
-    - Multiplayer-specific UI
+    - Multiplayer-specific UI (in-world async chat, diplomatic proposals, time controls)
 14. **Random Events & Emergencies**
-    - Event philosophy (disruptions, not punishments)
+    - Event philosophy (disruptions = problem + opportunity, physically grounded)
     - Categories (equipment, stellar, colony, discovery, market)
-    - Event probability (condition-based, not timer)
+    - Event probability (condition-based from simulation state, not timer)
 15. **Pacing & Progressive Disclosure**
-    - Early game pacing (hauler → investor → empire → power player)
-    - Mid-game depth (escalating complexity reveals, milestone ladder)
-    - Why the economy doesn't stagnate
+    - Early game (hauler → investor → empire → power player)
+    - Mid-game depth (escalating complexity reveals, milestone ladder hours 1–10)
+    - Why the economy doesn't stagnate (orbital cycles, depletion, NPC competition, quality treadmill)
 16. **Economic Parameters (Ballpark)**
-    - Starting conditions, ship costs, facility costs
-    - Resource prices, contract pay
-    - Economic validation (sanity checks)
+    - Starting conditions (10K₵ seed + 50K₵ starter loan, no assets)
+    - Ship costs, facility costs, resource prices, contract pay
+    - Economic validation (sanity checks: early game profitability, shipyard timeline, Casimir condenser ROI)
 17. **LLM Integration (Narrative Layer)**
-    - Dual model (0.8B background + 4B interactive), WASM in-browser
-    - Use cases (news, NPC voice, intel, contracts, directive compiler)
-    - Inference budget management
-    - What the LLM does NOT do
-    - Prompt architecture, offline fallback
+    - Dual model: 0.8B background (news/intel) + 4B interactive (chat/directives/diplomacy)
+    - WASM in-browser via llama.cpp (~3 GB total, cached in IndexedDB)
+    - Inference budget (2–5 calls/min, relay delay hides latency)
+    - LLM as directive compiler (natural language → deterministic rules, player reviews)
+    - Use cases (System Herald, NPC voice, colony narration, intel briefings, contract color)
+    - What the LLM does NOT do (no decisions, no execution, no memory, no hallucination)
+    - Prompt architecture, offline/template fallback
 18. **Technical Architecture**
-    - What WarpDrive already provides
-    - What changes, new modules
-    - Development phases (1–6)
+    - What WarpDrive already provides (orbital engine, transit physics, Three.js, lit-html)
+    - What changes (static bodies → procedural, single ship → fleet + economy)
+    - New modules (generator, economy, contracts, fleet, comms, combat, ai, save)
+    - Development phases (1: core loop → 2: depth → 3: infrastructure → 4: conflict →
+      5: multiplayer → 6: polish)
 19. **Open Questions**
 
 **Appendix A:** Variant — All-Drone Universe
