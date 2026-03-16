@@ -727,6 +727,14 @@ Early game, loans are how you expand beyond your starting capital. Borrow agains
 one ship to buy a refinery. Make the refinery profitable before the interest eats you.
 Classic tycoon tension.
 
+**Total wipeout:** If debts exceed all assets, the lender seizes everything. The player
+is left with zero credits, zero ships, zero facilities — but they're still in the game.
+The fiction: you're a CEO at a terminal. As long as you exist, you can communicate. You
+can negotiate with other players or NPC corps for a loan, a gift, a partnership. You can
+accept a contract that provides a starter ship. You're bankrupt, not dead. It's hard to
+recover from zero, but a sandbox doesn't force game-over. The player who talked their
+way back from total wipeout has the best story in the lobby.
+
 **Insurance**: Pay a premium to an insurance DAO (NPC-operated smart contract pool).
 Coverage triggers on verifiable events: ship destroyed (transponder goes dark), cargo
 lost at a certified port (scanner records), facility damaged. Premiums vary by route
@@ -751,13 +759,30 @@ source. Relays are dumb forwarders — they can't forge messages, only delay, dr
 refuse to forward. Verification happens at the receiver. The worst a hostile relay can
 do is censor, and censorship is defeated by routing through an alternate path.
 
-**Relay range:** Signal strength falls off with inverse square distance, just like solar
-power. A standard relay can reach ~10 AU reliably. Beyond that, signal degrades — messages
-may be lost or corrupted. To span the outer system (50+ AU) you need relay chains:
-inner relay → belt relay → outer relay → frontier relay. Each link is infrastructure that
-someone built, maintains, and charges for. This makes telecom a genuine business — the
-corp that builds a relay chain to the frontier controls information access to that region.
-Higher-grade relay equipment extends range but costs more to build and power.
+**Relay range (grounded in RF link budget physics):**
+
+Signal strength falls off with inverse square distance. Range depends on transmitter
+power, antenna size, and required data rate. At 1 Mbps (practical for commercial
+messaging — contracts, market data, encrypted comms):
+
+| Relay class | Power | Antenna | Range | Cost |
+|-------------|-------|---------|-------|------|
+| **Standard relay** | 10 kW | 10m dish | **~30 AU** | Medium |
+| **Premium relay station** | 100 kW | 25m dish | **~600 AU** | Very high |
+
+Based on Ka-band RF with 2058 receiver tech. Optical/laser is local-only (~1.3 AU —
+beam divergence kills range). Radio wins at interplanetary scale. These numbers are
+conservative: Voyager 1 does 160 bps from 160 AU with 23W and a 3.7m dish using 1977
+technology.
+
+What this means for coverage:
+- **Inner system (0–5 AU):** One standard relay covers everything. Comms are trivial.
+- **Belt to outer system (5–30 AU):** One or two standard relays. Jupiter reachable
+  from a belt relay. Saturn at the edge. Manageable.
+- **Beyond 30 AU:** Needs relay chains or a premium station. This is where comms
+  infrastructure investment becomes a real strategic decision.
+- **Deep frontier (200+ AU):** Only reachable via premium stations or chains of 7+
+  standard relays. The corp that builds this controls frontier information access.
 
 **What relay owners control:**
 - **Coverage**: Only relay in range of a frontier body? Monopoly pricing on bandwidth.
@@ -877,6 +902,22 @@ LLM entirely.
 
 The game's skill ceiling is in writing better directives. A fleet of 20 ships with
 brilliant directives outperforms a fleet of 50 ships with dumb ones.
+
+**Exception handling:** When an asset encounters a situation its directives don't cover,
+it needs a fallback. The player configures a **default exception behavior** per asset:
+
+- **Hold position**: Stop and wait for new orders. Safe but burns time (and crew
+  still needs life support). Best for high-value cargo near friendly space.
+- **Return to nearest friendly port**: Disengage and head for the closest colony or
+  depot where you have positive standing. Safe default for most assets.
+- **Continue current route**: Ignore the exception, proceed with existing orders.
+  Best for routine operations where exceptions are minor.
+- **Custom**: Player-defined via directive (e.g., "if exception near hostile ships,
+  dump cargo and flee; otherwise hold position").
+
+The exception alert still propagates to the player at light speed. But the asset
+doesn't sit idle for 82 minutes — it executes the default behavior immediately, and
+the player can override when the alert arrives.
 
 **Direct intervention is still possible** — but it's an override, not the default.
 The player can select any asset and issue a one-time order ("go here now, ignore your
@@ -1295,6 +1336,19 @@ calibration) so contracts are interoperable. Think ISO, not NATO.
 
 **Defense Pacts**: Mutual defense. Attack one member, the others respond (within
 light-speed delay). Expensive shared defense fund.
+
+**Colony defense drones:** Colonies invest in defense from tax revenue. Defense budget
+is a colony governance decision — independent colonies vote on it, company towns set
+it, consortiums negotiate it. Defense drones are purchased from drone manufacturers
+(player or NPC corps) — creating demand in the drone supply chain. A corp that supplies
+defense drones to a colony earns standing AND creates a dependency.
+
+In Established/Late Stage start modes, bloc-affiliated colonies start with defense
+proportional to bloc military investment. Commonwealth colonies tend to have moderate
+professional defense. Collective colonies tend to have heavy state-funded defense.
+Coalition colonies tend to have scrappy, improvised defense. Consortium colonies tend
+to rely on defense pacts rather than local forces. The procedural generator seeds
+defense levels from bloc affiliation and colony wealth.
 
 **Corporate Alliances**: Shared intelligence, trade preferences, coordinated pricing.
 Reputation-based, not code-enforced. Betrayal always possible.
