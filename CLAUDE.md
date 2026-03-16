@@ -61,7 +61,15 @@ Key parameters (in constants.js):
 - `SHIP_ACCEL_MS2`: Ship thrust (default 2g = 19.6 m/s²)
 - `WARP_THRESHOLD_KMS`: Drive activation speed (50 km/s heliocentric)
 - `WARP_TRANSITION_DIST_KM`: Distance covered during 1s drive transition (~150K km)
+- `SHIP_LENGTH_KM`: Vessel length for tidal force calculation (0.1 km = 100m)
+- `TIDAL_TOLERANCE_MS2`: Max tidal acceleration across ship (0.001 m/s²)
 - `CAMERA`: Zoom profiles with SCALE-relative distances and lerp speed
+
+Collision avoidance uses a **tidal limit model** — the danger zone around each body is the
+distance where tidal forces across the ship exceed structural tolerance:
+`dangerZone = (2 × GM × L / a_tidal)^(1/3)`. GM is derived from escape velocity and
+radius (data already on each body). No per-body magic numbers — two ship constants
+(`SHIP_LENGTH_KM`, `TIDAL_TOLERANCE_MS2`) determine all danger zones.
 
 Each body defines (in bodies.js, moons.js, asteroids.js):
 - `escapeVelocityKMS`: escape velocity from surface/low orbit

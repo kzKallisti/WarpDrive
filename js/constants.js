@@ -92,9 +92,13 @@ export const BODY_EXAGGERATION_FACTOR = 20;
 // Charted space boundary (AU) — beyond this is frontier/uncharted
 export const CHARTED_SPACE_AU = 1000;
 
-// Collision margin: multiplier on real body radius for safe corridor
-// At 100x, Jupiter's corridor is ~0.048 AU — visible but realistic
-export const COLLISION_MARGIN = 100;
+// --- Collision avoidance (tidal limit model) ---
+// Danger zone = distance where tidal forces across the ship exceed structural tolerance.
+// Formula: dangerZone = (2 * GM * L / a_tidal)^(1/3)
+// GM is derived per-body from escapeVelocity² × radius / 2.
+// No per-body magic numbers — two ship constants determine all danger zones.
+export const SHIP_LENGTH_KM = 0.1;          // 100m vessel
+export const TIDAL_TOLERANCE_MS2 = 0.001;   // max 1 milli-g differential across the ship
 
 // --- Ship propulsion model ---
 // Conventional thrust: ship accelerates/decelerates at this rate (m/s²)

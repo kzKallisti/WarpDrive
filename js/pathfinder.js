@@ -4,9 +4,9 @@
 // Transit model: Launch (conventional) → Warp Engage → Cruise @ c → Warp Disengage → Approach (conventional)
 
 import {
-  AU_KM, C_KM_S, COLLISION_MARGIN, SECONDS_PER_DAY, HELIOCENTER,
+  AU_KM, C_KM_S, SECONDS_PER_DAY, HELIOCENTER,
   SHIP_ACCEL_MS2, WARP_THRESHOLD_KMS, WARP_TRANSITION_S,
-  WARP_TRANSITION_DIST_KM,
+  WARP_TRANSITION_DIST_KM, SHIP_LENGTH_KM, TIDAL_TOLERANCE_MS2,
 } from './constants.js';
 import { distance3D } from './orbits.js';
 
@@ -182,10 +182,26 @@ function makeSegment(from, to, fromName, toName, bodiesList) {
 }
 
 /**
- * Get the collision radius for a body in AU
+ * Compute the tidal danger zone for a body in AU.
+ * Distance where tidal acceleration across the ship exceeds structural tolerance.
+ * dangerZone = (2 * GM * L / a_tidal)^(1/3)
+ * GM derived from escapeVelocity² × radius / 2 (km³/s²).
+ * @param {import('./constants.js').Body} body
+ * @returns {number} danger zone radius in AU
  */
 function collisionRadius(body) {
-  return (body.radius / AU_KM) * COLLISION_MARGIN;
+  const vEsc = body.escapeVelocityKMS ?? 0;
+  if (vEsc <= 0) return body.radius / AU_KM; // no gravity data — use physical radius
+
+  // GM in km³/s²
+  const GM_km3s2 = vEsc * vEsc * body.radius / 2;
+  // Convert to m³/s² for tidal calc (×1e9)
+  const GM_m3s2 = GM_km3s2 * 1e9;
+  const L_m = SHIP_LENGTH_KM * 1000;
+
+  // dangerZone in meters, then convert to AU
+  const dangerZone_m = Math.cbrt(2 * GM_m3s2 * L_m / TIDAL_TOLERANCE_MS2);
+  return dangerZone_m / (AU_KM * 1000);
 }
 
 /**
