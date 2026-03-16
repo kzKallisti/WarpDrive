@@ -1054,7 +1054,10 @@ Clients send commands, server validates and broadcasts state diffs. Orbital mech
 is deterministic — just sync time T, clients compute positions locally. Actions are
 infrequent (minutes between commands), so bandwidth is minimal.
 
-**Time speed:** Set per-lobby. Default 10x. Host controls speed, or majority vote.
+**Time speed:** Set per-lobby. Default **60x** (1 real minute = 1 game hour). At 60x,
+inner system transits resolve in real minutes, outer system trips take ~10 real minutes,
+and a play session of a few hours covers a game-month. Comms latency to Jupiter is
+~41 real seconds — perceptible but not painful. Host controls speed, or majority vote.
 
 **Async variant:** Game runs on server time (1 real hour = X game days). Players log in,
 issue orders, log out. Ships execute. Markets tick. Contracts expire. Like a slower
