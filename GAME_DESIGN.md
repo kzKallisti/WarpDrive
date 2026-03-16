@@ -1729,6 +1729,46 @@ Corps choose: clean operations (expensive, slow, maintains standing) or cut corn
 (cheap, fast, accumulates incidents). Off-site operations (refinery on uninhabited
 body nearby) avoid environmental friction but add transit cost.
 
+### Colony Founding
+
+Any corp can found a colony on an uninhabited body. Requirements:
+
+1. **Transport colonists**: Minimum 20 people (skeleton crew for a crewed station).
+   Colony ship or repurposed freighter with hab modules.
+2. **Deliver infrastructure**: Hab modules (shelter), power system (solar or fission),
+   life support equipment (air, water recycling), food stores (initial supply until
+   hydroponics established), communications relay (or the colony is dark).
+3. **Choose a body**: Must be surveyed (composition known). Must have resources worth
+   extracting or strategic value worth the investment.
+4. **Land and activate**: Facilities deployed, life support online, colonists housed.
+
+**Total founding cost (minimum viable colony):** ~300,000–500,000₵ in equipment +
+transport costs. This is a significant mid-game investment. The colony starts as a
+**company town** — the founding corp sets initial governance, tax rates, and docking
+policy.
+
+**What happens next:**
+- The colony appears on the map for all players/corps within relay range.
+- It starts as a crewed station (10–200 people). No local market, limited capability.
+- It needs regular supply shipments (food, spare parts) until self-sufficient.
+- Other corps can request docking — the founding corp decides policy.
+- As population grows (immigration, natural growth), it evolves: crewed station →
+  colony (200+ people with real governance pressure) → potentially city (50K+).
+- If the founding corp neglects it (stops supplying food, doesn't maintain
+  infrastructure), population declines and eventually evacuates. Ghost colony.
+
+**Colony founding as a strategic move:**
+- Found a colony at a rare earth deposit → control the resource
+- Found a colony at a strategic junction → become a transit hub
+- Found a colony in frontier space → project influence into uncovered territory
+- Found a colony near a competitor's operations → apply economic pressure
+
+**The political evolution:** As population grows, workers demand representation. A
+company town with 5,000 residents faces pressure to transition to independent
+governance. The founding corp can resist (authoritarian company town) or negotiate
+(consortium, eventually independent). This transition is emergent from the colony
+standing and governance systems — not a scripted event.
+
 ### Population Dynamics
 
 Growth depends on: food supply, medical access, economic opportunity, morale. Thriving
@@ -2486,6 +2526,46 @@ information it can access through its command centers and relay network:
 - **Monopolist**: Undercuts competitors, corners markets. Aggressive.
 - **Frontier**: Distant high-value targets. Long transits, big payoffs.
 
+### NPC-to-NPC Interaction
+
+AI corps don't just compete with the player — they interact with each other. The
+system is a living economy where NPC corps form partnerships, rivalries, and
+political positions independent of the player's actions.
+
+**NPC corps do everything players do:**
+- Negotiate supply deals with each other (via relay, with real comms delay)
+- Form alliances based on complementary supply chains (Corp A has a refinery,
+  Corp B has a factory — they make a deal)
+- Compete for the same contracts (first-to-accept wins, distance matters)
+- Undercut each other on pricing (personality-dependent — haulers avoid this,
+  monopolists embrace it)
+- Found colonies and build infrastructure
+- Lobby colony governance for favorable policy
+- React to the player's growth (a monopolist NPC that sees you taking their
+  market share becomes hostile; a hauler NPC that sees you building a refinery
+  may propose a supply partnership)
+
+**NPC relationships are observable.** Through relay traffic metadata, market
+transaction patterns, and ship movement observation, the player can map NPC
+alliances and rivalries. Two NPC corps that consistently supply each other are
+probably partners. Two that undercut each other at the same ports are probably
+rivals. This intelligence helps the player decide who to ally with, who to avoid,
+and where opportunities exist.
+
+**NPC personalities drive interaction patterns:**
+- Hauler + Hauler: Route-sharing agreements (avoid overlap)
+- Hauler + Monopolist: Hauler avoids monopolist's territory, supplies elsewhere
+- Monopolist + Monopolist: Aggressive competition or market-splitting deal
+- Prospector + Trader: Prospector sells discoveries, trader exploits them
+- Frontier + Any: Frontier corps are isolated, rarely interact except to sell
+  rare materials at premium prices
+
+**NPC corps remember.** A corp that was undercut by another NPC holds a grudge —
+reduced willingness to deal with that corp, higher chance of retaliatory pricing.
+A corp that received reliable supply from another NPC builds trust — preferred
+partner status, better deal terms. These relationship states persist and evolve
+over the course of the game.
+
 ### Why AI-First Matters
 
 1. Economy works in single player from day one
@@ -2994,36 +3074,40 @@ goods can be 5–10x homeworld baseline.
 
 ### Economic Validation
 
-Does the math work? Quick sanity checks:
+Does the math work with the current starting conditions (10K₵ seed + 50K₵ loan)?
 
-**Can a new player make money?**
-Starting ship (500t cargo). Short delivery: 500t iron ore × 15₵ = 7,500₵ revenue.
-Propellant cost for inner system hop: ~5,000t H₂ × 10₵ = 50,000₵. Wait — that's
-more than the cargo value. This means **short hops between nearby bodies must have
-low Δv** (belt asteroids with tiny escape velocities, or orbital transfers between
-moons of the same planet). The starting contracts should be between bodies with low
-gravity wells — asteroid-to-asteroid or Luna-to-Terra-orbit transfers where propellant
-cost is minimal.
+**Can a new player make money from nothing?**
+Starting capital: 60K₵ (10K seed + 50K loan). A used scout lease costs ~2,000₵/month.
+First contract: low-Δv delivery between belt asteroids or Luna-to-Terra-orbit.
+500t refined platinum (quality-40) between two belt asteroids (escape <1 km/s each):
+propellant ~50t × 10₵ = 500₵. Cargo value: 500t × 200₵ = 100,000₵. Profit after
+fuel + lease: ~97,500₵. First contract more than covers the loan.
 
-Revised: starting contracts are specifically **low-Δv routes** where propellant cost
-is a small fraction of cargo value. 500t refined platinum (quality-40) between two
-belt asteroids (escape <1 km/s each): propellant ~50t × 10₵ = 500₵. Cargo value:
-500t × 200₵ = 100,000₵. Profit after fuel: ~99,500₵. That works. The game naturally
-pushes early players toward low-gravity-well bodies — which is where the accessible
-mining is anyway.
+Alternative start: skip the ship, buy a quality-30 drone mining rig at a local
+asteroid for ~50K₵. Produces ore passively. Sell raw ore at nearby port for thin
+margins while saving for a ship. Slower start but no lease payment.
+
+The game naturally pushes early players toward low-gravity-well bodies — which is
+where the accessible mining is anyway. Starting contracts between asteroids and
+moons, not planetary surfaces.
 
 **Can a mid-game player afford a shipyard?**
 Shipyard costs ~1.5M₵. At 50,000₵ profit per mid-game contract, that's 30 contracts
-— roughly 30 game-weeks of operation with one ship. With 3 ships running parallel
-routes, ~10 game-weeks. At 60x speed, that's ~7 real hours of play. About right for
-a major mid-game milestone.
+— roughly 30 game-weeks with one ship. With 3 ships running parallel routes, ~10
+game-weeks. At 60x speed, that's ~7 real hours of play. About right for a major
+mid-game milestone.
 
 **Is a Casimir condenser a late-game investment?**
 Casimir condenser: 3M₵ + 150K₵/month operating. A single Casimir fuel rod sells for
 ~2,000₵. Need to produce ~75 rods/month to break even on operating costs. Plus the
-3M₵ capital recovery. This is a serious late-game investment that only makes sense with
-cheap power (inner system solar) and reliable rare earth + platinum supply chains. Not
-something you build on a whim. About right.
+3M₵ capital recovery. Serious late-game investment. About right.
+
+**Is a warpgate endgame?**
+Requires: massive Casimir matter stockpile, structural components at moon scale,
+years of construction. Estimated cost: 50M–100M₵ in materials alone, plus
+sustained multi-year construction effort from a dedicated shipyard. This is a
+system-wide project — likely requires multiple corps cooperating. Appropriately
+epic for endgame content.
 
 ## 17. LLM Integration (Narrative Layer)
 
@@ -3221,7 +3305,83 @@ Mixed human/AI mode. Time speed consensus. Async variant.
 **Phase 6: Polish** — Sound design. Tutorial (guided first contract). Procedural names.
 Mobile layout. Leaderboards.
 
-## 19. Open Questions
+## 19. Endgame: Warpgates & Inter-System Travel
+
+### The Warpgate
+
+The ultimate megaproject. A warpgate is a manufactured wormhole stabilizer — roughly
+half the size of a small moon — that creates a permanent bridge between two solar
+systems. Building one is the endgame goal. Connecting systems is the endgame payoff.
+
+**The physics:** The warp drive creates a localized gravity vacuum using Casimir matter.
+A wormhole is an extreme gravity well — a tunnel in spacetime. Engaging the warp drive
+*inside* a stabilized wormhole allows the gravity vacuum to interact with the existing
+spacetime curvature, producing effective c² (speed of light squared) transit. This
+doesn't break the "no FTL in normal space" rule — it requires the exotic conditions
+inside the wormhole to work. In normal space, c is still the ceiling.
+
+**Building a warpgate requires:**
+- Astronomical quantities of Casimir matter (the gravity vacuum medium)
+- Massive structural components (half-moon-scale construction)
+- Enormous sustained power (multiple fusion reactors dedicated full-time)
+- Advanced electronics and superconductors (field stabilization)
+- Years of construction time
+- A location with suitable gravitational conditions (deep space, far from bodies)
+
+This is not something a single corp builds casually. It's a system-wide effort —
+likely requiring cooperation between multiple corps, colonies, and possibly blocs.
+The political negotiation around WHO builds the gate, WHERE it goes, and WHO controls
+access is endgame diplomacy.
+
+### Inter-System Connection
+
+Each player has their own save file — their own procedurally generated solar system
+with its own history, economy, politics, and infrastructure. A warpgate connects
+two save files permanently.
+
+**What connection means:**
+- Ships can transit between systems via the warpgate (at c² speed — inter-system
+  transit takes hours/days instead of the centuries it would take at c)
+- Trade flows between systems. Resources scarce in one system may be abundant in
+  another. New markets, new supply chains, new competition.
+- Information flows at c² through the gate (relay messages can transit the wormhole).
+  Two connected systems share a communications fabric.
+- NPC corps, politics, and governance from both systems interact. A Collective-
+  dominated system connecting to a Commonwealth-dominated system creates inter-system
+  political tension.
+- **The connection is permanent and irreversible.** Once the gate is active, both
+  systems are permanently online and subject to whatever happens. If the other
+  system's megacorp sends a fleet through the gate, that's your problem now.
+
+**Multiplayer implications:**
+- Player A builds a warpgate in their solo system. Player B builds one in theirs.
+  They link. Now it's a two-system multiplayer game — each player's system is
+  live, persistent, and accessible to the other.
+- Multiple gates can connect multiple systems into a network. A cluster of 5
+  connected systems is a multi-system economy with inter-system trade routes,
+  political blocs that span systems, and strategic chokepoints at the gates.
+- A system with two gates connecting to two different systems becomes a transit
+  hub — strategically critical, economically powerful, and a target for anyone
+  who wants to control inter-system commerce.
+
+**Gate control:**
+- The corp (or coalition) that built the gate controls access. They can charge
+  transit fees, deny passage to specific corps, or open it freely.
+- A gate is infrastructure — it can be besieged, blockaded, or destroyed (with
+  enormous effort). Destroying a gate severs the connection permanently.
+- Gate defense is the ultimate security concern. Every defense drone, every
+  armed ship, every defense pact in your system should account for the gate
+  as a vulnerability.
+
+**Why this works as endgame:**
+- It's the most expensive thing you can build — true megaproject
+- It requires system-wide cooperation (political endgame)
+- It creates permanent consequences (strategic endgame)
+- It opens new gameplay — inter-system trade, diplomacy, warfare
+- It connects the sandbox to a larger persistent universe
+- A player who's "done" with their system now has a whole new system to interact with
+
+## 20. Open Questions
 
 - **Combat balance**: What prevents the richest corp from dominating through force?
   Coalitions? Diminishing returns on military spending? Insurance making piracy
