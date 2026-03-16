@@ -876,17 +876,41 @@ to the asset. It's the "I see something the directive doesn't account for" escap
 But relying on direct intervention means relying on being faster than physics — which
 works in the inner system and fails in the outer system.
 
-**Directives solve the UI problem:**
+**Two interfaces, one game:**
 
-Instead of 50 buttons, sliders, and context menus per asset, the interface is:
-1. **Directive editor**: Text input (natural language or structured) + LLM compilation
-   + review screen + deploy
-2. **Directive monitor**: For each asset, show current directive, recent actions taken,
-   and exceptions/alerts where the directive couldn't decide
-3. **Direct override**: One-click "go here" / "buy this" / "flee" for urgent situations
+The game is still point-and-click. Click a ship, click a destination, click "go."
+Click a contract, click "accept." Every action has a button. The traditional interface
+is always available and fully functional.
 
-The player spends most of their time writing and refining directives, reviewing
-outcomes, and handling exceptions. Not clicking buttons every 30 seconds.
+The **chat interface** is a first-class overlay — the same text input for everything:
+
+- **Fleet/operations**: "Reroute the Vesta freighter to pick up that platinum deal."
+  "Set up an automated trade loop between Kepler-3 and Terra for water ice." "If
+  anyone approaches our mining rig at belt-7, pull the drones back and alert me."
+  → Your corporate AI translates to game actions and standing directives.
+- **Diplomacy**: "Hey Corp B, interested in a long-term rare earth supply deal?"
+  → Message sent via relay to the other corp (human or NPC). NPC corps respond in
+  character via the LLM. Human players see it in their own chat.
+- **Market**: "Post a buy order for 1000t quality-60 platinum at Vesta, max 45₵/t."
+  → Creates the contract on the local market board.
+
+In 2058, talking to your corporate AI to manage operations is as natural as email
+is today. The chat IS the command line. Point-and-click is the visual shortcut.
+Both do the same things. Simple actions are faster to click. Complex multi-step
+behaviors are faster to type. The player uses whichever fits the moment.
+
+**The chat unifies three systems that would otherwise need separate interfaces:**
+1. Fleet management (directing your own assets)
+2. Inter-corp communication (diplomacy, negotiation, threats)
+3. Market operations (posting/accepting contracts, trading)
+
+One text input. The AI figures out whether you're talking to it, to another corp,
+or to the market — based on context and explicit addressing (@CorpB, @market, or
+just talking to your own AI by default).
+
+**Directive monitor**: For each asset, a panel shows current standing directives,
+recent autonomous actions taken, and exceptions where the directive couldn't decide
+(flagged for player attention).
 
 **Progression:**
 - Early: One ship = one viewpoint. You see the world from wherever your ship is.
