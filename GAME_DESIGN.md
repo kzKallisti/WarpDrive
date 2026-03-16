@@ -602,20 +602,52 @@ Ore deposit (base quality — exploration finds better deposits)
               → Performance (quality scalar on efficiency stats)
 ```
 
-**What quality affects:**
+**What quality affects (grounded in physics):**
 
-| Thing | Quality effect |
-|-------|---------------|
-| Ore deposit | Base quality — some deposits are simply better |
-| Refined material | Purity, consistency. Higher quality = less waste in manufacturing |
-| Drive components | Ship Isp and thrust efficiency. Quality-80 drives burn less fuel than quality-40 |
-| Electronics | Sensor range, comms encryption grade, scanner precision |
-| Hull plating | Structural integrity, maintenance interval |
-| Hab modules | Life support efficiency, crew morale bonus |
-| Mining equipment | Extraction rate, ore quality preservation |
-| Drones | Operational reliability, task efficiency |
-| Port scanners | Detection capability (directly affects smuggling counterplay) |
-| Casimir fuel rods | Warp efficiency — higher quality = more AU per rod |
+Quality represents metallurgical and engineering precision. It doesn't change
+fundamental material properties (iron is always 7,870 kg/m³) but it changes what
+you can DO with the material:
+
+| Thing | Quality effect | Physics basis |
+|-------|---------------|---------------|
+| Refined material | Purity, consistency. Less waste in manufacturing. | Fewer impurities = predictable behavior in alloys |
+| Hull plating | **Strength-to-weight ratio.** Quality-80 alloy achieves same structural integrity at ~20% less mass than quality-40. | Real aerospace engineering — better alloys = thinner walls for same strength |
+| Drive components | Isp and thrust efficiency. Quality-80 drives burn less fuel. | Tighter tolerances = less energy wasted |
+| Electronics | Sensor range, comms encryption grade, scanner precision. | Cleaner signal processing, better miniaturization |
+| Hab modules | Life support efficiency, recycling rate, crew morale. | Better seals, pumps, filters = less consumable waste |
+| Mining equipment | Extraction rate, ore quality preservation. | Sharper cutting, gentler handling = less material degraded |
+| Drones | Operational reliability, task efficiency. | Tighter tolerances = fewer failures, better performance |
+| Port scanners | Detection capability, spectral resolution. | Better optics + electronics = finer discrimination |
+| Casimir fuel rods | Warp efficiency — more AU per rod. | Purer containment = less energy leakage |
+
+**The mass implication is critical.** Higher quality hull plating and structural
+components are LIGHTER for the same strength. This means:
+
+- A quality-80 ship has less structural mass than a quality-40 ship of the same class.
+- Less structural mass = higher cargo-to-mass ratio.
+- Higher cargo-to-mass ratio = less propellant per trip (Tsiolkovsky).
+- Less propellant per trip = lower operating cost.
+
+Quality literally makes your ships cheaper to fly. A quality-80 freighter hauling
+5,000t of cargo burns measurably less propellant than a quality-40 freighter hauling
+the same load, because its hull, frame, and drive components weigh less. Over hundreds
+of trips, this compounds into a serious competitive advantage.
+
+**Rough scaling (hull/structural mass reduction from quality):**
+
+| Quality | Mass reduction vs quality-50 baseline | Effect on operating cost |
+|---------|--------------------------------------|--------------------------|
+| 30 | +15% heavier | Higher fuel bills |
+| 50 | Baseline | Standard |
+| 70 | -10% lighter | Noticeable savings |
+| 80 | -20% lighter | Significant advantage |
+| 90 | -25% lighter | Premium efficiency |
+
+These are game parameters, not physics derivations — but the direction is real.
+Modern aircraft use titanium alloys and carbon composites specifically because the
+mass savings justify the material cost. The same logic applies in space, amplified
+by the Tsiolkovsky equation: every kilogram of hull mass costs propellant on every
+burn, compounding across every trip the ship ever makes.
 
 **Quality as infinite progression:**
 
