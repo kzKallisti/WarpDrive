@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WarpDrive Navigation System</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/",
+      "lit-html": "https://cdn.jsdelivr.net/npm/lit-html@3/+esm",
+      "lit-html/": "https://cdn.jsdelivr.net/npm/lit-html@3/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- 3D Viewport -->
+  <canvas id="viewport"></canvas>
+
+  <!-- Top Bar -->
+  <div id="top-bar" class="overlay">
+    <div class="title">
+      WarpDrive<span>NAV SYSTEM v0.1 // EARTH METRIC STANDARD</span>
+    </div>
+    <div class="time-display">
+      <label>TAU</label>
+      <span id="current-time">---</span>
+      <input type="date" id="date-input" value="2058-01-01">
+    </div>
+    <div class="time-controls">
+      <button id="play-pause" title="Play/Pause time">▶</button>
+      <input type="range" id="speed-slider" min="0" max="100" value="20">
+      <span id="speed-value">10x</span>
+    </div>
+  </div>
+
+  <!-- Left Panel — Navigation Controls -->
+  <div id="nav-panel" class="overlay">
+    <div class="panel">
+      <div class="panel-title">Navigation</div>
+      <div class="nav-group">
+        <label>Origin</label>
+        <select id="origin"></select>
+      </div>
+      <div class="nav-group">
+        <label>Destination</label>
+        <select id="destination"></select>
+      </div>
+      <button id="engage">Engage</button>
+    </div>
+
+    <div class="panel" id="body-info">
+      <div class="panel-title">Stellar Cartography</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Body</th>
+            <th>Dist (AU)</th>
+            <th>Dist (km)</th>
+          </tr>
+        </thead>
+        <tbody id="body-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Right Panel — Jump Plan -->
+  <div id="jump-plan" class="overlay">
+    <div class="panel">
+      <div class="panel-title">Jump Plan</div>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Dist (AU)</th>
+            <th>Dist (km)</th>
+            <th>Time @ c</th>
+          </tr>
+        </thead>
+        <tbody id="jump-table-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Body detail panel (fixed bottom-right) -->
+  <div id="body-detail"></div>
+
+  <!-- Bottom Bar -->
+  <div id="bottom-bar" class="overlay">
+    <span id="ship-status">STANDBY</span>
+    <button id="track-ship" title="Track ship">TRACK SHIP</button>
+    <span id="status-msg" class="status-msg info"></span>
+  </div>
+
+  <!-- Main application -->
+  <script type="module" src="js/main.js?v=3"></script>
+</body>
+</html>
