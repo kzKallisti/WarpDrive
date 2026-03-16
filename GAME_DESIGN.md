@@ -6,6 +6,14 @@ Asteroid mining tycoon set in procedurally generated solar systems. Each new gam
 
 **Core thesis: orbital mechanics IS the economy.** Physics creates natural scarcity, timing pressure, and strategic depth without artificial game mechanics. A player who understands launch windows and gravity wells outperforms one who brute-forces routes.
 
+## Setting & Premise
+
+**Year 2058.** Humanity has achieved warp speed (c) but hasn't broken the light-speed barrier. Advanced AI and robotics are mature technologies — autonomous mining rigs, AI-piloted freighters, and algorithmic trading are the norm. The player isn't necessarily sitting in a cockpit; they're running a corporation from a terminal.
+
+**One race: humans.** This isn't a 4X — no alien civilizations, no tech trees spanning millennia. The drama comes from human institutions: corporations competing, contracts being honored or broken, regulatory bodies trying to keep order in a frontier that's expanding faster than law can follow.
+
+**The system is not empty.** By 2058, humanity has been in space for decades. The initial gamestate reflects this — there are existing colonies, established trade routes, regulatory bodies, and incumbent corporations. The player is a new entrant, not a pioneer.
+
 ## What WarpDrive already provides
 
 The existing navigation simulator is the game engine:
@@ -17,6 +25,228 @@ The existing navigation simulator is the game engine:
 - Phase-aware ship animation (accel → warp → decel)
 - 3D visualization with Three.js, lit-html UI panels
 - Time simulation with play/pause/speed controls
+
+## Initial World State & Game Start Modes
+
+The world doesn't start empty. The generator creates not just a solar system, but a
+civilization at a particular stage of development. The player chooses how "mature" the
+system is when they enter — this is the primary difficulty/playstyle selector.
+
+### Start Modes (Historical Simulation Depth)
+
+Each mode represents a different answer to "how much history happened before you arrived?"
+
+**Mode 1: Frontier (T+5 years)**
+- One established colony on the habitable-zone planet (the "homeworld")
+- A few orbital stations under construction
+- 1–2 small NPC corps doing initial prospecting
+- Most bodies are unsurveyed — composition unknown until someone visits
+- No regulatory infrastructure — pure frontier capitalism, contracts are handshake deals
+- Player advantage: first-mover on untapped resources
+- Player risk: no safety net, no established markets, no contract enforcement
+
+**Mode 2: Expansion (T+20 years)**
+- Homeworld colony is a small city
+- 2–3 outpost colonies on moons/asteroids (still dependent on homeworld imports)
+- 5–8 NPC corps of varying size, established trade routes
+- Inner system mostly surveyed, outer system still frontier
+- Nascent regulatory body: the **System Commerce Authority (SCA)**
+  - Registers ships and corps
+  - Arbitrates contract disputes (but enforcement is weak)
+  - Publishes market data (transponder-reported prices)
+- Player advantage: infrastructure exists, markets have liquidity
+- Player risk: competition is real, good routes are already claimed
+
+**Mode 3: Established (T+50 years)** ← the "2058" canonical mode
+- Multiple established colonies with real economies
+- Major NPC corps are powerful (some bigger than the player will ever be)
+- Full regulatory framework (SCA has teeth — fines, license revocation)
+- Supply chains exist: raw materials → refineries → manufacturers → consumers
+- Shipyards build ships from manufactured components (not bought from a menu)
+- Player advantage: deep markets, diverse contracts, infrastructure everywhere
+- Player risk: incumbents have economies of scale, regulation constrains options
+
+**Mode 4: Late Stage (T+100 years)**
+- System is heavily developed, most resources mapped and claimed
+- Megacorporations dominate — player is a scrappy upstart
+- Complex regulation, taxation, tariffs between colony jurisdictions
+- Opportunities in: niche markets, frontier (outer system), disruption, politics
+- Hardest mode — requires understanding the full economic simulation
+
+### What the Generator Produces per Mode
+
+The procedural generator runs a simplified economic simulation forward from T+0 to the
+chosen start time. This isn't real-time — it's a fast-forward bootstrap that produces:
+
+1. **Colony locations and populations** — where did settlement spread?
+2. **NPC corp portfolios** — who owns what ships, routes, mining claims?
+3. **Market prices** — supply/demand equilibrium at each colony
+4. **Infrastructure** — refineries, shipyards, stations (placed on bodies)
+5. **Regulatory state** — SCA rules, taxation rates, existing contracts
+6. **Surveyed vs unsurveyed bodies** — what's been explored?
+
+This fast-forward simulation uses the same economic rules the live game uses, just
+compressed. The result is a plausible world state, not a random one.
+
+## Supply Chain & Manufacturing
+
+Resources don't teleport from asteroid to market. The supply chain is the game.
+
+### The Full Chain
+
+```
+RAW EXTRACTION          PROCESSING              MANUFACTURING           CONSUMER
+───────────────────────────────────────────────────────────────────────────────
+Iron ore         →   Refined iron         →   Hull plating        →   Shipyard
+Platinum ore     →   Refined platinum     →   Electronics         →   Colony
+Water ice        →   H₂ + O₂ (fuel)      →   (consumed directly) →   Ships/stations
+                     Purified water       →   Life support        →   Colony
+Silicates        →   Glass/ceramics       →   Hab modules         →   Colony
+Rare earth ore   →   Processed RE         →   Drive components    →   Shipyard
+Volatiles        →   Chemical feedstock   →   Propellant          →   Ships
+He-3 (gas giant) →   Fusion fuel          →   (consumed directly) →   Power plants
+```
+
+### Processing & Refining
+
+Raw ore is nearly worthless. Value is created at each stage:
+- **Mining rigs** extract raw ore (need equipment, power, crew/robots)
+- **Refineries** process ore into usable materials (fixed installations on bodies)
+- **Factories** turn materials into components (complex, need multiple inputs)
+- **Shipyards** assemble components into ships (the ultimate manufactured good)
+
+A mining corp that builds a refinery at their mining site captures more margin.
+A corp that builds a shipyard controls who gets new ships and at what price.
+Vertical integration is powerful but capital-intensive.
+
+### Who Operates What
+
+Any player or NPC corp can operate at any level of the chain:
+- **Pure miner**: Extract and sell raw ore. Low margin, low capital requirement.
+- **Integrated miner**: Extract + refine on-site. Better margin, needs refinery investment.
+- **Hauler**: Own no mines. Buy processed materials, deliver to where they're needed.
+- **Manufacturer**: Buy refined materials, produce components/ships. Sell to corps/colonies.
+- **Conglomerate**: The whole chain. Massive capital, economies of scale, political power.
+
+### Ship Manufacturing (not a menu — a supply chain)
+
+Ships are not bought from a UI shop. They're built:
+
+1. A **shipyard** (owned by a corp, located at a body) needs:
+   - Hull plating (from refined iron)
+   - Drive components (from rare earths)
+   - Electronics (from platinum)
+   - Hab modules (from glass/ceramics)
+   - Fuel tankage (from refined metals)
+2. The shipyard's owning corp sets the **price and queue**
+3. Other corps place **orders** — pay upfront, wait for construction
+4. Construction time depends on component availability and shipyard capacity
+5. If a shipyard runs out of drive components, all orders stall until resupplied
+
+This means:
+- **Shipyard owners have power** — they choose who gets ships first
+- **Supply disruptions cascade** — a platinum shortage → no electronics → no ships → fleet stagnation
+- **A mining corp that controls rare earth supply controls the shipbuilding pace**
+- **A corp can partner with a shipyard** — guaranteed component supply in exchange for priority orders or revenue share
+
+## Governance & Contract Enforcement
+
+The frontier needs law, but law needs enforcement. This creates interesting gameplay.
+
+### The System Commerce Authority (SCA)
+
+In Expansion+ modes, the SCA exists as a regulatory body. It is NOT a player or NPC corp —
+it's a system-level institution with procedurally generated policies.
+
+**SCA Functions:**
+- **Ship registration**: All ships must be registered. Unregistered ships can't dock at regulated ports.
+- **Contract registry**: Contracts filed with the SCA are legally binding. Breach = fines, license suspension.
+- **Market transparency**: SCA-regulated ports publish real-time prices. Unregulated ports don't.
+- **Safety standards**: Minimum ship maintenance, crew requirements, insurance mandates.
+- **Dispute arbitration**: When contracts are disputed, SCA rules (with a delay and fee).
+- **Taxation**: Transaction taxes at regulated ports fund SCA operations and colony infrastructure.
+
+**SCA Limitations:**
+- Only has jurisdiction at **regulated ports** (established colonies). Frontier is lawless.
+- Enforcement depends on SCA budget (funded by taxes). Underfunded SCA = weak enforcement.
+- Can be **lobbied** — large corps can push for regulations that favor incumbents.
+- Cannot enforce in transit — piracy (contract breach, cargo theft) is punished only if the perp docks at a regulated port.
+
+### Contract Types & Enforcement
+
+| Contract type | Enforcement | Breach consequence |
+|--------------|-------------|-------------------|
+| SCA-registered delivery | SCA arbitration | Fine, reputation damage, possible license suspension |
+| Private agreement | Reputation only | Reputation damage with that corp. No legal consequence. |
+| Frontier handshake | Nothing | Welcome to the frontier. |
+| Partnership/JV | SCA + mutual dependency | Dissolution, asset split per agreement terms |
+
+### The Enforcement Spectrum
+
+This creates a genuine design tension:
+
+- **Operate in regulated space**: Safe contracts, transparent markets, but taxes and rules constrain you.
+- **Operate on the frontier**: No taxes, no rules, but no contract enforcement either. You're trusting counterparties.
+- **Mixed strategy**: Use regulated space for reliable income, frontier for high-risk/high-reward plays.
+
+### PvP & Conflict
+
+There is no "combat" in the traditional sense — ships don't have weapons. Conflict is economic:
+
+- **Undercutting**: Offer lower prices on a competitor's key route
+- **Supply disruption**: Buy up all rare earths before a competitor's shipyard order fills
+- **Hostile takeover**: Buy a controlling stake in a competitor's debt (if they've borrowed)
+- **Blockade by economics**: Monopolize fuel supply at a remote station, charge monopoly prices
+- **Contract poaching**: Outbid competitors for lucrative contracts
+- **Regulatory capture**: Lobby SCA for rules that disadvantage competitors
+- **Reputation warfare**: Fulfill contracts the competitor abandoned (shows market they're unreliable)
+
+The question "how are contracts enforced?" has a realistic answer: **imperfectly, and it depends on where you are.** That imperfection IS the gameplay.
+
+## Workforce & Automation
+
+### The AI/Robotics Question
+
+By 2058, AI and robotics are mature. This affects the game economy:
+
+- **Mining rigs** are mostly automated. Crew is 2–3 humans supervising dozens of robots.
+- **Freighters** can be AI-piloted (cheaper operating cost, but slower decision-making in emergencies).
+- **Refineries/factories** are heavily automated. Human labor is management and maintenance.
+- **Colonies** need humans for governance, culture, services. Can't be fully automated.
+
+### Labor as a Resource
+
+Skilled workers are scarce in space:
+- **Engineers**: Needed to build and maintain infrastructure. Recruited from colonies.
+- **Pilots**: Human pilots handle complex maneuvers better than AI (warp transit edge cases). Premium cost.
+- **Managers**: Each facility needs management. More facilities = more overhead.
+- AI crew is cheaper but has limitations (can't improvise, vulnerable to novel situations).
+
+This creates a strategic choice:
+- **All-robot fleet**: Low operating cost, but brittle. One unexpected situation and you lose a ship.
+- **Human crews**: Expensive, but resilient. Can handle pirates, equipment failures, first contact with unknowns.
+- **Mixed**: Robots for routine runs, humans for high-value or frontier missions.
+
+## Diplomacy & Relationships
+
+### Inter-Corp Relations
+
+Corps have relationships that affect gameplay:
+- **Reputation**: Public score based on contract history. Affects who will do business with you.
+- **Partnerships**: Formal agreements — exclusive supply deals, joint ventures, revenue shares.
+- **Rivalries**: Emerge from competition. NPC corps remember who undercut them.
+- **Debt**: Corps can borrow from each other. Defaulting damages relationships.
+
+### Colony Relations
+
+Each colony has an opinion of each corp based on:
+- How reliably they've supplied essential goods (water, food, equipment)
+- Whether they've invested in colony infrastructure
+- Tax compliance
+- Employment (colonies prefer corps that hire locals)
+
+High colony reputation → priority docking, lower taxes, exclusive contracts.
+Low reputation → fees, restrictions, eventually refused docking.
 
 ## Procedural Solar System Generation
 
