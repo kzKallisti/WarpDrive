@@ -336,6 +336,30 @@ Any player or NPC corp can operate at any level of the chain:
 
 The frontier needs law, but law needs enforcement. This creates interesting gameplay.
 
+### Design Principle: No Game-Rule Restrictions
+
+Nothing in the game is forbidden by code. There is no "you can't attack here" flag
+on a port. There is no "this corp is protected" status. Every restriction is enforced
+by economics, physics, and the political choices of other entities in the system.
+
+You CAN attack a ship at a major colony's port. But:
+- The port has defense drones (proportional to its wealth and population)
+- Every ship present has transponder logs with your cryptographic identity
+- Every colony in the system will see the evidence within light-hours
+- Your colony standings will crash across the board
+- Other corps may collectively blacklist you
+- If you damaged colony infrastructure, the entire local population hates you
+
+None of that is a game rule. It's emergent from systems that exist for other reasons
+(transponders exist for navigation, colony standing exists for labor markets, defense
+drones exist because colonies invest in security). The consequence space is the
+enforcement mechanism.
+
+A player who attacks a major port and somehow survives the defenses, escapes the
+political fallout, fences the stolen cargo through frontier contacts, and rebuilds
+their reputation over years of clean operations — that's not an exploit. That's a
+great story.
+
 ### Smart Contract Infrastructure
 
 By 2058, cryptocurrency-based smart contract escrow is a solved problem. This
@@ -402,36 +426,100 @@ disputes).
 What if someone sabotages your mining rig? What if a competitor "accidentally" parks their
 ship in your planned docking slot? Code can't prevent meatspace interference.
 
-### The System Commerce Authority (SCA) — Reimagined
+### Governance is Local and Plural
 
-With smart contracts handling routine enforcement, the SCA's role shifts from enforcer
-to **standards body, data oracle, and dispute resolver for edge cases.**
+There is no single system-wide authority. Authority is local, fragmented, and emergent —
+just like the real frontier. Each colony governs itself, and larger structures (if they
+exist) are voluntary associations, not sovereign states.
 
-**SCA Functions:**
-- **Port certification**: Certifies port scanners and transponders as trustworthy oracles
-  for on-chain contract verification. Uncertified ports can't trigger automatic contract
-  settlement (requires manual buyer confirmation instead).
-- **Ship registration**: On-chain identity. Links physical ships to keypairs. Required for
-  contracts at certified ports.
-- **Standards**: Defines cargo grades, purity standards, measurement units — the shared
-  vocabulary that smart contracts reference.
-- **Oracle disputes**: When port scanner readings are contested (calibration issues,
-  hardware failure), SCA arbitrates. Their one area of real enforcement power.
-- **Insurance regulation**: Certifies insurance DAOs, validates claim oracles.
-- **Safety standards**: Minimum ship maintenance, crew requirements for human-crewed vessels.
+#### Colony Governance Types
 
-**SCA does NOT do:**
-- Contract enforcement (smart contracts handle this)
-- Price setting (markets are free)
-- Route assignment (anyone can fly anywhere)
-- Communications regulation (cryptographic identity makes relay trust unnecessary)
-- Direct taxation (but certified ports charge docking fees that fund SCA)
+Each colony has a governance model that affects how corps operate there. The generator
+assigns these based on founding history, population, and which corp(s) established it.
 
-**SCA can be corrupted:**
-- Large corps can lobby for scanner calibration standards that favor their ore grades
-- Port certification can be denied to competitors' frontier stations
-- Insurance oracle disputes can be influenced
-- Safety standards can be raised to price out smaller competitors
+**Independent Colony** (self-governing)
+- Elected council or direct democracy
+- Sets own taxes, docking fees, environmental standards, defense budget
+- Corps are tenants with negotiated terms
+- Most common at established settlements with diverse populations
+
+**Company Town** (corp-controlled)
+- Founded by a corp, governed by that corp
+- Low taxes for the owning corp, higher for competitors (or access denied entirely)
+- Workers are employees, not citizens — limited labor mobility
+- Efficient but brittle: if the owning corp collapses, the colony is stranded
+- Common in frontier mode — first corp to build a hab calls the shots
+
+**Consortium** (multi-corp cooperative)
+- Several corps jointly govern, usually the founding members
+- Decisions by vote weighted by investment
+- Shared infrastructure costs, shared defense
+- Stable but slow to decide anything — consensus is hard
+- Common at strategic locations where multiple corps need access
+
+**Free Port** (minimal governance)
+- No taxes, no regulations, no questions asked
+- Attracts frontier operators, smugglers (of "hot" stolen cargo), and risk-takers
+- No defense investment — you're on your own
+- Market is active but unverified — no port oracles for contract settlement
+- Dangerous but lucrative for those who can handle it
+
+#### Alliances & Confederations
+
+Colonies and corps can form larger structures voluntarily:
+
+**Trade Confederations**: Multiple colonies agree on shared standards (cargo grades,
+measurement units, scanner calibration) so contracts are interoperable. A confederation
+might share a port oracle standard, making automatic contract settlement work across
+member colonies. Not a government — just a standards agreement. Think ISO, not NATO.
+
+**Defense Pacts**: Colonies agree to mutual defense. Attack one, and the others'
+defense drones respond (within light-speed delay). Expensive — each colony contributes
+to a shared defense fund. But a pact of 5 colonies is much harder to pirate near than
+5 independent ones.
+
+**Corporate Alliances**: Corps can form alliances — shared intelligence, mutual trade
+preferences, coordinated pricing. Not enforced by code (can't put "be nice to my ally"
+in a smart contract). Pure reputation and mutual benefit. Betrayal is always possible.
+
+#### The SCA (one possible institution, not guaranteed)
+
+In Established/Late Stage start modes, a **System Commerce Authority** may exist as
+a voluntary trade confederation that's grown powerful enough to feel like a governing
+body. But it's not inherent to the game — it's an emergent institution.
+
+**What the SCA actually is (when it exists):**
+- A confederation of the largest/oldest colonies
+- Sets widely-adopted standards (cargo grades, scanner calibration, ship registration)
+- Operates a shared port oracle network (member colonies' scanners are cross-certified)
+- Publishes aggregated market data
+- Arbitrates disputes between member colonies
+- Maintains a shared bounty board for piracy (funded by member dues)
+
+**What it isn't:**
+- A sovereign government (can't make laws, only standards)
+- Universal (frontier colonies and free ports aren't members)
+- Militarily powerful (no fleet — relies on member colonies' individual defenses)
+- Incorruptible (largest corps have disproportionate influence over standards)
+
+**In Frontier mode, the SCA doesn't exist yet.** The player might witness (or participate
+in) its founding as colonies start cooperating. Or it might never form — the system
+might stay fragmented. This emerges from gameplay, not from the scenario script.
+
+#### Governance and the Procedural Generator
+
+The generator doesn't place a fixed governance structure. It simulates colony founding
+and growth, and governance types emerge from the simulation:
+
+- First corp at a body → company town (by default)
+- Second corp arrives → negotiation: consortium, or competitor builds nearby
+- Population grows → pressure for independent governance (workers want a voice)
+- Multiple independent colonies → trade confederation forms (shared standards are useful)
+- Confederation grows → may adopt the name "System Commerce Authority" or equivalent
+
+Different procedural seeds produce different political landscapes. One system might
+have a dominant SCA. Another might be fragmented into rival confederations. Another
+might be a patchwork of company towns and free ports with no overarching structure.
 
 ### The Trust Spectrum (Revised)
 
@@ -721,6 +809,87 @@ Each colony has an opinion of each corp based on:
 
 High colony reputation → priority docking, lower taxes, exclusive contracts.
 Low reputation → fees, restrictions, eventually refused docking.
+
+## System Scale
+
+How big is the system? This is the most consequential design parameter. It determines
+transit times, frontier depth, body density, and the feel of the entire game.
+
+### Scale Factors
+
+At warp speed (c), transit time is pure distance:
+
+| Distance | Light-time | Game feel |
+|----------|-----------|-----------|
+| 1 AU | 8.3 minutes | Inner system — quick hops, competitive |
+| 5 AU | 41 minutes | Jupiter distance — meaningful commitment |
+| 30 AU | 4.2 hours | Neptune distance — expedition, not a commute |
+| 100 AU | 13.9 hours | Deep frontier — multi-day round trip |
+| 1000 AU | 5.8 days | Extreme frontier — week-long voyages |
+
+Plus escape/insertion phases add overhead per-body (minutes to hours depending on
+gravity well depth). A 1 AU hop isn't 8 minutes — it's 8 minutes of cruise plus
+departure and arrival overhead.
+
+### Recommended System Scale
+
+**Inner system**: 0.2–5 AU from star. Dense, competitive, well-connected. 3–6 planets,
+moons, nearby asteroids. This is where most of the economy lives. Transit times are
+minutes to an hour — responsive enough for active management.
+
+**Main belt**: 2–4 AU. Asteroid field. Dozens of minable bodies. The resource heartland.
+Close enough to inner system for profitable hauling.
+
+**Outer system**: 5–50 AU. Gas giants and their moons. Rich in volatiles and He-3 but
+far from markets. Transit times of hours. Needs local infrastructure (refineries, command
+centers) to operate efficiently. This is where command center placement matters most.
+
+**Frontier**: 50–200 AU. Scattered TNOs, comets, dwarf planets. Multi-day transits.
+Unsurveyed. High-value resources for those willing to make the trip. This is where
+governance breaks down and frontier dynamics dominate.
+
+**Deep frontier**: 200–1000 AU. Only the most ambitious corps venture here. Week-long
+transits. No infrastructure. Uncharted. Potential for unique high-value discoveries.
+Endgame content.
+
+**Total system radius: ~200 AU for most gameplay, up to 1000 AU for frontier endgame.**
+
+This means:
+- The "playable" system for most of the game is ~200 AU across
+- A round trip from the inner system to the outer frontier is ~2 days at c
+- The inner system where most commerce happens is responsive (minutes between bodies)
+- The frontier is genuinely remote — not just "far" but operationally isolated
+- Command center placement matters most in the 5–50 AU range (hours of latency)
+
+### Body Count & Density
+
+The generator should produce:
+
+| Zone | Bodies | Types |
+|------|--------|-------|
+| Inner (0.2–2 AU) | 3–5 | Rocky planets, some moons |
+| Belt (2–4 AU) | 15–30 | Asteroids, dwarf planets |
+| Outer (5–50 AU) | 3–5 | Gas/ice giants with 3–8 moons each |
+| Frontier (50–200 AU) | 5–10 | TNOs, dwarf planets, comets |
+| Deep frontier (200–1000 AU) | 2–5 | Scattered, high-value, rare |
+
+**Total: 40–80 bodies per system.** Enough for a rich economy without overwhelming
+the simulation. The existing WarpDrive engine handles ~50 bodies at 60fps already.
+
+### Star Mass & Orbital Velocities
+
+The star's mass determines all orbital velocities: `v = sqrt(GM_star / a)`.
+A heavier star means faster orbits (bodies move around the system faster, changing
+distances more rapidly). A lighter star means slower orbits (more stable distances,
+longer windows).
+
+This affects gameplay:
+- **Heavy star (F-type)**: Fast orbital periods. Launch windows open and close quickly.
+  Reactive, fast-paced economy. Distances change rapidly — routes that are profitable
+  today aren't profitable next month.
+- **Light star (M-type)**: Slow orbital periods. More stable distances. Strategic,
+  long-term planning. But habitable zone is very close to the star — cramped inner system.
+- **Sun-like (G-type)**: Balanced. Earth-like orbital periods. The "normal" experience.
 
 ## Procedural Solar System Generation
 
@@ -1116,39 +1285,54 @@ Seized ships can be repurposed — actual prize-taking like historical naval war
 **Cons:** Complexity. Hacking minigame could feel out of place. "Hot cargo" fencing
 mechanics add a whole secondary system.
 
-#### Option D: Hybrid — Graduated Escalation
+#### Option D: Graduated Escalation (emergent, not rule-based)
 
-All three exist as escalation levels. Most conflicts stay at the lowest level.
+All three exist as escalation levels. Most conflicts stay at the lowest level —
+not because the game prevents escalation, but because the consequences are
+economically ruinous. Nothing is forbidden. Everything has a price.
 
 ```
 Level 0: Economic warfare        (undercutting, supply disruption, contract poaching)
 Level 1: Intimidation            (park armed ships near competitor's operations)
 Level 2: Drone skirmish          (deploy combat drones to contest a mining claim)
 Level 3: Boarding & seizure      (disable and take cargo/ships)
-Level 4: Ship-to-ship combat     (deliberate destruction — extreme, rare, consequences)
+Level 4: Ship-to-ship combat     (deliberate destruction — extreme, rare)
 ```
 
-**Escalation has consequences:**
-- Level 0: Normal business. No penalties.
-- Level 1: Legal in frontier. In certified space, SCA issues warnings.
-- Level 2: Gray area. Drone losses are "industrial accidents." Plausible deniability.
-- Level 3: Piracy. SCA bounty on the attacker if evidence exists (transponder logs).
-  Victim's insurance pays out. Attacker's standing crashes at all colonies.
-- Level 4: Act of war. SCA freezes the attacker's accounts at all certified ports.
-  Other corps may collectively refuse to do business. The aggressor becomes an outlaw
-  — can only operate at frontier/uncertified locations.
+**Consequences are emergent, not game rules:**
+- Level 0: Normal business. Nobody cares.
+- Level 1: Colonies near your armed ships get nervous. If they have defense pacts,
+  their drones activate. Corps with presence there may file complaints — or arm
+  their own ships.
+- Level 2: Transponder logs record it. Colonies that see the data will adjust their
+  opinion of you. If someone's drones were destroyed near a colony, that colony's
+  defense budget goes up and your standing drops. Plausible deniability depends on
+  whether the evidence reaches anyone who cares.
+- Level 3: Victim broadcasts evidence (cryptographically signed transponder logs).
+  Every colony that receives it re-evaluates your standing. Insurance DAOs pay
+  the victim. Other corps decide independently whether to blacklist you. No
+  central authority makes this call — it's a collective response.
+- Level 4: Same as Level 3 but with casualties (if crewed) and destruction. The
+  response is proportionally harsher. Corps may form ad-hoc coalitions against you.
+  Colonies may refuse docking. But all of this is THEIR choice, not a game rule.
+  A corp operating purely in frontier space with no colony dependencies might get
+  away with it.
 
-**Most of the time, conflict stays at Level 0–2.** The threat of escalation shapes
-behavior without constant combat. A corp with a strong drone fleet rarely has to
-use it — the deterrent is the value.
+**Most of the time, conflict stays at Level 0–2** because the math doesn't work.
+The value of seized cargo minus the cost of combat drones, minus colony standing
+damage, minus lost trade relationships, minus insurance payouts to the victim
+is almost always negative. Violence is a losing trade in a connected economy.
 
-**Pros:** Realistic escalation. Combat exists but doesn't dominate. The economic
-game remains primary. Going to Level 4 is a dramatic, rare event that reshapes the
-political landscape. Mostly you're playing a tycoon game where violence is possible
-but expensive.
+But in a fragmented frontier with no witnesses and no colony dependencies? The
+math changes. That's where piracy lives — not because the game allows it there,
+but because the economic deterrents are weaker.
 
-**Cons:** Most complex to implement. Need clear feedback on escalation level and
-consequences.
+**Pros:** No artificial rules. Realistic emergent behavior. The economic game
+remains primary. Combat exists but is genuinely risky. Every escalation tells
+a story.
+
+**Cons:** Most complex to implement. Emergent consequences are harder to
+communicate to the player than explicit rules.
 
 #### Option E: No Direct Combat — Proxy & Asymmetric Only
 
