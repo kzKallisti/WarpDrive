@@ -838,6 +838,27 @@ Building the AI corps BEFORE multiplayer means:
 4. AI corps handle the boring parts (baseline trade volume, price stability)
 5. Balance testing is automated — run 8 AI corps overnight, check if economy collapses
 
+## Variant: All-Drone Universe (separate game concept?)
+
+A version where there are no human crews in space at all. Players are Earth-based
+corporations remotely operating drone fleets across the solar system. Pure logistics
+and economics — no life support, no food chains, no morale, no population dynamics.
+
+What this changes:
+- **Simpler supply chain**: No food, water, medical, hab modules. Just machines and fuel.
+- **Comms delay becomes THE constraint**: You can't micromanage a drone fleet at Jupiter
+  with 40-minute latency. You write high-level orders, the drones execute autonomously,
+  and you see results 40 minutes later. Strategy becomes about writing good standing orders.
+- **Cyberpunk tone**: Corporate AIs competing through drone proxy wars. Hacking, signal
+  jamming, electronic warfare replace human diplomacy.
+- **Different failure modes**: Drones don't panic or mutiny, but they can be hacked,
+  jammed, or confused by unexpected environments. Cybersecurity replaces crew management.
+- **Faster pace**: No human considerations = more aggressive play. Corps can sacrifice
+  drone fleets without ethical qualms.
+
+This is probably a different game with the same orbital engine underneath. Worth
+exploring separately — noted here for reference.
+
 ## Open Questions
 
 - **Campaign length?** How many game-years before "winning"? Or is it endless sandbox?
