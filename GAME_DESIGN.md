@@ -1021,6 +1021,173 @@ Building the AI corps BEFORE multiplayer means:
 4. AI corps handle the boring parts (baseline trade volume, price stability)
 5. Balance testing is automated — run 8 AI corps overnight, check if economy collapses
 
+## Combat & Conflict
+
+### Why Combat Exists
+
+You can't have frontier lawlessness, resource scarcity, and competing corporations
+without violence. Smart contracts enforce financial agreements but can't stop someone
+physically taking your cargo. The SCA can punish after the fact — but only if the
+attacker ever docks at a certified port again.
+
+### Physical Constraints (what the setting dictates)
+
+**Combat only happens at low speed.** A ship at warp (~c) is untouchable — nothing can
+intercept it. Engagements happen during escape, insertion, docking, and mining operations.
+This mirrors historical piracy: you attack in port or near shore, never mid-ocean.
+
+**No stealth in space.** Every ship radiates heat, every drive has a signature, every
+transponder broadcasts (and disabling yours is itself suspicious). You always know
+someone's coming. The question is what you can do about it.
+
+**Ships aren't warships.** These are mining vessels, freighters, and tankers. Nobody
+designed them for combat. But humans have been strapping weapons to cargo vessels since
+the Phoenicians. "Combat capability" is a retrofit, a tradeoff against cargo capacity
+and operating efficiency.
+
+**Distance matters.** Space is big. Even near a body, ships are thousands of km apart.
+This isn't submarine-close-quarters — it's long-range, slow, and deliberate.
+
+### Combat Approaches (under consideration)
+
+#### Option A: Drone Warfare
+
+Combat is fought entirely by drones. Ships carry combat drones (repurposed mining/
+construction drones with weapons mounts) that are deployed in an engagement zone.
+The parent ship stays at distance.
+
+**How it works:**
+- Ships carry drone bays (takes cargo capacity — direct tradeoff)
+- Combat drones: small, expendable, cheap individually but swarms are expensive
+- Engagement is largely automated — player gives strategic orders ("defend this
+  mining rig," "intercept that freighter"), drones execute
+- Winning means destroying/disabling the opponent's drones, then their ship is
+  defenseless — they surrender cargo or flee
+- Ship hulls are tough (built for micrometeorites and radiation). Drones peck
+  at them. Destroying a ship takes sustained effort.
+
+**Pros:** Keeps the player at the strategic/corporate level. No twitch gameplay.
+Drone manufacturing becomes dual-use (mining AND military). Creates demand for
+combat drone variants in the manufacturing chain.
+
+**Cons:** Could feel abstract/detached. Hard to balance swarm sizes.
+
+#### Option B: Ship-to-Ship (Broadside)
+
+Ships mount weapons directly — railguns, mining lasers repurposed as weapons,
+missile racks. Combat is slow and positional, like age-of-sail broadsides at
+thousands of km range.
+
+**How it works:**
+- Weapons are module slots that compete with cargo/mining equipment
+- A combat-fitted ship carries less cargo — permanent economic penalty
+- Engagements are slow (minutes to hours at realistic distances)
+- Damage disables systems (engines, cargo hold, life support) before destroying
+- Crew casualties are real — attacking a crewed ship is a different moral/legal
+  calculus than attacking drones
+- Escape is usually possible — if you're willing to dump cargo and burn hard
+
+**Pros:** Visceral, high stakes. Ship fitting becomes a deep strategic decision.
+Crew risk adds weight to the decision to fight.
+
+**Cons:** Could dominate the game — becomes a space combat game with mining on the
+side rather than a mining game with combat as a risk factor.
+
+#### Option C: Boarding & Seizure
+
+No ship-killing weapons. Instead: hacking, EMP, boarding drones. The goal is to
+disable and seize, not destroy. Cargo and ships are valuable — blowing them up
+is wasteful.
+
+**How it works:**
+- Electronic warfare: jam comms, spoof transponders, disable automated defenses
+- EMP weapons: disable electronics, leaving hull intact
+- Boarding drones: physically attach to a disabled ship, cut through airlock,
+  take cargo or commandeer the vessel
+- Defending: counter-hacking, point-defense against boarding drones, distress
+  beacon (if within relay range, SCA responds... eventually)
+- Seized cargo is "hot" — traceable on-chain. Fencing it requires black market
+  contacts or processing it yourself to erase provenance
+
+**Pros:** Non-destructive — preserves value in the system. Creates a piracy/
+counter-piracy dynamic. Hacking/EW adds a tech dimension beyond pure economics.
+Seized ships can be repurposed — actual prize-taking like historical naval warfare.
+
+**Cons:** Complexity. Hacking minigame could feel out of place. "Hot cargo" fencing
+mechanics add a whole secondary system.
+
+#### Option D: Hybrid — Graduated Escalation
+
+All three exist as escalation levels. Most conflicts stay at the lowest level.
+
+```
+Level 0: Economic warfare        (undercutting, supply disruption, contract poaching)
+Level 1: Intimidation            (park armed ships near competitor's operations)
+Level 2: Drone skirmish          (deploy combat drones to contest a mining claim)
+Level 3: Boarding & seizure      (disable and take cargo/ships)
+Level 4: Ship-to-ship combat     (deliberate destruction — extreme, rare, consequences)
+```
+
+**Escalation has consequences:**
+- Level 0: Normal business. No penalties.
+- Level 1: Legal in frontier. In certified space, SCA issues warnings.
+- Level 2: Gray area. Drone losses are "industrial accidents." Plausible deniability.
+- Level 3: Piracy. SCA bounty on the attacker if evidence exists (transponder logs).
+  Victim's insurance pays out. Attacker's standing crashes at all colonies.
+- Level 4: Act of war. SCA freezes the attacker's accounts at all certified ports.
+  Other corps may collectively refuse to do business. The aggressor becomes an outlaw
+  — can only operate at frontier/uncertified locations.
+
+**Most of the time, conflict stays at Level 0–2.** The threat of escalation shapes
+behavior without constant combat. A corp with a strong drone fleet rarely has to
+use it — the deterrent is the value.
+
+**Pros:** Realistic escalation. Combat exists but doesn't dominate. The economic
+game remains primary. Going to Level 4 is a dramatic, rare event that reshapes the
+political landscape. Mostly you're playing a tycoon game where violence is possible
+but expensive.
+
+**Cons:** Most complex to implement. Need clear feedback on escalation level and
+consequences.
+
+#### Option E: No Direct Combat — Proxy & Asymmetric Only
+
+Corps can't attack each other directly. Instead, conflict is asymmetric:
+
+- **Claim jumping**: Start mining a body someone else is already working. Not illegal,
+  just aggressive. They can try to outproduce you or leave.
+- **Blockade by presence**: Park ships at a competitor's facility. Don't attack — just
+  occupy docking slots, congest the port, slow their operations. Annoying, expensive
+  for both sides.
+- **Sabotage**: Pay a third party (NPC "fixers") to cause "accidents" at a competitor's
+  facility. Deniable. Expensive. Risk of exposure.
+- **Regulatory warfare**: Lobby SCA to impose regulations that hurt a competitor. Safety
+  inspections that shut down their refinery. Environmental audits.
+- **Hostile acquisition**: Buy a competitor's debt, call it in, force asset liquidation.
+  Pure financial aggression.
+
+**Pros:** Keeps the game firmly in tycoon territory. No combat systems to build.
+Conflict is creative and economic. Every aggressive move has an economic cost — no
+"free" violence.
+
+**Cons:** Some players will feel frustrated they can't just shoot the guy. Lacks a
+visceral pressure valve. "I can see his ships, I have bigger ships, why can't I
+do anything?"
+
+### Combat: Open Questions
+
+- Which option (or combination) fits the game's identity? D feels richest but most
+  complex. E is cleanest but might feel toothless.
+- Is combat real-time or auto-resolved? (Real-time would be a huge scope expansion.
+  Auto-resolve fits the "player is a board of directors" framing.)
+- How does combat interact with insurance? Does attacking an insured ship pay out
+  to the victim, making piracy a net-negative for the system?
+- Can corps hire NPC mercenary outfits for deniable operations?
+- What prevents the biggest corp from just dominating through force? (Coalitions?
+  SCA intervention? Diminishing returns on military spending?)
+- Does the drone-vs-human crew choice affect combat? (Human crews can improvise
+  under attack. Drone ships can be hacked.)
+
 ## Variant: All-Drone Universe (separate game concept?)
 
 A version where there are no human crews in space at all. Players are Earth-based
