@@ -958,26 +958,63 @@ encrypted traffic. This is a fundamental political division:
   standards-body culture values transparency and auditability. If it can't
   be inspected for standards compliance, it doesn't get forwarded.
 
+**Bloc policy vs corp policy:**
+
+Bloc relay policy applies to **bloc-operated infrastructure** — the relays built and
+maintained by the bloc's government/authority. Corp-owned relays follow the corp's own
+policy, regardless of bloc alignment. A Commonwealth-aligned corp CAN build a relay
+that blocks encryption. A Collective-aligned corp CAN build one that allows it.
+
+**Hard constraints by bloc:**
+- **Collective relays: cleartext ONLY.** This is baked into the infrastructure — not
+  a policy that can be lobbied or corrupted away. A Collective relay physically cannot
+  forward encrypted packets. Period.
+- **Coalition relays: encryption ONLY.** All traffic is encrypted end-to-end. The relay
+  cannot inspect content. Also baked in — can't be downgraded to cleartext.
+- **Commonwealth relays: encryption allowed.** Can forward both encrypted and cleartext.
+  Flexible, configurable. Policy can change based on political pressure.
+- **Consortium relays: cleartext preferred.** Can be configured either way, but the
+  default is cleartext for standards compliance. Individual Consortium relays may
+  allow encryption if the operator chooses.
+
+**Corruption dynamics:**
+- A Coalition relay MUST encrypt — but the operator could secretly log decrypted
+  traffic before re-encrypting. The encryption is honored in transit, but the relay
+  itself is compromised. This is the intelligence agency play: run a "secure" relay
+  that everyone trusts, quietly copy everything.
+- A Collective relay MUST be cleartext — but a corrupt operator could selectively
+  "lose" certain messages (censorship-for-hire) or sell traffic data to competitors.
+  The surveillance is official; the selective blindness is the corruption.
+- A Commonwealth relay's flexibility is both strength and vulnerability — it can be
+  pressured to change policy. A hostile lobby campaign could push a Commonwealth
+  relay to drop encryption support, fragmenting the privacy network.
+
+**Procedural seed implications:** Different system seeds produce different relay
+landscapes. A seed where the Collective controls the inner system relay infrastructure
+means all inner-system corporate comms are readable by the Collective. A seed where
+the Coalition dominates means strong privacy but the Coalition government secretly
+has access to everything. The relay map IS the political map — who controls
+information transit controls the system's intelligence landscape.
+
 **What this means for gameplay:**
 
 - **Routing is a political choice.** The shortest relay path might go through
   a Collective relay that strips your encryption. The privacy-preserving path
   might be longer and more expensive.
-- **Bloc alignment affects comms.** A Commonwealth-aligned corp has natural access
-  to encrypted relay infrastructure. A Collective-aligned corp's own bloc relays
-  won't carry their private traffic — they need to route through Commonwealth or
-  Coalition relays for sensitive communications.
-- **Frontier relays are player-owned.** Beyond bloc infrastructure, corps build
-  their own relays with their own policies. A player's relay can allow or deny
-  encrypted traffic at their discretion — another business decision.
-- **Sneakernet becomes essential for Collective/Consortium space.** Corps
-  operating in regions where only cleartext relays exist MUST physically
-  transport sensitive data. This makes the information-as-cargo mechanic more
-  relevant in certain political geographies.
-- **Espionage opportunity.** Collective and Consortium relay operators can read
-  all traffic that passes through their infrastructure. This is official policy,
-  not hacking. Corps that don't understand the relay landscape leak intelligence
-  through their own comms routing.
+- **Bloc alignment affects comms.** A Collective-aligned corp's own bloc relays
+  expose their traffic. They need Commonwealth/Coalition relays or sneakernet
+  for sensitive communications — or build their own encrypted relay.
+- **Corp-owned relays follow corp rules.** Beyond bloc infrastructure, you set
+  your own policy. Build an encrypted relay in Collective space and you've
+  created a privacy island — but the Collective notices and may view it as
+  a political statement.
+- **Sneakernet becomes essential in cleartext regions.** Corps operating where
+  only Collective/Consortium relays exist MUST physically transport sensitive
+  data. Information-as-cargo is a real logistics problem in these regions.
+- **Espionage is structural.** Collective/Consortium relay operators read all
+  traffic by policy. Coalition relay operators might read it by corruption.
+  The only truly private path is your own encrypted relay or sneakernet.
+  Understanding the relay landscape IS the intelligence game.
 
 **What relay owners control:**
 - **Coverage**: Only relay in range of a frontier body? Monopoly pricing on bandwidth.
