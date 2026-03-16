@@ -756,25 +756,75 @@ Higher-grade relay equipment extends range but costs more to build and power.
 - **Fees**: Micropayments per forwarded message. Passive income from traffic volume.
 - **Access**: Can deny forwarding to specific corps (information warfare via censorship).
 
-### Command Centers
+### Asset-Based Perspective
 
-The player sees everything (omniscient camera) but acts through **command centers** —
-physical installations where orders originate. Orders propagate at light speed from the
-nearest command center to the target.
+The player doesn't have a god-view. **Each asset (ship, facility, command center) is a
+viewpoint with its own information bubble.** Select an asset, see the world through its
+eyes. Information availability depends entirely on what that asset can observe and what
+relay data has reached it.
 
-- **Headquarters**: Starting command center at homeworld. All orders originate here initially.
-- **Remote centers**: Built at other colonies. Each gives local-speed reaction in its region.
-  Requires: hab modules, electronics, comms relay, power. Cost comparable to a small factory.
-- **Order latency**: When issuing an order, the UI shows arrival delay before confirmation:
-  "This order will arrive in 12m 34s. Confirm?"
-- **Standing orders**: Execute at local speed regardless of command center distance. "Sell
-  platinum whenever price > 500/ton." Zero latency, but can't adapt to context.
+**Select your freighter at Eris:**
+- Eris market prices: current (firsthand observation)
+- Jupiter prices: 41 minutes stale (last relay update)
+- Terra prices: 13 hours stale (long relay chain)
+- Local contracts: current. Remote contracts: stale, might already be taken.
+- Orders to this freighter: instant (it's right there)
+- The freighter can accept local contracts and trade immediately
+
+**Select your command center at Jupiter:**
+- Jupiter: current. Eris: 41 minutes stale. Terra: 35 minutes stale.
+- Orders to Jupiter-area assets: instant
+- Orders to your Eris freighter: 41 minutes to arrive
+- Richer information than a lone freighter: relay traffic analysis, market trends,
+  intel briefings, sensor sweeps of the local area
+
+**Select your mining rig at Vesta:**
+- Vesta: current. Belt neighbors: minutes stale. Inner system: 15-30 min stale.
+- Can see ships approaching, local ore quality, extraction status
+- Limited comms compared to a command center
+
+**The UI is always scoped to one asset's perspective.** The player cycles through
+assets — each flip is like switching cameras in a control room. This naturally solves
+interface complexity: you're never looking at everything at once, just one viewpoint
+at a time with its own context and available actions.
+
+**What each asset type provides as a viewpoint:**
+
+| Asset | Local info | Remote info | Actions available |
+|-------|-----------|-------------|-------------------|
+| Ship (docked) | Port prices, contracts, ships in dock | Relay-delayed from elsewhere | Trade, accept contracts, load/unload |
+| Ship (in transit) | Sensor observations along route | Last relay update before departure | Adjust course (limited) |
+| Mining rig | Ore quality, extraction rate, local conditions | Relay-delayed | Adjust production, load drones |
+| Refinery/Factory | Input/output quality, inventory, workforce | Relay-delayed | Adjust production, manage workers |
+| Command center | All of the above PLUS: traffic analysis, trend computation, intel briefings, sensor sweeps | Better relay connections, more bandwidth | Issue orders to remote assets, diplomacy, contracts |
+| Comms relay | Traffic metadata (volume, routing) | Other relays' status | Adjust routing, priority, fees |
+
+**Command centers are still valuable** — not because orders originate there, but because
+they're **staffed facilities with better sensors, more relay connections, and analytical
+capability.** A freighter at Eris sees what's in port. A command center at Eris sees
+that plus traffic pattern analysis, market trend computation, competitor activity
+summaries, and LLM-generated intel briefings. The command center is a better camera,
+not a required relay for orders.
+
+**Orders from any asset:** Any manned asset can issue orders locally. Your freighter
+captain at Eris can accept a local contract without waiting for HQ approval. But
+coordinating across assets (telling your Jupiter fleet to reposition based on what
+your Eris freighter just learned) requires relay communication — the freighter sends
+a message, it travels at light speed, your Jupiter command center receives it and
+issues orders to the local fleet.
+
+**Standing orders** still work as before: "sell platinum whenever price > 500₵/t" runs
+locally at the port, no relay delay. The asset executes autonomously within parameters
+you set.
 
 **Progression:**
-- Early: One HQ. Slow everywhere except home. Favors local operations.
-- Mid: Build a command center at your busiest remote region. Competitive there.
-- Late: Network of command centers. Near-instant everywhere. But each costs capital
-  and ongoing maintenance.
+- Early: One ship = one viewpoint. You see the world from wherever your ship is.
+  Limited information, but everything you see is current and actionable.
+- Mid: Multiple ships + first command center. More viewpoints, richer analysis at
+  the command center location. Start to feel the relay delay between viewpoints.
+- Late: Network of command centers + large fleet. Rich information from multiple
+  perspectives. The challenge shifts from "I don't know enough" to "I know too much
+  from too many viewpoints — what's the signal in the noise?"
 
 ### All Communication is In-World
 
@@ -1585,42 +1635,54 @@ terminal.
 
 ### Interaction Model
 
-Click a thing → get a context panel. Everything is reachable in 1–2 clicks from the map.
+The primary interaction loop: **select an asset → see its perspective → act from it.**
 
-**Click a body →** Body panel:
-- Physical info (orbit, mass, escape cost, composition if surveyed)
-- Colony info (if colonized): population, governance type, standing with you
-- Market (if has port): prices, demand, supply levels for each resource
-- Available contracts at this body
-- Your facilities here (if any) with production status
-- Docking info: ships you have docked here, docking fees
-- Actions: "Send ship here," "Build facility," "Accept contract"
+A navigation bar or hotkey cycle steps through your assets: ships, facilities, command
+centers, relays. Each selection reframes the entire map view through that asset's
+information bubble. Stale data is visually indicated (dimmed, timestamped).
 
-**Click your ship →** Ship panel:
-- Status: docked / in transit / mining / idle
-- Current orders and progress
-- Cargo manifest (what's on board, quality, mass, volume fill %)
-- Fuel status: propellant, Casimir fuel rods, reactor fuel (each as a gauge)
-- Crew (if crewed): headcount, morale, specializations
-- Ship stats: quality levels for each component, maintenance status
-- Actions: "Set orders," "Load/unload cargo," "Refuel," "Assign to contract"
+**Select your ship (docked) →**
+- Local port: prices, contracts, ships in dock (CURRENT)
+- Ship status: cargo manifest, fuel gauges, crew, maintenance
+- Nearby bodies: composition, orbital info (CURRENT if in sensor range)
+- Remote information: relay-delayed, with timestamps showing staleness
+- Actions: trade, accept contracts, load/unload, refuel, set orders, depart
 
-**Click your facility →** Facility panel:
-- Production status: what's being produced, input/output rates, queue
-- Inventory: raw materials in, processed goods out
-- Quality level and maintenance status
-- Workforce: crew assigned, labor needs
-- Actions: "Adjust production," "Order supplies," "Upgrade components"
+**Select your ship (in transit) →**
+- Sensor observations along route (bodies, other ships, transponders)
+- Last relay update before departure (increasingly stale)
+- Ship status: fuel burn rate, ETA, cargo
+- Actions: adjust course (limited), manage standing orders
 
-**Click a contract →** Contract panel:
-- Terms: cargo type, quantity, quality spec, origin, destination, deadline
-- Payment: escrow amount, your bond (if required)
-- Status: open / accepted / in progress / completed / failed
-- Feasibility: can any of your ships fulfill this? (auto-calculated: nearest
-  ship, fuel cost, travel time, arrival estimate vs deadline)
-- Actions: "Accept," "Assign ship," "Abandon" (with consequences shown)
+**Select your facility →**
+- Production: input/output rates, queue, quality levels (CURRENT)
+- Inventory and workforce status (CURRENT)
+- Local market if at a colony (CURRENT)
+- Remote information: relay-delayed
+- Actions: adjust production, manage workers, order supplies
+
+**Select your command center →**
+- Everything a facility provides PLUS:
+- Relay traffic analysis (who's communicating, volume patterns)
+- Market trend computation (price history, demand projections)
+- Intel briefings (LLM-generated analysis of competitor activity)
+- Sensor sweeps (ships in local area, approaching vessels)
+- Full diplomatic capability (send messages, negotiate, post contracts)
+- Actions: all facility actions + issue orders to remote assets + diplomacy
+
+**Click a body (no asset there) →**
+- Physical info: orbit, mass, escape cost
+- Composition: if surveyed (by any of your assets), show results. Otherwise "UNSURVEYED"
+- Colony info: only what you've observed — may be stale or incomplete
+- Market: only if you have recent relay data. Otherwise "NO DATA"
+- Actions: "Send ship here," "Queue survey"
 
 **Click empty space →** Dismiss panels, return to map overview
+
+The key difference from a traditional god-game: **information quality degrades with
+distance from your assets.** Bodies near your ships show rich, current data. Bodies
+on the far side of the system show whatever your last relay update contained — which
+might be hours or days old. Bodies you've never sent a ship to show almost nothing.
 
 ### Contracts: How They Work
 
