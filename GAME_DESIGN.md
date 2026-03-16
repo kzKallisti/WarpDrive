@@ -1332,7 +1332,200 @@ electronic warfare replace human diplomacy. Faster pace, more aggressive play.
 
 Probably a separate game, noted here for reference.
 
-## 14. Technical Architecture
+## 14. User Interface & Gameplay Flow
+
+### The Map is the Game
+
+The 3D navigation map is the primary interface — everything is accessed through it or
+through panels that overlay it. The player is a CEO at a terminal. The map IS the
+terminal.
+
+**What the map shows at a glance:**
+- All bodies with orbits (existing WarpDrive visualization)
+- Your ships (icons + status: in transit, docked, mining, idle)
+- Your facilities (icons at bodies: refineries, factories, depots, command centers)
+- Active contracts (route lines, deadline indicators)
+- Highlighted bodies with available opportunities (contracts, market alerts)
+- Comms coverage (relay network overlay — toggle on/off)
+- Bloc influence (color-coded territorial overlay — toggle on/off)
+
+### Interaction Model
+
+Click a thing → get a context panel. Everything is reachable in 1–2 clicks from the map.
+
+**Click a body →** Body panel:
+- Physical info (orbit, mass, escape cost, composition if surveyed)
+- Colony info (if colonized): population, governance type, standing with you
+- Market (if has port): prices, demand, supply levels for each resource
+- Available contracts at this body
+- Your facilities here (if any) with production status
+- Docking info: ships you have docked here, docking fees
+- Actions: "Send ship here," "Build facility," "Accept contract"
+
+**Click your ship →** Ship panel:
+- Status: docked / in transit / mining / idle
+- Current orders and progress
+- Cargo manifest (what's on board, quality, mass, volume fill %)
+- Fuel status: propellant, Casimir fuel rods, reactor fuel (each as a gauge)
+- Crew (if crewed): headcount, morale, specializations
+- Ship stats: quality levels for each component, maintenance status
+- Actions: "Set orders," "Load/unload cargo," "Refuel," "Assign to contract"
+
+**Click your facility →** Facility panel:
+- Production status: what's being produced, input/output rates, queue
+- Inventory: raw materials in, processed goods out
+- Quality level and maintenance status
+- Workforce: crew assigned, labor needs
+- Actions: "Adjust production," "Order supplies," "Upgrade components"
+
+**Click a contract →** Contract panel:
+- Terms: cargo type, quantity, quality spec, origin, destination, deadline
+- Payment: escrow amount, your bond (if required)
+- Status: open / accepted / in progress / completed / failed
+- Feasibility: can any of your ships fulfill this? (auto-calculated: nearest
+  ship, fuel cost, travel time, arrival estimate vs deadline)
+- Actions: "Accept," "Assign ship," "Abandon" (with consequences shown)
+
+**Click empty space →** Dismiss panels, return to map overview
+
+### Contracts: How They Work
+
+#### Where contracts come from
+
+**Colony-generated (most common):** Colonies have needs — food, water, construction
+materials, components, consumer goods. When supply drops below a threshold, the
+colony's market generates a delivery contract automatically. Pay scales with urgency:
+a colony about to run out of water pays a premium. These contracts are broadcast on
+relay channels — any corp within comms range can see and accept them.
+
+**Corp-generated (player or NPC):** Any corp can create a contract offering to buy or
+sell goods. "Buying 500t iron ore quality ≥40, will pay 12₵/t, pickup at Vesta." This
+is how inter-corp trade works — one corp posts an offer, another accepts. Created
+through the market panel at any body where you have a presence.
+
+**Standing orders (automated):** "Buy platinum whenever price < 50₵/t at this port."
+Executes locally, no command center delay. This is how routine trade works — you don't
+manually accept every contract, you set parameters and the smart contract engine
+handles it.
+
+**Facility demand (implicit):** Your shipyard needs 200t drive components to fill its
+build queue. It doesn't generate a formal contract — but your fleet management shows
+the deficit, and you can create a buy order or assign a ship to haul from your other
+facilities. This is internal logistics, not a market contract.
+
+#### Contract lifecycle (single player and multiplayer, same flow)
+
+```
+1. CREATED      Contract posted to local port's market board
+                Broadcast via relay to other ports (light-speed propagation)
+
+2. VISIBLE      Corps within comms range see it on their contract boards
+                (Arrival time depends on relay distance from originating port)
+
+3. ACCEPTED     First corp to accept (signed message arrives at origin port) wins
+                Escrow locks: buyer's payment + seller's performance bond
+
+4. IN PROGRESS  Seller assigns ship, loads cargo, departs
+                Contract panel shows: ship position, ETA, deadline countdown
+
+5. SETTLEMENT   Ship arrives at destination port
+                Scanner verifies: cargo type, quantity, quality
+                If pass → escrow releases automatically (payment to seller, bond returned)
+                If fail → dispute process (depends on trust spectrum context)
+
+6. COMPLETE     Both parties' transaction history updated on-chain
+                Reputation effects visible to anyone who checks
+```
+
+#### The contract board
+
+The contract board is the "job board" — a filterable, sortable list panel that shows
+all contracts visible from the player's command centers.
+
+**Filters:**
+- By resource type (iron, water, platinum...)
+- By origin/destination (body or zone)
+- By deadline feasibility ("show only contracts I can fulfill in time")
+- By pay (minimum ₵/tonne)
+- By quality requirement (show only contracts my supply chain can meet)
+
+**Auto-feasibility:** Each contract shows a feasibility indicator — green (a ship can
+reach it in time with fuel to spare), yellow (tight but possible), red (impossible
+with current fleet positions). This uses the same pathfinder the navigation system uses.
+
+**Comms delay awareness:** Contracts from distant ports show when they were posted and
+when you received them. A contract posted 2 hours ago at Jupiter might already be taken
+by the time your acceptance message arrives. The UI shows: "Posted 2h ago. Your accept
+will arrive in 41min. Risk: HIGH that another corp closer to Jupiter has already taken
+this."
+
+#### Creating contracts (player-initiated)
+
+From any body where you have a port presence:
+
+**Sell offer:** "I have 300t quality-55 refined platinum at Vesta. Asking 80₵/t.
+Available for 30 days." → Creates a contract on the local market board, broadcast
+via relay.
+
+**Buy order:** "Need 1000t water ice quality ≥30 delivered to my station at Ceres.
+Paying 25₵/t. Deadline: 60 days." → Escrow locks your payment. Broadcast via relay.
+First seller to deliver collects.
+
+**Haul request:** "Cargo at body A needs to reach body B. 500t iron ore. Paying 15₵/t
+for transport." → You provide the cargo, someone else provides the ship.
+
+### Notification System
+
+The player can't watch everything. Events need to surface:
+
+**Alert levels:**
+- 🔴 **Critical**: Ship fuel critical, contract deadline imminent, facility offline,
+  colony standing hostile, under attack
+- 🟡 **Important**: Contract fulfilled, ship arrived, market price spike/crash, new
+  high-value contract available, competitor activity near your operations
+- 🟢 **Info**: Ship departed, production cycle complete, routine market update,
+  standing change
+
+**Alerts appear as:**
+- Toast notifications (top of screen, fade after read)
+- Alert log (scrollable panel, persists)
+- Map highlights (body/ship flashes on relevant alerts)
+- Sound cues (Critical = alarm, Important = chime, Info = subtle tick)
+
+**Standing orders reduce alert noise.** A ship running automated trade route orders
+only alerts on exceptions (fuel low, deadline risk, route blocked). Routine operations
+don't spam the player.
+
+### Information Panels (Always Available)
+
+**Fleet overview:** All your ships in a sortable table. Status, location, cargo, fuel,
+current orders. Quick-assign actions without clicking each ship on the map.
+
+**Finance:** Credit balance, income/expenses breakdown, loan status, net worth graph
+over time. "How am I doing?"
+
+**Reputation:** Your standing with each bloc and each colony you've interacted with.
+Recent changes and causes. "Who likes me and why?"
+
+**Intel:** Observed competitor activity. Ship sightings, market moves, relay traffic
+patterns. Built from your ships' and relays' passive intelligence gathering. "What do
+I know about the competition?"
+
+### Multiplayer-Specific UI
+
+**Chat panel:** In-world messaging. Shows outbound message, estimated delivery time,
+and response when it arrives. Conversations are inherently async — the UI makes this
+feel natural rather than broken.
+
+**Diplomatic panel:** Formal offers (alliance, trade agreement, ceasefire) are
+structured messages with accept/reject. Not just chat — actionable proposals that can
+be converted to smart contracts.
+
+**Time controls:** In single player, full pause/play/speed control. In multiplayer,
+the host sets speed (default 60x). Players can request speed changes, host approves.
+Pause requires majority vote or host override.
+
+## 15. Technical Architecture
 
 ### What WarpDrive Already Provides
 
