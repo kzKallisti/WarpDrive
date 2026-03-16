@@ -163,23 +163,36 @@ Resources don't teleport from asteroid to market. The supply chain is the game.
 | Volatiles | Comets, icy bodies, gas giant moons | Chemical feedstock → propellant, polymers |
 | Helium-3 | Gas giant atmospheres (via moons) | Fusion fuel (expensive to extract, natural endgame) |
 
-**Special resource:**
+**Antimatter:**
 
 | Resource | Source | Used for |
 |----------|--------|----------|
-| Exotic matter | Synthesized at particle accelerators from heavy elements (platinum, rare earths) | Warp drive fuel — consumed during WARP ON, CRUISE, WARP OFF phases |
+| Antimatter fuel rods | Manufactured at antimatter production facilities | Warp drive fuel — consumed during WARP ON, CRUISE, WARP OFF phases |
 
-Exotic matter is the primary cost of warp travel. Conventional thrust phases consume
-standard propellant (H₂/O₂). The warp drive consumes exotic matter. A ship without
-exotic matter can still fly conventionally — it just can't warp. This makes exotic matter
-the single most strategically important resource in the system: control the exotic matter
-supply chain and you control who can warp.
+Antimatter is the primary cost of warp travel. It's not mined — it's **produced** at
+particle accelerator facilities that convert enormous amounts of electrical power into
+antimatter, then package it into magnetically-confined fuel rods.
 
-Exotic matter synthesis requires a **particle accelerator** facility (the most expensive
-and complex installation after shipyards). Input: heavy elements (platinum, rare earths).
-Output is small relative to input. This creates a tension: platinum used for exotic matter
-can't be used for electronics. Rare earths used for exotic matter can't be used for drive
-components.
+The input is **power**, not ore. This ties antimatter pricing to the power gradient:
+- **Inner system** is where antimatter is produced. Abundant solar power near the star
+  makes production cheap. The homeworld developed warp technology here — close to the
+  sun, where energy is nearly free. Inner system antimatter facilities with massive
+  solar arrays are the foundational industry of interplanetary civilization.
+- **Outer system** imports antimatter from the inner system. Producing locally with
+  fission reactors is possible but expensive — every antimatter unit costs uranium.
+  Only worthwhile if inner system supply is disrupted or the markup on imported rods
+  exceeds local production cost.
+- **Endgame**: A fusion-powered (He-3) antimatter facility in the outer system changes
+  the economics — abundant local power breaks the inner system's production monopoly.
+
+**The core trade pattern:** Inner system exports antimatter outward. Outer system exports
+raw materials (He-3, volatiles, rare resources) inward. The trade routes between them
+are the economic backbone of the system. A corp that controls both antimatter production
+AND outer system resources controls the economy.
+
+A ship without antimatter can still fly conventionally (fusion torch) — it just can't
+warp. This makes antimatter the single most strategically important resource: control
+the supply and you control who can warp.
 
 ### Resource Depletion
 
@@ -237,12 +250,12 @@ the Δv budget; ion drives can't provide the thrust. Fusion torch is the realist
   significant: a 10,000-tonne freighter escaping Earth burns ~16,000 tonnes of
   propellant. This is why **propellant depots** are critical infrastructure — ships
   refuel at every stop, not carry round-trip fuel.
-- **Exotic matter**: Consumed during warp phases (WARP ON, CRUISE, WARP OFF). Limits
+- **Antimatter**: Consumed during warp phases (WARP ON, CRUISE, WARP OFF). Limits
   how far you can warp per trip. The expensive one.
 
 **Fuel economics shape the game:**
 - A ship without propellant is stranded in orbit.
-- A ship without exotic matter can still fly conventionally (fusion torch only) but
+- A ship without antimatter can still fly conventionally (fusion torch only) but
   takes weeks/months instead of minutes for interplanetary transits.
 - A ship without reactor fuel is dead in space.
 - **Propellant depots** at colonies and stations are essential. A corp that controls
@@ -284,28 +297,29 @@ Iron ore         →   Refined iron         →   Hull plating        →   Ship
                                           →   Structural frame    →   Stations
 Platinum ore     →   Refined platinum     →   Electronics         →   Everything
                                           →   Sensor arrays       →   Ships, Relays
-                                          →   Exotic matter ←←←  →   Warp drives (ships)
-                                               (particle accel,       THE critical resource
-                                                also needs RE)
-Water ice        →   H₂ + O₂             →   Propellant          →   Ships (thrust phases)
+Water ice        →   H₂ (propellant)      →   (consumed)          →   Ships (thrust phases)
                      Purified water       →   Life support        →   Colonies
 Silicates        →   Glass/ceramics       →   Hab modules         →   Colonies
                                           →   Optics              →   Relays, Sensors
 Rare earth ore   →   Processed RE         →   Drive components    →   Shipyard
                                           →   Actuators           →   Drone factory
                                           →   Superconductors     →   Relays, Power
-                                          →   Exotic matter ←←←  →   Warp drives (ships)
 Volatiles        →   Chemical feedstock   →   Propellant          →   Ships
                                           →   Polymers            →   Drones, Habs
 He-3 (gas giant) →   Fusion fuel          →   (consumed)          →   Fusion reactors
 Copper/Aluminum  →   Refined conductor    →   Wiring              →   Everything
                                           →   Antenna arrays      →   Relays
 Uranium/Thorium  →   Reactor fuel rods    →   (consumed)          →   Fission reactors
+
+POWER (any source) → Antimatter facility  →   Antimatter fuel rods → Ships (warp phases)
+                     (particle accelerator)    THE critical resource
 ```
 
-Note: Exotic matter consumes both platinum AND rare earths. Every unit of exotic matter
-produced is platinum and rare earths NOT available for electronics or drive components.
-This is the central resource tension in the game.
+Note: Antimatter production doesn't compete with the material supply chain — it competes
+for POWER. Every megawatt powering an antimatter facility is a megawatt not powering a
+refinery, factory, or colony. In the inner system where solar is abundant, this tradeoff
+is mild. In the outer system where every watt comes from a fission reactor burning
+uranium, it's a genuine strategic tension.
 
 ### Maintenance
 
@@ -745,7 +759,7 @@ Ship stats map directly to existing physics constants:
 | Drive quality | Warp threshold speed | `WARP_THRESHOLD_KMS` |
 | Hull length / dry mass | Cargo capacity, tidal tolerance | `SHIP_LENGTH_KM` |
 | Propellant capacity | How many Δv burns before refueling | Derived from mass ratio |
-| Exotic matter capacity | Max warp distance per trip | New field |
+| Antimatter capacity | Max warp distance per trip | New field |
 | Reactor | Power output, reactor fuel consumption rate | New field |
 | Mining equipment | Extraction rate | New field |
 | Drone bays | Combat/utility drone capacity | New field |
@@ -1044,7 +1058,7 @@ through natural gameplay progression, not dumped upfront.
   the outer system take hours to arrive.
 
 **Late game (power player phase):**
-- The full system is in play: manufacturing chains, exotic matter production, political
+- The full system is in play: manufacturing chains, antimatter production, political
   maneuvering, combat posturing, information warfare, smuggling.
 - Player is shaping the system, not just reacting to it.
 
@@ -1073,7 +1087,7 @@ Mobile layout. Leaderboards.
   Coalitions? Diminishing returns on military spending? Insurance making piracy
   net-negative? Maintenance costs scaling with fleet size?
 - **Mercenaries**: Can corps hire NPC military outfits for deniable operations?
-- **Exotic matter balance**: How much exotic matter per AU of warp travel? This single
+- **Antimatter balance**: How much antimatter per AU of warp travel? This single
   number determines whether warp is cheap (everyone warps everywhere) or expensive
   (warp is a strategic choice, conventional travel is the default for short hops).
 - **Loan interest rates**: What range keeps loans useful without making over-leverage
