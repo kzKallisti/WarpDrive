@@ -159,9 +159,46 @@ Resources don't teleport from asteroid to market. The supply chain is the game.
 | Volatiles | Comets, icy bodies, gas giant moons | Propellant, polymers, chemical feedstock |
 | Helium-3 | Gas giant atmospheres (via moons) | Fusion fuel (endgame) |
 | Copper/Aluminum | Rocky bodies | Wiring, antenna arrays |
+| Uranium/Thorium | Rocky bodies, some asteroids | Fission reactor fuel |
 
 Resource quantity scales with body radius³ (volume proxy). Large bodies have more
 resources but deeper gravity wells — more expensive to leave.
+
+### Power
+
+Every facility, colony, and ship needs power. Power generation is distance-dependent,
+creating a fundamental economic gradient across the system.
+
+**Solar power**: Cheap, zero fuel cost, but output falls off with the inverse square of
+distance from the star. At 1 AU, a solar array is efficient. At 5 AU (Jupiter), output
+is 4% of that. At 30 AU (Neptune), 0.1%. Solar is dominant in the inner system and
+useless in the outer system.
+
+**Fission reactors**: Reliable at any distance. Fuel is refined uranium/thorium (rare
+earth supply chain). Moderate output. Standard for outer system facilities and crewed
+stations. Needs periodic refueling and maintenance.
+
+**Fusion reactors** (He-3): Endgame power source. Enormous output, compact, long-lived.
+Requires He-3 fuel from gas giant moons — the most expensive resource to extract. A
+facility with a fusion reactor has effectively unlimited power but the fuel supply chain
+is a major ongoing cost.
+
+**Ship power**: All ships run fission reactors (can't depend on solar during warp or at
+arbitrary distances). Reactor quality is a ship stat — better reactors mean more power
+for drives, sensors, and life support. Reactor fuel is a consumable that limits
+operational range independent of propellant.
+
+**Power as infrastructure investment:**
+- Inner system: Solar arrays are cheap. Low barrier to establishing operations.
+- Belt: Solar still viable but marginal. Hybrid solar+fission is common.
+- Outer system: Fission required. Reactor fuel becomes a critical supply chain item.
+  Corps need reliable fuel deliveries or local refining capability.
+- Frontier: Fission only. Fuel logistics are the limiting factor for how far out you
+  can profitably operate.
+
+This creates a natural economic gradient: inner system operations are cheap to power,
+outer system operations require serious infrastructure investment just to keep the
+lights on. A corp expanding outward must solve power before it solves anything else.
 
 ### Body Composition
 
@@ -192,8 +229,10 @@ Rare earth ore   →   Processed RE         →   Drive components    →   Ship
                                           →   Superconductors     →   Relays, Power
 Volatiles        →   Chemical feedstock   →   Propellant          →   Ships
                                           →   Polymers            →   Drones, Habs
+He-3 (gas giant) →   Fusion fuel          →   (consumed)          →   Fusion reactors (endgame)
 Copper/Aluminum  →   Refined conductor    →   Wiring              →   Everything
                                           →   Antenna arrays      →   Relays
+Uranium/Thorium  →   Reactor fuel rods    →   (consumed)          →   Fission reactors (ships, stations)
 ```
 
 ### Processing Facilities
@@ -575,6 +614,7 @@ Ship stats map directly to existing physics constants:
 | Hull length | Cargo capacity, tidal tolerance | `SHIP_LENGTH_KM` |
 | Fuel capacity | Max range without refueling | New field |
 | Mining equipment | Extraction rate | New field |
+| Reactor | Power output, fuel consumption rate | New field |
 | Drone bays | Combat/utility drone capacity | New field |
 
 ### Ship Classes
