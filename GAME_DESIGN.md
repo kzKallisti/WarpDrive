@@ -1538,11 +1538,13 @@ into character, context, and atmosphere.
 compiled to **WebAssembly**. Runs entirely in the browser — no server, no install, no
 GPU drivers. Same zero-build static web app architecture as the rest of the game.
 
-- **Default: fine-tuned Qwen2.5-0.5B** (~380 MB download, cached in IndexedDB).
-  Fine-tuned on 500-1000 examples of game-specific prose styles. Sub-second generation
-  in WASM (60-80 tok/s). The use case is narrow enough that a fine-tuned 0.5B nails it.
-- **Enhanced: Qwen2.5-1.5B** (~1 GB, 2-4 seconds per paragraph). Better voice
-  differentiation, richer prose. For players who want the premium experience.
+- **Default: fine-tuned Qwen3.5-0.8B** (~500 MB download, cached in IndexedDB).
+  Hybrid architecture (Gated Delta Networks + sparse MoE) designed for on-device
+  inference. Fine-tuned on 500-1000 examples of game-specific prose styles. MoE
+  means only a fraction of parameters activate per token = fast inference even in
+  WASM. The use case is narrow enough that a fine-tuned 0.8B nails it.
+- **Enhanced: Qwen2.5-1.5B or Qwen3.5-2B** (~1 GB, 2-4 seconds per paragraph).
+  Better voice differentiation, richer prose. For players who want the premium.
 - Inference runs in a **Web Worker** (separate thread, never blocks the game loop
   or Three.js rendering)
 - Apache 2.0 license — fully shippable, no restrictions
