@@ -152,15 +152,33 @@ spacefaring entities. The player is one of these (or aspires to become one).
   gives them behavioral tendencies: Commonwealth corps are entrepreneurial, Collective
   corps are methodical and state-backed, Coalition corps are scrappy and efficient.
 
-**Bloc reputation works like colony standing** — same system, bigger scale. The player
-starts with high reputation in their chosen bloc and neutral elsewhere. Reputation
-shifts based on observable actions:
+**Bloc reputation works like colony standing** — same system, bigger scale. Two rivalry
+axes constrain alignment:
 
-- Fulfill Commonwealth contracts → Commonwealth rep rises
-- Supply a Collective colony → Collective rep rises, Commonwealth rep drifts down
-  (you're helping their rival)
-- Serve both equally → both stay roughly neutral
-- Go independent from day one → start neutral everywhere, build from scratch
+```
+Commonwealth ←rivals→ Collective
+Consortium   ←rivals→ Coalition
+```
+
+Serving one side of a rivalry costs rep with the other side. The two axes are
+independent — Commonwealth alignment doesn't affect your Consortium/Coalition standing.
+This means four natural alignment combinations:
+
+- **Commonwealth + Consortium**: Entrepreneurial + precision manufacturing
+- **Commonwealth + Coalition**: Entrepreneurial + scrappy/efficient
+- **Collective + Consortium**: State-backed + precision components
+- **Collective + Coalition**: State-backed + cost-efficient
+- **Independent**: Neutral everywhere, no bonuses, no obligations
+
+Alignment emerges from who you do business with — there's no faction selection screen.
+
+Reputation shifts based on observable actions:
+
+- Fulfill Commonwealth contracts → Commonwealth rep rises, Collective drifts down
+- Supply a Collective colony → Collective rep rises, Commonwealth drifts down
+- Serve both equally on one axis → both stay roughly neutral (but you get neither's
+  premium benefits)
+- The other axis (Consortium/Coalition) shifts independently based on your dealings there
 
 **Reputation effects (same gradient as colony standing):**
 - High bloc rep → preferred contracts from bloc-affiliated colonies, better docking
