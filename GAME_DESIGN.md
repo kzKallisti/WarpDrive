@@ -845,9 +845,11 @@ delivery; funds release automatically. No arbitration needed for the happy path.
 Contracts handle: payment on delivery, deadline enforcement (bond forfeit on expiry),
 multi-party revenue splits, escrow for purchases.
 
-Contracts CAN'T handle: quality disputes (contamination — whose fault?), exclusive
-dealing (can't prevent off-chain deals), territory claims (social, not code-enforced),
-acts of god (ship breakdown), what's actually in the cargo hold.
+Contracts CAN'T handle: quality disputes (scanner says 58, seller claims they loaded
+62 — was it transit degradation, scanner miscalibration, or fraud? The contract only
+sees the oracle output), exclusive dealing (can't prevent off-chain deals), territory
+claims (social, not code-enforced), acts of god (ship breakdown), what's actually in
+the cargo hold vs what the scanner reports is in the cargo hold.
 
 ### Reputation
 
@@ -893,6 +895,45 @@ ports, and compartmentalized holds (hidden compartment — ship modification, co
 capacity).
 
 No "smuggling skill." Just: you have cargo, the port has a scanner, can you get past it?
+
+**Scanner warfare:**
+
+Scanners are oracles — their signed readings settle contracts on-chain. This makes
+them simultaneously critical infrastructure and attack surface.
+
+**Ship-mounted scanners**: Corps can install their own scanners on ships or at private
+facilities. A quality-100 ship scanner lets you independently verify cargo before
+accepting delivery — your defense against a defective or malicious port scanner. If
+the port reads quality-58 and your scanner reads quality-63, you have signed evidence
+of a discrepancy to dispute the settlement.
+
+**Hacked scanners**: A scanner reprogrammed to produce false readings. Enormously
+valuable black market item. Uses:
+- Fence stolen cargo (scans as legitimate origin/quality)
+- Pass off low-quality goods as premium (contract pays out on false reading)
+- Block competitor deliveries (false negative on quality, escrow withheld)
+- Smuggling (contraband scans as legal goods)
+
+**The catch**: Every scanner reading is cryptographically signed and recorded on-chain.
+A hacked scanner produces **signed false attestations** — forged evidence. One
+independent verification (buyer's own scanner, trade confederation audit, routine
+cross-calibration check) exposes the discrepancy. The scanner's key is burned. Every
+contract it ever settled becomes retroactively disputable.
+
+A hacked scanner is a money printing machine until it's caught — then it's a liability
+bomb that unravels every transaction it touched. The corp operating it faces: mass
+contract disputes, colony standing collapse, potential seizure of assets, and permanent
+loss of trust at every port that learns about it.
+
+**Quality determines the arms race:**
+- High-quality legitimate scanner: precise readings, hard to dispute, attracts commerce
+- Low-quality legitimate scanner: noisy readings, borderline calls go either way,
+  disputes are common even without malice
+- Hacked scanner: reads whatever the owner wants, devastating until discovered
+- High-quality ship scanner (defensive): your own source of truth, expensive but
+  protects against both bad port scanners and hacked ones
+- Scanner calibration data: knowing a port scanner's exact capabilities and tolerances
+  is intelligence — it tells you exactly what you can slip past and what you can't
 
 **Black markets:** Where there's contraband, there are black market contacts — NPCs who
 post buy orders for banned goods at premium prices, offer information in exchange for
