@@ -380,6 +380,18 @@ ratios — ships would be 99% fuel. The Tsiolkovsky equation is unforgiving.
   km/s) are nearly free to leave. Gas giant moons require burning through the parent's
   massive gravity well — the fuel tax is real.
 
+**Power as infrastructure investment:**
+- Inner system: Solar arrays are cheap. Low barrier to establishing operations.
+- Belt: Solar still viable but marginal. Hybrid solar+fission is common.
+- Outer system: Fission required. Reactor fuel becomes a critical supply chain item.
+  Corps need reliable fuel deliveries or local refining capability.
+- Frontier: Fission only. Fuel logistics are the limiting factor for how far out you
+  can profitably operate.
+
+This creates a natural economic gradient: inner system operations are cheap to power,
+outer system operations require serious infrastructure investment just to keep the
+lights on. A corp expanding outward must solve power before it solves anything else.
+
 ### Mass, Volume & Cargo Physics
 
 Everything has mass and volume. Both constrain what a ship can carry and how much fuel
@@ -431,18 +443,6 @@ more propellant. At Isp 3000s:
 - **Crew adds mass.** Each crew member needs ~1 tonne of life support equipment, food
   stores, and hab space. A 20-person crew adds 20 tonnes of non-negotiable mass to
   every burn calculation. Drone ships avoid this overhead.
-
-**Power as infrastructure investment:**
-- Inner system: Solar arrays are cheap. Low barrier to establishing operations.
-- Belt: Solar still viable but marginal. Hybrid solar+fission is common.
-- Outer system: Fission required. Reactor fuel becomes a critical supply chain item.
-  Corps need reliable fuel deliveries or local refining capability.
-- Frontier: Fission only. Fuel logistics are the limiting factor for how far out you
-  can profitably operate.
-
-This creates a natural economic gradient: inner system operations are cheap to power,
-outer system operations require serious infrastructure investment just to keep the
-lights on. A corp expanding outward must solve power before it solves anything else.
 
 ### Body Composition
 
@@ -522,38 +522,47 @@ Stage 2: (66 × 0.60) + (90 × 0.24) + (90 × 0.16) = 75.6
 Stage 3: (75.6× 0.60) + (90 × 0.24) + (90 × 0.16) = 81.4
 ```
 
-Ore-50 → quality-81 ship through excellent processing.
+Ore-50 → quality-81 ship through excellent processing. That's +31 points of lift.
 
 **Ore quality creates a persistent edge:**
 
 | Ore | Processing 90/90 | Processing 80/80 | Processing 50/50 |
 |-----|-------------------|-------------------|-------------------|
-| 30 | **77.0** | **63.9** | **30.0** |
-| 50 | **85.6** | **76.0** | **50.0** |
-| 70 | **91.3** | **84.8** | **70.0** |
-| 90 | **95.0** | **91.2** | **90.0** |
+| 30 | **77.0** | **69.2** | **45.7** |
+| 50 | **81.4** | **73.5** | **50.0** |
+| 70 | **85.7** | **77.8** | **54.3** |
+| 90 | **90.0** | **82.2** | **58.6** |
 | **Spread (30→70)** | **8.6 pts** | **8.6 pts** | **8.6 pts** |
 
 The ~9-point spread between ore-30 and ore-70 is consistent regardless of processing
-level. Finding a quality-70 deposit over a quality-30 deposit gives you a permanent
-quality advantage on every product. That's worth building infrastructure around.
+level (mathematically: 0.6³ × 40 = 8.64). Finding a quality-70 deposit over a
+quality-30 deposit gives you a permanent quality advantage on every product. That's
+worth building infrastructure around.
+
+**Processing below input quality degrades output.** At processing 50/50, ore above
+quality-50 actually decays through stages — mediocre facilities and labor drag down
+premium material. Ore-70 through quality-50 processing yields only 54.3, not 70.
+Ore-90 decays to 58.6. The only fixed point is when ore = facility = labor (e.g.,
+50-50-50 stays 50). This means processing quality must EXCEED input material quality
+to add value — otherwise it destroys value. Great ore wasted by bad processing is a
+real and costly mistake.
 
 **Processing is still a genuine multiplier:**
 
-Ore-50 produces quality-50 with average processing but quality-86 with excellent
-processing — a 36-point lift. Processing transforms mediocre materials into premium
+Ore-50 produces quality-50 with matching processing but quality-81 with excellent
+processing — a 31-point lift. Processing transforms mediocre materials into premium
 goods. It just can't fully erase an ore quality gap.
 
 **Great ore in a bad chain is wasted:**
 
-Ore-80 through quality-30 processing: 80 → 52.8 → 40.4 → 34.1. Premium ore degraded
+Ore-80 through quality-30 processing: 80 → 60.0 → 48.0 → 40.8. Premium ore degraded
 to junk by bad facilities and unskilled workers.
 
 **Key lessons:**
 - **Ore matters.** ~9-point persistent spread rewards exploration and prospecting.
 - **Processing matters.** +31 points of lift from quality-90 chain. Infrastructure
   and workforce investment genuinely transforms output quality.
-- **Great ore + bad chain = waste.** Ore-80 → 34.1 through bad processing.
+- **Great ore + bad chain = waste.** Ore-80 → 40.8 through bad processing.
 - **Bad ore + great chain = viable.** Ore-30 → 77.0 through excellent processing.
 - **Consistent chain quality compounds.** Each stage builds on prior gains.
 
@@ -566,11 +575,11 @@ Corp B: quality-90 factory + quality-80 labor, quality-80 yard + quality-80 labo
 Starting ore: quality-40
 
 Corp A alone (great refinery, q-50 factory/yard): 40 → 60.0 → 56.0 → 53.6
-Corp B alone (q-50 refinery, great factory/yard): 40 → 44.0 → 62.2 → 68.5
-Together (A refines → B manufactures + assembles): 40 → 60.0 → 71.2 → 76.6
+Corp B alone (q-50 refinery, great factory/yard): 40 → 44.0 → 60.8 → 68.5
+Together (A refines → B manufactures + assembles): 40 → 60.0 → 70.4 → 74.2
 ```
 
-Together: 76.6. Best solo: 68.5. The deal creates +8.1 points of value. The 60%
+Together: 74.2. Best solo: 68.5. The deal creates +5.7 points of value. The 60%
 material weight means Corp A's quality-60 handoff gives Corp B significantly better
 input than their self-refined quality-44. **Specialization and trade create value
 that neither party can achieve independently.**
@@ -578,7 +587,7 @@ that neither party can achieve independently.**
 The weights (60/24/16) balance three goals:
 - **Ore rewards exploration** — ~9-point persistent spread from deposit quality
 - **Processing rewards investment** — +31 points of lift through a great chain
-- **Specialization rewards trade** — +8.1 points from inter-corp deals
+- **Specialization rewards trade** — +5.7 points from inter-corp deals
 
 **How quality propagates through the full supply chain:**
 
@@ -1701,17 +1710,7 @@ Ogame with real orbital mechanics.
 
 **Spectator mode:** Watch AI corps compete. Screensaver/demo.
 
-## 13. Variant: All-Drone Universe
-
-A different game with the same orbital engine. No human crews in space — players are
-Earth-based corporations remotely operating drone fleets. Simpler supply chain (no food,
-water, medical). Comms delay becomes THE constraint — you write standing orders, drones
-execute, results arrive 40 minutes later. Cyberpunk tone: hacking, signal jamming,
-electronic warfare replace human diplomacy. Faster pace, more aggressive play.
-
-Probably a separate game, noted here for reference.
-
-## 14. User Interface & Gameplay Flow
+## 13. User Interface & Gameplay Flow
 
 ### The Map is the Game
 
@@ -1831,7 +1830,7 @@ facilities. This is internal logistics, not a market contract.
 #### The contract board
 
 The contract board is the "job board" — a filterable, sortable list panel that shows
-all contracts visible from the player's command centers.
+all contracts visible from your assets' relay data.
 
 **Filters:**
 - By resource type (iron, water, platinum...)
@@ -1916,7 +1915,7 @@ be converted to smart contracts.
 the host sets speed (default 60x). Players can request speed changes, host approves.
 Pause requires majority vote or host override.
 
-## 15. Random Events & Emergencies
+## 14. Random Events & Emergencies
 
 Deterministic economics + unpredictable events = interesting decisions. Without
 randomness, the mid-game becomes spreadsheet optimization. Events force reactive play
@@ -2002,12 +2001,52 @@ adequate supplies → events are rare. Neglected infrastructure, unhappy workers
 depleted medical stocks → events are frequent. The player's choices directly shape
 their risk profile.
 
-## 16. Mid-Game Depth
+## 15. Pacing & Progressive Disclosure
+
+The full system complexity (9 resources, 4 processing tiers, communications, labor,
+governance, combat...) is revealed gradually through natural gameplay progression, not
+dumped upfront.
+
+### Early Game Pacing
+
+The first 30 minutes must hook the player.
+
+**First session (hauler phase):**
+- Player has one ship, docked at homeworld, some starting credits.
+- Contract board has simple delivery jobs: "Haul 50t water ice from Asteroid X to
+  Homeworld. Pay: 5,000₵. Deadline: 30 days."
+- Player learns: navigation, transit physics, orbital windows, basic trading.
+- Variety: delivery, survey (fly to unsurveyed body, scan it), rescue (retrieve
+  stranded drone). Not just "haul X to Y" for an hour.
+- The orbital mechanics novelty carries this phase — watching your ship warp across
+  the system for the first time is inherently cool.
+
+**Early expansion (investor phase):**
+- After a few contracts: enough credits to borrow against your ship and buy a small
+  facility (refinery or drone outpost). Classic tycoon leverage moment.
+- Player learns: processing, supply chain basics, colony presence, maintenance costs.
+- Niche contracts that big NPC corps ignore: frontier survey runs, rush deliveries to
+  understocked outposts, hauling for small colonies the megacorps don't bother with.
+
+### Mid-Game Depth
 
 The first hour hooks you (first ship, first contract, learning orbital mechanics).
 The late game excites (empire, politics, combat, market manipulation). The mid-game
 (hours 2-10) is where tycoon games lose players to the grind. Here's what keeps it
 engaging:
+
+**Mid-game (empire phase):**
+- Multiple ships, at least one facility, maybe a command center in a second region.
+- Player encounters: fleet management, labor economics, colony standing, communications
+  latency, market dynamics, competition.
+- Systems reveal themselves as needed: you don't think about colony standing until you
+  try to hire workers. You don't think about relay infrastructure until your orders to
+  the outer system take hours to arrive.
+
+**Late game (power player phase):**
+- The full system is in play: manufacturing chains, Casimir matter production, political
+  maneuvering, combat posturing, information warfare, smuggling.
+- Player is shaping the system, not just reacting to it.
 
 ### Escalating Complexity Reveals
 
@@ -2063,7 +2102,7 @@ valid — the shipyard owner needs the hauler's deliveries.
   player and NPC-driven), new demand centers appear. The economic map is constantly
   shifting.
 
-## 17. Economic Parameters (Ballpark)
+## 16. Economic Parameters (Ballpark)
 
 These are order-of-magnitude estimates for validating that the economy works on paper.
 All numbers are tuning targets, not commitments. Final values come from playtesting.
@@ -2170,7 +2209,7 @@ Casimir condenser: 3M₵ + 150K₵/month operating. A single Casimir fuel rod se
 cheap power (inner system solar) and reliable rare earth + platinum supply chains. Not
 something you build on a whim. About right.
 
-## 18. LLM Integration (Narrative Layer)
+## 17. LLM Integration (Narrative Layer)
 
 A small but capable language model adds immersion without replacing game logic. The
 simulation computes facts. The LLM writes prose. No agency — narration only.
@@ -2179,9 +2218,9 @@ simulation computes facts. The LLM writes prose. No agency — narration only.
 communicated. Game events are deterministic simulation outputs. The LLM renders them
 into character, context, and atmosphere.
 
-**Implementation:** Qwen2.5-1.5B-Instruct (Q4_K_M quantized, ~1 GB) via llama.cpp
-compiled to **WebAssembly**. Runs entirely in the browser — no server, no install, no
-GPU drivers. Same zero-build static web app architecture as the rest of the game.
+**Implementation:** Two fine-tuned models via llama.cpp compiled to **WebAssembly**.
+Runs entirely in the browser — no server, no install, no GPU drivers. Same zero-build
+static web app architecture as the rest of the game.
 
 - **Two models, two roles:**
   - **Background model: fine-tuned Qwen3.5-0.8B** (~500 MB). Handles news blurbs,
@@ -2222,15 +2261,6 @@ backlog from breaking game feel:
 Realistic call volume: **2-5 interactive LLM calls per real minute** during active
 play. One for each player command or NPC response in an active conversation.
 Completely manageable for a single WASM inference thread.
-- Inference runs in a **Web Worker** (separate thread, never blocks the game loop
-  or Three.js rendering)
-- Apache 2.0 license — fully shippable, no restrictions
-- **Hybrid calling strategy**: template strings for routine events ("Ship arrived at
-  Vesta"), LLM reserved for high-value narration (NPC personality messages, political
-  events, intel briefings, dramatic moments). Reduces LLM calls to a few per game-
-  minute rather than every event.
-- **Template string fallback** when model hasn't loaded yet or player opts out.
-  All gameplay works without it — the LLM is a flavor layer, not a dependency.
 
 The full stack: **Three.js + lit-html + llama.cpp WASM + Keplerian orbital engine.**
 Open a URL, play a game with real orbital mechanics, an AI narrator, and a full
@@ -2320,7 +2350,7 @@ If no LLM is available (hardware too weak, player preference), the game falls ba
 template strings: "Water supply critical at Kepler-7b (28%). Price: 75₵/t." Functional,
 just less immersive. All gameplay works without the LLM — it's pure flavor.
 
-## 16. Technical Architecture
+## 18. Technical Architecture
 
 ### What WarpDrive Already Provides
 
@@ -2356,42 +2386,6 @@ js/
 
 ### Development Phases
 
-### Early Game Pacing & Progressive Disclosure
-
-The first 30 minutes must hook the player. The full system complexity (9 resources, 4
-processing tiers, communications, labor, governance, combat...) is revealed gradually
-through natural gameplay progression, not dumped upfront.
-
-**First session (hauler phase):**
-- Player has one ship, docked at homeworld, some starting credits.
-- Contract board has simple delivery jobs: "Haul 50t water ice from Asteroid X to
-  Homeworld. Pay: 5,000₵. Deadline: 30 days."
-- Player learns: navigation, transit physics, orbital windows, basic trading.
-- Variety: delivery, survey (fly to unsurveyed body, scan it), rescue (retrieve
-  stranded drone). Not just "haul X to Y" for an hour.
-- The orbital mechanics novelty carries this phase — watching your ship warp across
-  the system for the first time is inherently cool.
-
-**Early expansion (investor phase):**
-- After a few contracts: enough credits to borrow against your ship and buy a small
-  facility (refinery or drone outpost). Classic tycoon leverage moment.
-- Player learns: processing, supply chain basics, colony presence, maintenance costs.
-- Niche contracts that big NPC corps ignore: frontier survey runs, rush deliveries to
-  understocked outposts, hauling for small colonies the megacorps don't bother with.
-
-**Mid-game (empire phase):**
-- Multiple ships, at least one facility, maybe a command center in a second region.
-- Player encounters: fleet management, labor economics, colony standing, communications
-  latency, market dynamics, competition.
-- Systems reveal themselves as needed: you don't think about colony standing until you
-  try to hire workers. You don't think about relay infrastructure until your orders to
-  the outer system take hours to arrive.
-
-**Late game (power player phase):**
-- The full system is in play: manufacturing chains, Casimir matter production, political
-  maneuvering, combat posturing, information warfare, smuggling.
-- Player is shaping the system, not just reacting to it.
-
 **Phase 1: Core Loop** — Procedural generator. Resource model. Single ship with cargo.
 Two AI colonies with markets. Delivery contracts with deadlines. Money counter. One AI
 corp competing.
@@ -2411,7 +2405,7 @@ Mixed human/AI mode. Time speed consensus. Async variant.
 **Phase 6: Polish** — Sound design. Tutorial (guided first contract). Procedural names.
 Mobile layout. Leaderboards.
 
-## 15. Open Questions
+## 19. Open Questions
 
 - **Combat balance**: What prevents the richest corp from dominating through force?
   Coalitions? Diminishing returns on military spending? Insurance making piracy
@@ -2424,3 +2418,15 @@ Mobile layout. Leaderboards.
   trivially safe? Needs playtesting.
 - **Colony governance transitions**: What triggers a company town becoming an independent
   colony? Population threshold? Worker unrest? External pressure? How is this simulated?
+
+---
+
+## Appendix A: Variant — All-Drone Universe
+
+A different game with the same orbital engine. No human crews in space — players are
+Earth-based corporations remotely operating drone fleets. Simpler supply chain (no food,
+water, medical). Comms delay becomes THE constraint — you write standing orders, drones
+execute, results arrive 40 minutes later. Cyberpunk tone: hacking, signal jamming,
+electronic warfare replace human diplomacy. Faster pace, more aggressive play.
+
+Probably a separate game, noted here for reference.
