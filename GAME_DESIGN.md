@@ -494,40 +494,75 @@ product in the game.
 
 There is no tech tree. Technology improves through **quality propagation** — a continuous
 scalar that flows through the entire supply chain. Every resource, component, facility,
-and worker has a quality level. Output quality is a weighted function of input qualities:
+and worker has a quality level. At each processing stage, output quality is a weighted
+function of inputs:
 
 ```
-output_quality = (material_quality × 0.5) + (facility_quality × 0.3) + (labor_quality × 0.2)
+output_quality = (input_material × 0.5) + (facility × 0.3) + (labor × 0.2)
 ```
 
-Material is the heaviest factor but NOT an absolute ceiling. Skilled workers with good
-tools extract more value from mediocre inputs — a master metallurgist with a quality-80
-refinery gets more out of quality-50 ore than an apprentice with a quality-30 refinery:
-
-| Ore | Facility | Labor | Output | What happened |
-|-----|----------|-------|--------|---------------|
-| 50  | 80       | 80    | **65** | Good tools + skill lifted mediocre ore by 15 points |
-| 80  | 30       | 30    | **55** | Great ore, but bad tools + unskilled labor wasted its potential |
-| 80  | 80       | 80    | **80** | Everything aligned — full quality throughput |
-| 30  | 30       | 30    | **30** | Everything bad — no miracles |
-| 30  | 90       | 90    | **51** | Exceptional tools + skill squeezed 21 points from bad ore |
-
-The weights (50/30/20) are tuning parameters. The principle: **material matters most,
-but skill and equipment are genuine multipliers, not just pass-through.** A corp that
-invests in top-tier facilities and engineers gets meaningfully better output from the
-same ore deposits as a competitor with worse infrastructure.
-
-**How quality propagates:**
+Because facility and labor can exceed input material quality, **each processing stage
+can lift quality above its inputs.** This is the key insight: refinement IS value-add.
+That's literally what refining means. Quality climbs through the supply chain as each
+stage adds value:
 
 ```
-Ore (quality varies by deposit)
-  → Refinery (quality = components that built it)
-    → Refined material (quality = weighted function of ore, refinery, labor)
-      → Component factory (quality = components that built IT)
-        → Components (quality = weighted function of material, factory, labor)
-          → Ship/facility/drone (quality ≈ average of component qualities)
-            → Performance (quality scalar on efficiency stats)
+EXAMPLE: Ore-50 through three stages of quality-80 processing
+
+Stage 1 — Refinery:  (50 × 0.5) + (80 × 0.3) + (80 × 0.2) = 65 refined material
+Stage 2 — Factory:   (65 × 0.5) + (80 × 0.3) + (80 × 0.2) = 72.5 components
+Stage 3 — Shipyard:  (72.5× 0.5) + (80 × 0.3) + (80 × 0.2) = 76.3 finished ship
 ```
+
+Ore-50 became a quality-76 ship. Each stage lifted it. With quality-90 facilities
+and labor, the same ore-50 produces even higher:
+
+```
+Stage 1: (50 × 0.5) + (90 × 0.3) + (90 × 0.2) = 70
+Stage 2: (70 × 0.5) + (90 × 0.3) + (90 × 0.2) = 80
+Stage 3: (80 × 0.5) + (90 × 0.3) + (90 × 0.2) = 85
+```
+
+Ore-50 → quality-85 ship through excellent processing. This means **commercial-grade
+goods are achievable from mediocre raw materials** if your processing chain is good
+enough. Ore quality sets the floor; processing stages raise it.
+
+**Comparing investment strategies with the same ore-50:**
+
+| Processing chain | Stage 1 | Stage 2 | Stage 3 | Final quality |
+|-----------------|---------|---------|---------|---------------|
+| All quality-30 (neglected) | 40 | 35 | 32.5 | **32.5** |
+| All quality-50 (basic) | 50 | 50 | 50 | **50** |
+| All quality-80 (good) | 65 | 72.5 | 76.3 | **76** |
+| All quality-90 (excellent) | 70 | 80 | 85 | **85** |
+| Mixed: 80/60/40 declining | 65 | 62.5 | 61.3 | **61** |
+
+The lesson: **consistent quality across the entire chain matters more than excellence
+at one stage.** A chain that's 80-80-80 beats 90-50-90. And more processing stages
+mean more opportunities to add value — vertical integration isn't just about margins,
+it's about quality control.
+
+The weights (50/30/20) are tuning parameters. The principle: **material is the
+starting point, but every processing stage is a genuine value-add.** Investing in
+facilities and workforce pays compound returns through the chain.
+
+**How quality propagates through the full supply chain:**
+
+```
+Ore deposit (base quality — exploration finds better deposits)
+  → Refinery: ore × 0.5 + refinery × 0.3 + labor × 0.2
+    → Refined material (quality lifted by refining process)
+      → Factory: material × 0.5 + factory × 0.3 + labor × 0.2
+        → Components (quality lifted again by manufacturing)
+          → Assembly: components × 0.5 + yard × 0.3 + labor × 0.2
+            → Finished product (quality lifted a third time)
+              → Performance (quality scalar on efficiency stats)
+```
+
+Three stages of refinement means three opportunities to add value. A corp that
+controls the full chain from ore to finished product — with quality investment at
+every stage — produces dramatically better goods than one buying intermediates on
+the open market.
 
 **What quality affects:**
 
